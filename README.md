@@ -1,4 +1,4 @@
-<h1 align="center">SocialNetwork</h1>
+<h1 align="center">Social Network</h1>
 
 <div align="center">
   :steam_locomotive::train::train::train::train::train:
