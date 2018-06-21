@@ -27,3 +27,10 @@
 Step 1 : sudo rm -rf *
 Step 2 : done.
 ```
+
+## Name idea's
+* Ibux
+* Foxnetwork
+* Oryx
+
+
