@@ -2,7 +2,7 @@
 <html lang="en" class="full-height">
 
 <head>
-    <title>Coming soon - Steam user information</title>
+    <title>Coming soon - Oryx Network</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -50,7 +50,7 @@
     <div class="bgimg">
 
         <div class="topleft">
-            <p>Steamuser.me</p>
+            <p>Oryx network</p>
         </div>
         <div class="middle">
             <h1>COMING SOON</h1>
