@@ -25,6 +25,16 @@
 
 ## Authors
 Oryx Network has been build with ❤ by
-[Luuk Kenselaar](https://github.com/Luuk2016),
-[Casper van Genderingen](https://github.com/vanGenderingen), and
-[Umit Canbolat](https://github.com/hoxsec).
+* **Luuk Kenselaar** - *Initial work* - [Luuk2016](https://github.com/Luuk2016)
+* **Casper van Genderingen** - *Initial work* - [vanGenderingen](https://github.com/vanGenderingen)
+* **Umit Canbolat** - *Initial work* - [hoxsec](https://github.com/hoxsec)
+
+## Built With
+
+* [IntelliJ IDEA Ultimate](https://www.jetbrains.com/idea/) - The IDE
+* [Gitkraken](https://www.gitkraken.com/) - GIT Client
+* [Vagrant](https://www.vagrantup.com/) - Development environment
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
