@@ -194,3 +194,5 @@ $RECYCLE.BIN/
 # End of https://www.gitignore.io/api/linux,windows,vagrant,intellij,phpstorm,intellij+all
 
 vagrant-commands\.txt
+
+hosting\.txt

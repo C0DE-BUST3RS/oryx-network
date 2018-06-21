@@ -1,4 +1,4 @@
-<h1 align="center">Social Network</h1>
+<h1 align="center">Oryx network</h1>
 
 <div align="center">
 
@@ -15,22 +15,16 @@
 
 <br />
 
-<div align="center">
-  <sub>Socail Network build with ❤︎ by
-  <a href="https://github.com/Luuk2016">Luuk Kenselaar</a>, 
-  <a href="https://github.com/vanGenderingen">Casper van Genderingen</a> and
-  <a href="https://github.com/hoxsec">Umit Canbolat</a>
-</div>
+## Vagrant commands
 
-## Example
-```bash
-Step 1 : sudo rm -rf *
-Step 2 : done.
+```
+'vagrant up' will start the Vagrant box
+'vagrant halt' will stop the Vagrant box
+'vagrant destroy' will destroy the Vagrant box
 ```
 
-## Name idea's
-* Ibux
-* Foxnetwork
-* Oryx
-
-
+## Authors
+Oryx Network has been build with ❤ by
+[Luuk Kenselaar](https://github.com/Luuk2016),
+[Casper van Genderingen](https://github.com/vanGenderingen), and
+[Umit Canbolat](https://github.com/hoxsec).
