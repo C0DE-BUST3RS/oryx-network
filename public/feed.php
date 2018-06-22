@@ -10,7 +10,7 @@
     <meta name="author" content="C0DE-BUST3RS">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/bulma.css">
-    <title>Home - Oryx Network</title>
+    <title>Your Feed - Oryx Network</title>
 </head>
 <body>
 
