@@ -193,3 +193,4 @@ $RECYCLE.BIN/
 vagrant-commands\.txt
 hosting\.txt
 .idea/
+public/includes/credentials\.inc\.php
