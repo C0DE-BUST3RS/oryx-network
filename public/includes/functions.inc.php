@@ -19,8 +19,11 @@ function CheckIfEmailUsed($email)
     $result = $conn->query($sql);
     $resultCheck = $result->num_rows;
 
+    //If the email has been used
     if ($resultCheck > 0) {
         return true;
+
+    //If the email does not exist
     } else {
         return false;
     }
