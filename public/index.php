@@ -20,7 +20,7 @@ require 'includes/functions.inc.php';
 <body>
 <section class="hero is-fullheight is-default is-bold">
     <div class="hero-head">
-        <nav class="navbar is-fixed-top">
+        <nav class="navbar is-fixed-top" style="background: #ffffff">
             <div class="container">
                 <div class="navbar-brand">
                     <a class="navbar-item" href="#">
@@ -68,20 +68,6 @@ require 'includes/functions.inc.php';
                     </h5>
                     <form action="" method="POST">
 
-<<<<<<< HEAD
-						<div class="field">
-							<label class="label">Email</label>
-							<div class="control has-icons-left has-icons-right">
-								<input class="input" id="registerEmail" name="registerEmail" type="email" placeholder="Email">
-								<span class="icon is-small is-left">
-									<i class="fa fa-envelope"></i>
-    							</span>
-							</div>
-
-							<div class="field">
-								<button type="submit" id="registerSubmit" name="registerSubmit" class="button is-danger is-outlined is-rounded">Register</button>
-							</div>
-=======
                         <div class="field">
                             <div class="control has-icons-left">
                                 <input class="input is-primary is-normal is-rounded" id="registerFirstname"
@@ -131,16 +117,14 @@ require 'includes/functions.inc.php';
     							</span>
                             </div>
                         </div>
->>>>>>> master
 
                         <a class="button is-danger is-outlined is-rounded">Register</a>
                     </form>
                 </div>
 
-<<<<<<< HEAD
-			</div>
-		</div>
-	</div>
+            </div>
+        </div>
+    </div>
 	<div class="hero-foot">
 		<div class="container">
 			<div class="tabs is-centered">
@@ -151,21 +135,6 @@ require 'includes/functions.inc.php';
 		</div>
 	</div>
 </section>
-=======
-            </div>
-        </div>
-    </div>
-</section>
-<div class="hero-foot">
-    <div class="container">
-        <div class="tabs is-centered">
-            <ul>
-                <li><a>Copyright &copy; OryxNetwork 2018</a></li>
-            </ul>
-        </div>
-    </div>
-</div>
->>>>>>> master
 <script src="js/main.js"></script>
 </body>
 
