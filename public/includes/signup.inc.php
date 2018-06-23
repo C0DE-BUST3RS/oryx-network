@@ -18,10 +18,8 @@ if (isset($_POST['registerSubmit'])) {
 	$firstnamePost = mysqli_real_escape_string($conn, $_POST['']);
 	$lastnamePost = mysqli_real_escape_string($conn, $_POST['']);
 
-	if (CheckIfRealEmail($emailPost) === true) {
-		if (CheckIfEmailUsed($emailPost) === false) {
-			// do shit
-		}
+	if(CheckIfRealEmail($emailPost) === true) {
+
 	}
 
 } else {
