@@ -14,19 +14,19 @@ require 'dbh.inc.php';
 //If you want to use the function at login: set $login on TRUE and $signup on FALSE
 function CheckIfEmailUsed($email)
 {
-    global $conn;
-    $sql = "SELECT * FROM user WHERE email = '$email';";
-    $result = $conn->query($sql);
-    $resultCheck = $result->num_rows;
+	global $conn;
+	$sql = "SELECT * FROM user WHERE email = '$email';";
+	$result = $conn->query($sql);
+	$resultCheck = $result->num_rows;
 
-    //If the email has been used
-    if ($resultCheck > 0) {
-        return true;
+	//If the email has been used
+	if ($resultCheck > 0) {
+		return true;
 
-    //If the email does not exist
-    } else {
-        return false;
-    }
+		//If the email does not exist
+	} else {
+		return false;
+	}
 }
 
 //This function will check if the user input at the Signup is not empty
@@ -48,9 +48,13 @@ function CheckIfRealName()
 }
 
 //This function will check if the users email is real
-function CheckIfRealEmail()
+function CheckIfRealEmail($email)
 {
-
+	if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+		return true;
+	} else {
+		return false;
+	}
 }
 
 //This function will check if the users password has the minimum length
@@ -62,18 +66,25 @@ function CheckPasswordLength()
 //This function will generate a random userid, example: F98F13DE-BABA5AFD-5AFDB4F9
 function GenerateUID()
 {
-    $s = strtoupper(md5(uniqid(rand(), true)));
-    $id =
-        substr($s, 0, 8) . '-' .
-        substr($s, 8, 8) . '-' .
-        substr($s, 12, 8);
-    return $id;
+	$s = strtoupper(md5(uniqid(rand(), true)));
+	$id =
+		substr($s, 0, 8) . '-' .
+		substr($s, 8, 8) . '-' .
+		substr($s, 12, 8);
+	return $id;
 }
 
 //This function will hash the user his password
 function HashPassword()
 {
 
+}
+
+//This function will generate the current date and put it inside a variable.
+function GetCurrentDate()
+{
+	$date = date('Y-m-d H:i:s');
+	return $date;
 }
 
 //This function will hash the user his password

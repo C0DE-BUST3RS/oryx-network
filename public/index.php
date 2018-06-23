@@ -1,3 +1,6 @@
+<?php
+require 'includes/functions.inc.php';
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -93,18 +96,14 @@
 						<div class="field">
 							<label class="label">Email</label>
 							<div class="control has-icons-left has-icons-right">
-								<input class="input" id="registerEmail" name="registerEmail" type="text" placeholder="Email">
+								<input class="input" id="registerEmail" name="registerEmail" type="email" placeholder="Email">
 								<span class="icon is-small is-left">
 									<i class="fa fa-envelope"></i>
-    							</span>
-
-								<span class="icon is-small is-left">
-      								<i class="fa fa-email"></i>
     							</span>
 							</div>
 
 							<div class="field">
-								<a class="button is-danger is-outlined is-rounded">Register</a>
+								<button type="submit" id="registerSubmit" name="registerSubmit" class="button is-danger is-outlined is-rounded">Register</button>
 							</div>
 
 						</div>
@@ -114,16 +113,16 @@
 			</div>
 		</div>
 	</div>
-</section>
-<div class="hero-foot">
-	<div class="container">
-		<div class="tabs is-centered">
-			<ul>
-				<li><a>Copyright &copy; OryxNetwork 2018</a></li>
-			</ul>
+	<div class="hero-foot">
+		<div class="container">
+			<div class="tabs is-centered">
+				<ul>
+					<li><a>Copyright &copy; OryxNetwork 2018</a></li>
+				</ul>
+			</div>
 		</div>
 	</div>
-</div>
+</section>
 <script src="js/main.js"></script>
 </body>
 
