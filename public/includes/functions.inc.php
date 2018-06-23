@@ -10,9 +10,20 @@ require 'dbh.inc.php';
 
 //This function will check if the email is used
 //This function will will be used at the signup and login
-function CheckIfEmailUsed()
+//If you want to use the function at signup: set $signup on TRUE and $login on FALSE
+//If you want to use the function at login: set $login on TRUE and $signup on FALSE
+function CheckIfEmailUsed($email)
 {
+    global $conn;
+    $sql = "SELECT * FROM user WHERE email = '$email';";
+    $result = $conn->query($sql);
+    $resultCheck = $result->num_rows;
 
+    if ($resultCheck > 0) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 //This function will check if the user input at the Signup is not empty
