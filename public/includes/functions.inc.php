@@ -9,9 +9,7 @@
 require 'dbh.inc.php';
 
 //This function will check if the email is used
-//This function will will be used at the signup and login
-//If you want to use the function at signup: set $signup on TRUE and $login on FALSE
-//If you want to use the function at login: set $login on TRUE and $signup on FALSE
+//This function can be used at the signup and login
 function CheckIfEmailUsed($email)
 {
     global $conn;
@@ -23,28 +21,40 @@ function CheckIfEmailUsed($email)
     if ($resultCheck > 0) {
         return true;
 
-        //If the email does not exist
+    //If the email does not exist
     } else {
         return false;
     }
 }
 
 //This function will check if the user input at the Signup is not empty
-function CheckIfEmptySignup()
+function CheckIfEmptySignup($firstname,$lastname,$email,$password)
 {
-
+    if (empty($firstname) || empty($lastname) || empty($email) || empty($password)) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 //This function will check if the user input at the Login is not empty
-function CheckIfEmptyLogin()
+function CheckIfEmptyLogin($email,$password)
 {
-
+    if (empty($email) || empty($password)) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 //This function will check if the users name is real
-function CheckIfRealName()
+function CheckIfRealName($firstname,$lastname)
 {
-
+    if (preg_match("/^[a-z ,.'-]+$/i", $firstname) || !preg_match("/^[a-z ,.'-]+$/i", $lastname)) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 //This function will check if the users email is real
@@ -58,9 +68,13 @@ function CheckIfRealEmail($email)
 }
 
 //This function will check if the users password has the minimum length
-function CheckPasswordLength()
+function CheckIfPasswordLongEnough($password)
 {
-
+    if (strlen($password) >= 8) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 //This function will generate a random userid, example: F98F13DE-BABA5AFD-5AFDB4F9
@@ -75,9 +89,10 @@ function GenerateUID()
 }
 
 //This function will hash the user his password
-function HashPassword()
+function HashPassword($nothashedPWD)
 {
-
+    $hashedPWD = password_hash($nothashedPWD, PASSWORD_DEFAULT);
+    return $hashedPWD;
 }
 
 //This function will generate the current date and put it inside a variable.
@@ -87,10 +102,12 @@ function GetCurrentDate()
     return $date;
 }
 
-//This function will hash the user his password
+//This function will logout the user
 function LogoutUser()
 {
-
+    session_start();
+    session_unset();
+    session_destroy();
 }
 
 function CopyrightYear()
