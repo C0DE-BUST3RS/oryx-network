@@ -45,6 +45,17 @@ function CheckPasswordLength()
 
 }
 
+//This function will generate a random userid, example: F98F13DE-BABA5AFD-5AFDB4F9
+function GenerateUID()
+{
+    $s = strtoupper(md5(uniqid(rand(), true)));
+    $id =
+        substr($s, 0, 8) . '-' .
+        substr($s, 8, 8) . '-' .
+        substr($s, 12, 8);
+    return $id;
+}
+
 //This function will hash the user his password
 function HashPassword()
 {
@@ -54,5 +65,8 @@ function HashPassword()
 //This function will hash the user his password
 function LogoutUser()
 {
-   
+
 }
+
+$id = GenerateUID();
+echo $id;

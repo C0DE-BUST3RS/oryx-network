@@ -10,8 +10,8 @@ require 'credentials.inc.php';
 
 $conn = new mysqli($host, $username, $password, $dbname);
 
-if ($conn) {
-    echo 'Connected!';
-} else {
-    echo 'Not connected!';
-}
+//if ($conn) {
+//    echo 'Connected!';
+//} else {
+//    echo 'Not connected!';
+//}
