@@ -1,7 +1,5 @@
 ![logo](https://raw.githubusercontent.com/C0DE-BUST3RS/oryx-network/master/public/img/logos/oryx-logo-orange.jpg "Logo")
 
-# Coming Soon
-
 [![GitHub stars](https://img.shields.io/github/stars/C0DE-BUST3RS/oryx-network.svg)](https://github.com/C0DE-BUST3RS/oryx-network/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/C0DE-BUST3RS/oryx-network.svg)](https://github.com/C0DE-BUST3RS/oryx-network/network)
 [![GitHub issues](https://img.shields.io/github/issues/C0DE-BUST3RS/oryx-network.svg)](https://github.com/C0DE-BUST3RS/oryx-network/issues)
