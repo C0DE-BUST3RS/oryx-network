@@ -1,17 +1,17 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="description" content="Oryx Network">
-    <meta name="keywords" content="Oryx Network, Oryx, Network">
-    <meta name="author" content="C0DE-BUST3RS">
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/bulma.css">
+	<meta charset="UTF-8">
+	<meta name="viewport"
+		  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="description" content="Oryx Network">
+	<meta name="keywords" content="Oryx Network, Oryx, Network">
+	<meta name="author" content="C0DE-BUST3RS">
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="css/bulma.css">
 	<link rel="stylesheet" href="css/font-awesome.min.css">
-    <title>Home - Oryx Network</title>
+	<title>Home - Oryx Network</title>
 </head>
 
 <body>
@@ -52,7 +52,7 @@
 									</form>
 								</li>
 								<li class="">
-									<a class="button is-danger is-outlined is-rounded">Register</a>
+									<a class="button is-success is-outlined is-rounded">Login</a>
 								</li>
 							</ul>
 						</div>
@@ -64,12 +64,8 @@
 	<div class="hero-body">
 		<div class="container has-text-centered">
 			<div class="columns is-vcentered">
-				<div class="column is-5">
-					<figure class="image is-4by3">
-						<img src="https://picsum.photos/800/600/?random" alt="Description">
-					</figure>
-				</div>
-				<div class="column is-6 is-offset-1">
+
+				<div class="column is-half">
 					<h1 class="title is-2">
 						Oryx Network
 					</h1>
@@ -79,10 +75,21 @@
 					<br>
 					<p class="has-text-centered">
 						<a class="button is-medium is-danger is-outlined is-rounded">
-							Register
+							Register Now
 						</a>
 					</p>
 				</div>
+
+				<div class="column is-half">
+					<form action="" method="">
+						<p class="has-text-centered">
+							<a class="button is-medium is-danger is-outlined is-rounded">
+								Register
+							</a>
+						</p>
+					</form>
+				</div>
+
 			</div>
 		</div>
 	</div>
