@@ -67,6 +67,3 @@ function LogoutUser()
 {
 
 }
-
-$id = GenerateUID();
-echo $id;
