@@ -123,11 +123,10 @@ require 'includes/functions.inc.php';
                             </div>
 
                         </div>
-                        <input type="submit" name="submit" class="button is-success is-outlined is-rounded" value="Register"/>
-                        <input type="reset" name="reset" class="button is is-success is-outlined is is-rounded" value="Reset"/>
+                        <input type="submit" name="submit" class="button is-danger is-outlined is-rounded" value="Register"/>
+                        <input type="reset" name="reset" class="button is is-danger is-outlined is is-rounded" value="Reset"/>
 					</form>
 				</div>
-
             </div>
         </div>
     </div>
