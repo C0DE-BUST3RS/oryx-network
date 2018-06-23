@@ -24,7 +24,7 @@ require 'includes/functions.inc.php';
             <div class="container">
                 <div class="navbar-brand">
                     <a class="navbar-item" href="#">
-                        <img src="https://bulma.io/images/bulma-logo.png" alt="Logo">
+                        <img src="img/logos/oryx-trans.png" alt="Logo">
                     </a>
                     <a class="navbar-item" href="#">
                         Home
@@ -46,20 +46,22 @@ require 'includes/functions.inc.php';
         <div class="container has-text-centered">
             <div class="columns is-vcentered">
 
-				<div class="column is-one-third">
-					<figure class="image is-4by3">
-						<img src="img/homepage-image.jpg" alt="" style="border-radius: 5%"/>
+				<div class="column is-one-third is-hidden-mobile">
+					<figure class="image">
+						<img src="img/homepage/homepage-image.jpg" alt="" style="border-radius: 5%"/>
 					</figure>
 				</div>
 
 				<div class="column is-one-third">
-					<h1 class="title is-2">
-						Oryx Network
-					</h1>
+                    <h1 class="title is-1">
+                        Oryx Network
+                    </h1>
 					<h2 class="subtitle is-4">
-						Best place to make new friends
+						The best place to make new friends
 					</h2>
-					<br>
+                    <a class="button is-danger is-outlined is-rounded" href="#">
+                        Login
+                    </a>
 				</div>
 
 				<div class="column is-one-third">
@@ -73,7 +75,7 @@ require 'includes/functions.inc.php';
 
                         <div class="field">
                             <div class="control has-icons-left">
-                                <input class="input is-primary is-normal is-rounded" id="registerFirstname"
+                                <input class="input is-primary is-info is-rounded" id="registerFirstname"
                                        name="firstname" type="text" placeholder="Firstname">
                                 <span class="icon is-small is-left">
 									<i class="fa fa-address-card"></i>
@@ -83,7 +85,7 @@ require 'includes/functions.inc.php';
 
 							<div class="field">
 								<div class="control has-icons-left">
-									<input class="input is-primary is-normal is-rounded" id="registerLastname"
+									<input class="input is-primary is-info is-rounded" id="registerLastname"
 										   name="lastname" type="text" placeholder="Lastname">
 									<span class="icon is-small is-left">
 									<i class="fa fa-address-card"></i>
@@ -93,8 +95,8 @@ require 'includes/functions.inc.php';
 
 							<div class="field">
 								<div class="control has-icons-left">
-									<input class="input is-primary is-normal is-rounded" id="registerEmail"
-										   name="email" type="text" placeholder="Email">
+									<input class="input is-primary is-info is-rounded" id="registerEmail"
+										   name="email" type="email" placeholder="Email">
 									<span class="icon is-small is-left">
 									<i class="fa fa-envelope"></i>
     							</span>
@@ -103,8 +105,8 @@ require 'includes/functions.inc.php';
 
 							<div class="field">
 								<div class="control has-icons-left">
-									<input class="input is-primary is-normal is-rounded" id="registerMobile"
-										   name="mobile" type="text" placeholder="Mobile">
+									<input class="input is-primary is-info is-rounded" id="registerMobile"
+										   name="mobile" type="tel" placeholder="Mobile">
 									<span class="icon is-small is-left">
 									<i class="fa fa-phone"></i>
     							</span>
@@ -113,15 +115,16 @@ require 'includes/functions.inc.php';
 
 							<div class="field">
 								<div class="control has-icons-left">
-									<input class="input is-primary is-normal is-rounded" id="registerPassword"
+									<input class="input is-primary is-info is-rounded" id="registerPassword"
 										   name="password" type="password" placeholder="Password">
 									<span class="icon is-small is-left">
 									<i class="fa fa-lock"></i>
     							</span>
                             </div>
-                        </div>
 
-							<a class="button is-danger is-outlined is-rounded">Register</a>
+                        </div>
+                        <input type="submit" name="submit" class="button is-success is-outlined is-rounded" value="Register"/>
+                        <input type="reset" name="reset" class="button is is-success is-outlined is is-rounded" value="Reset"/>
 					</form>
 				</div>
 
@@ -132,7 +135,7 @@ require 'includes/functions.inc.php';
 		<div class="container">
 			<div class="tabs is-centered">
 				<ul>
-					<li><a>&copy; <?php CopyrightYear();?> Oryx Network </a></li>
+					<li><a>&copy; <?php CopyrightYear();?> Oryx Network</a></li>
 				</ul>
 			</div>
 		</div>
