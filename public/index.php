@@ -27,7 +27,7 @@
             			<span></span>
                         <span></span>
                         <span></span>
-                        </span>
+					</span>
 				</div>
 				<div id="navbarMenu" class="navbar-menu">
 					<div class="navbar-end">
@@ -65,7 +65,13 @@
 		<div class="container has-text-centered">
 			<div class="columns is-vcentered">
 
-				<div class="column is-half">
+				<div class="column is-one-third">
+					<figure class="image is-4by3">
+						<img src="https://picsum.photos/800/600/?image=1045" alt=""/>
+					</figure>
+				</div>
+
+				<div class="column is-one-third">
 					<h1 class="title is-2">
 						Oryx Network
 					</h1>
@@ -73,36 +79,51 @@
 						Best place to make new friends
 					</h2>
 					<br>
-					<p class="has-text-centered">
-						<a class="button is-medium is-danger is-outlined is-rounded">
-							Register Now
-						</a>
-					</p>
 				</div>
 
-				<div class="column is-half">
-					<form action="" method="">
-						<p class="has-text-centered">
-							<a class="button is-medium is-danger is-outlined is-rounded">
-								Register
-							</a>
-						</p>
+				<div class="column is-one-third">
+					<h4 class="title is-4">
+						Don't have an account?
+					</h4>
+					<h5 class="subtitle is-5">
+						Register Now!
+					</h5>
+					<form action="" method="POST">
+
+						<div class="field">
+							<label class="label">Email</label>
+							<div class="control has-icons-left has-icons-right">
+								<input class="input" id="registerEmail" name="registerEmail" type="text" placeholder="Email">
+								<span class="icon is-small is-left">
+									<i class="fa fa-envelope"></i>
+    							</span>
+
+								<span class="icon is-small is-left">
+      								<i class="fa fa-email"></i>
+    							</span>
+							</div>
+
+							<div class="field">
+								<a class="button is-danger is-outlined is-rounded">Register</a>
+							</div>
+
+						</div>
 					</form>
 				</div>
 
 			</div>
 		</div>
 	</div>
-	<div class="hero-foot">
-		<div class="container">
-			<div class="tabs is-centered">
-				<ul>
-					<li><a>Copyright &copy; OryxNetwork 2018</a></li>
-				</ul>
-			</div>
+</section>
+<div class="hero-foot">
+	<div class="container">
+		<div class="tabs is-centered">
+			<ul>
+				<li><a>Copyright &copy; OryxNetwork 2018</a></li>
+			</ul>
 		</div>
 	</div>
-</section>
+</div>
 <script src="js/main.js"></script>
 </body>
 
