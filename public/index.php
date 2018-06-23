@@ -35,6 +35,9 @@ require 'includes/functions.inc.php';
                     <a class="navbar-item" href="#">
                         Contact
                     </a>
+                    <a class="navbar-item" href="#">
+                        API
+                    </a>
                 </div>
             </div>
         </nav>
@@ -129,7 +132,7 @@ require 'includes/functions.inc.php';
 		<div class="container">
 			<div class="tabs is-centered">
 				<ul>
-					<li><a>Copyright &copy; OryxNetwork 2018</a></li>
+					<li><a>&copy; <?php CopyrightYear();?> Oryx Network </a></li>
 				</ul>
 			</div>
 		</div>
