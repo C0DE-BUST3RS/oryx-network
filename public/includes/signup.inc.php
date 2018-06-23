@@ -12,17 +12,40 @@ require 'functions.inc.php';
 require 'dbh.inc.php';
 
 if (isset($_POST['registerSubmit'])) {
-	// Define variable from POST
-	$emailPost = mysqli_real_escape_string($conn, $_POST['']);
-	$passwordPost = mysqli_real_escape_string($conn, $_POST['']);
-	$firstnamePost = mysqli_real_escape_string($conn, $_POST['']);
-	$lastnamePost = mysqli_real_escape_string($conn, $_POST['']);
+    // Define variable from POST
+    $firstname = $conn->real_escape_string($_POST['']);
+    $lastname = $conn->real_escape_string($_POST['']);
+    $email = $conn->real_escape_string($_POST['']);
+    $password = $conn->real_escape_string($_POST['']);
 
-	if(CheckIfRealEmail($emailPost) === true) {
+    if (CheckIfEmptySignup($firstname, $lastname, $email, $password) == true) {
 
-	}
+
+        if (CheckIfRealName($firstname, $lastname) == true) {
+
+
+            if (CheckIfRealEmail($email) == true) {
+
+
+                if (CheckIfPasswordLongEnough($password) == true) {
+
+                } else {
+
+                }
+
+            } else {
+
+            }
+
+        } else {
+
+        }
+
+    } else {
+
+    }
 
 } else {
-	header("Location ../index.php");
-	exit();
+    header("Location ../index.php");
+    exit();
 }
