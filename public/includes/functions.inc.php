@@ -99,6 +99,16 @@ function HashPassword($nothashedPWD)
     return $hashedPWD;
 }
 
+// This function wil check if the user is already logged in, ifso then redirect to feed page automaticly.
+function CheckIfLoggedIn()
+{
+	if(isset($_SESSION['user']['id']) && !empty($_SESSION['user']['id'])) {
+		header("Location: ../feed.php");
+	} else {
+		return false;
+	}
+}
+
 //This function will generate the current date and put it inside a variable.
 function GetCurrentDate()
 {
