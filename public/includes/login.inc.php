@@ -38,7 +38,7 @@ if (isset($_POST['submit'])) {
 					// Query all the info from DB.
 					if ($row = mysqli_fetch_array($query2)) {
 						$_SESSION['user']['id'] = $row['id'];
-						$_SESSION['user']['rank'] = $row['rank'];
+						$_SESSION['user']['rank'] = $row['admin'];
 						$_SESSION['user']['date'] = $row['date'];
 						$_SESSION['user']['firstname'] = $row['firstname'];
 						$_SESSION['user']['lastname'] = $row['lastname'];

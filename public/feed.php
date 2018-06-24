@@ -18,7 +18,7 @@ If (CheckIfLoggedIn() == false) {
 	<meta name="author" content="C0DE-BUST3RS">
 	<link rel="stylesheet" href="css/main.css">
 	<link rel="stylesheet" href="css/bulma.css">
-	<title><?php echo $_SESSION['user']['firstname']."'s Feed"; ?> - Oryx Network</title>
+	<title><?php echo $_SESSION['user']['firstname'] . "'s Feed"; ?> - Oryx Network</title>
 </head>
 <body>
 <?php echo $_SESSION['user']['id']; ?>
