@@ -99,6 +99,16 @@ function HashPassword($nothashedPWD)
     return $hashedPWD;
 }
 
+// This function will un-hash the user password.
+function UnHashPassword($UserTypedPassword, $hashedPassword)
+{
+	if (password_verify($UserTypedPassword, $hashedPassword)) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
 // This function wil check if the user is already logged in, ifso then redirect to feed page automaticly.
 function CheckIfLoggedIn()
 {

@@ -56,8 +56,8 @@ CheckIfLoggedIn();
 					<form action="includes/login.inc.php" method="POST" enctype="multipart/form-data">
 						<div class="field">
 							<div class="control has-icons-left">
-								<input class="input is-primary is-info is-rounded" id="registerEmail"
-									   name="registerEmail" type="email" placeholder="Email"/>
+								<input class="input is-primary is-info is-rounded" id="loginEmail"
+									   name="loginEmail" type="email" placeholder="Email"/>
 								<span class="icon is-small is-left">
 									<i class="fa fa-envelope"></i>
     							</span>
@@ -66,8 +66,8 @@ CheckIfLoggedIn();
 
 						<div class="field">
 							<div class="control has-icons-left">
-								<input class="input is-primary is-info is-rounded" id="registerPassword"
-									   name="registerPassword" type="password" placeholder="Password"/>
+								<input class="input is-primary is-info is-rounded" id="loginPassword"
+									   name="loginPassword" type="password" placeholder="Password"/>
 								<span class="icon is-small is-left">
 									<i class="fa fa-lock"></i>
     							</span>
