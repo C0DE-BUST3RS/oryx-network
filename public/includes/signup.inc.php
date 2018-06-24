@@ -13,10 +13,10 @@ require 'dbh.inc.php';
 
 if (isset($_POST['registerSubmit'])) {
     // Define variable from POST
-    $firstname = $conn->real_escape_string($_POST['']);
-    $lastname = $conn->real_escape_string($_POST['']);
-    $email = $conn->real_escape_string($_POST['']);
-    $password = $conn->real_escape_string($_POST['']);
+    $firstname = $conn->real_escape_string($_POST['firstname']);
+    $lastname = $conn->real_escape_string($_POST['lastname']);
+    $email = $conn->real_escape_string($_POST['email']);
+    $password = $conn->real_escape_string($_POST['password']);
 
     if (CheckIfEmptySignup($firstname, $lastname, $email, $password) == true) {
 
@@ -28,9 +28,9 @@ if (isset($_POST['registerSubmit'])) {
 
 
                 if (CheckIfPasswordLongEnough($password) == true) {
-
+					// Everything is good, process to signup squery
                 } else {
-
+					// Give error, go back and try again.
                 }
 
             } else {
