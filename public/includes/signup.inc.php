@@ -17,6 +17,7 @@ if (isset($_POST['registerSubmit'])) {
     $lastname = $conn->real_escape_string($_POST['lastname']);
     $email = $conn->real_escape_string($_POST['email']);
     $password = $conn->real_escape_string($_POST['password']);
+    $termsofservice = $conn->real_escape_string($_POST['tof']);
 
     if (CheckIfEmptySignup($firstname, $lastname, $email, $password) == true) {
 
@@ -28,6 +29,8 @@ if (isset($_POST['registerSubmit'])) {
 
 
                 if (CheckIfPasswordLongEnough($password) == true) {
+
+                	if()
 					// Everything is good, process to signup squery
                 } else {
 					// Give error, go back and try again.

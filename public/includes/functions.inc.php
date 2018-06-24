@@ -77,6 +77,16 @@ function CheckIfPasswordLongEnough($password)
     }
 }
 
+// This function will check if the Terms of Service is accepted.
+function CheckIfAcceptedTOF($tof)
+{
+	if($tof === 'accepted') {
+		return true;
+	} else {
+		return false;
+	}
+}
+
 //This function will generate a random userid, example: F98F13DE-BABA5AFD-5AFDB4F9
 function GenerateUID()
 {

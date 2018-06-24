@@ -116,7 +116,7 @@ require 'includes/functions.inc.php';
 						<div class="field">
 							<div class="control">
 								<label class="checkbox">
-									<input type="checkbox">
+									<input type="checkbox" name="tof" id="tof" value="accepted">
 									I agree to the <a href="#">terms and conditions</a>
 								</label>
 							</div>
