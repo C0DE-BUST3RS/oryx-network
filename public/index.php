@@ -71,12 +71,12 @@ require 'includes/functions.inc.php';
 					<h5 class="subtitle is-5">
 						Register Now!
 					</h5>
-					<form action="includes/signup.inc.php" method="POST">
+					<form action="includes/signup.inc.php" method="POST" enctype="multipart/form-data">
 
 						<div class="field">
 							<div class="control has-icons-left">
 								<input class="input is-primary is-info is-rounded" id="registerFirstname"
-									   name="firstname" type="text" placeholder="Firstname">
+									   name="registerFirstname" type="text" placeholder="Firstname"/>
 								<span class="icon is-small is-left">
 									<i class="fa fa-address-card"></i>
     							</span>
@@ -86,7 +86,7 @@ require 'includes/functions.inc.php';
 						<div class="field">
 							<div class="control has-icons-left">
 								<input class="input is-primary is-info is-rounded" id="registerLastname"
-									   name="lastname" type="text" placeholder="Lastname">
+									   name="registerLastname" type="text" placeholder="Lastname"/>
 								<span class="icon is-small is-left">
 									<i class="fa fa-address-card"></i>
     							</span>
@@ -96,7 +96,7 @@ require 'includes/functions.inc.php';
 						<div class="field">
 							<div class="control has-icons-left">
 								<input class="input is-primary is-info is-rounded" id="registerEmail"
-									   name="email" type="email" placeholder="Email">
+									   name="registerEmail" type="email" placeholder="Email"/>
 								<span class="icon is-small is-left">
 									<i class="fa fa-envelope"></i>
     							</span>
@@ -106,7 +106,7 @@ require 'includes/functions.inc.php';
 						<div class="field">
 							<div class="control has-icons-left">
 								<input class="input is-primary is-info is-rounded" id="registerPassword"
-									   name="password" type="password" placeholder="Password">
+									   name="registerPassword" type="password" placeholder="Password"/>
 								<span class="icon is-small is-left">
 									<i class="fa fa-lock"></i>
     							</span>
@@ -116,13 +116,13 @@ require 'includes/functions.inc.php';
 						<div class="field">
 							<div class="control">
 								<label class="checkbox">
-									<input type="checkbox" name="tof" id="tof" value="accepted">
+									<input type="checkbox" name="registerTOF" id="registerTOF" value="accepted"/>
 									I agree to the <a href="#">terms and conditions</a>
 								</label>
 							</div>
 						</div>
 
-						<input type="submit" name="submit" class="button is-danger is-outlined is-rounded"
+						<input type="submit" id="submit" name="submit" class="button is-danger is-outlined is-rounded"
 							   value="Register"/>
 						<input type="reset" name="reset" class="button is is-danger is-outlined is is-rounded"
 							   value="Reset"/>

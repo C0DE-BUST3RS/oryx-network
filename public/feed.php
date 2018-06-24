@@ -1,3 +1,9 @@
+<?php
+// Session start for user.
+session_start();
+// Require DB file for feed.
+require 'includes/dbh.inc.php';
+?>
 <!doctype html>
 <html lang="en">
 <head>

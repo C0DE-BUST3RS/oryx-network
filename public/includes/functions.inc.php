@@ -1,11 +1,5 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: Luuk Kenselaar <luuk.kenselaar@protonmail.com>
- * Date: 23-6-2018
- * Time: 00:45
- */
-//Require var $conn
+session_start();
 require 'dbh.inc.php';
 
 //This function will check if the email is used
@@ -28,13 +22,13 @@ function CheckIfEmailUsed($email)
 }
 
 //This function will check if the user input at the Signup is not empty
-function CheckIfEmptySignup($firstname,$lastname,$email,$password)
+function CheckIfNotEmpty($firstname,$lastname,$email,$password)
 {
-    if (empty($firstname) || empty($lastname) || empty($email) || empty($password)) {
-        return true;
-    } else {
-        return false;
-    }
+    if(empty($firstname) || empty($lastname) || empty($email) || empty($password)) {
+		return false;
+	} else {
+    	return true;
+	}
 }
 
 //This function will check if the user input at the Login is not empty
@@ -50,7 +44,7 @@ function CheckIfEmptyLogin($email,$password)
 //This function will check if the users name is real
 function CheckIfRealName($firstname,$lastname)
 {
-    if (preg_match("/^[a-z ,.'-]+$/i", $firstname) || !preg_match("/^[a-z ,.'-]+$/i", $lastname)) {
+    if (preg_match('/^[A-Za-z \'-]+$/i',$firstname) || preg_match('/^[A-Za-z \'-]+$/i', $lastname)) {
         return true;
     } else {
         return false;
@@ -70,7 +64,7 @@ function CheckIfRealEmail($email)
 //This function will check if the users password has the minimum length
 function CheckIfPasswordLongEnough($password)
 {
-    if (strlen($password) >= 8) {
+    if (strlen($password) >= 4) {
         return true;
     } else {
         return false;
