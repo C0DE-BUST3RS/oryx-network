@@ -21,6 +21,7 @@ If (CheckIfLoggedIn() == false) {
 	<title><?php echo $_SESSION['user']['firstname'] . "'s Feed"; ?> - Oryx Network</title>
 </head>
 <body>
-<?php echo $_SESSION['user']['id']; ?>
+<?php echo $_SESSION['user']['id']."<br/>"; ?>
+<a href="includes/logout.inc.php" class="button is-danger is-rounded">Logout</a>
 </body>
 </html>
