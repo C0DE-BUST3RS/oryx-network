@@ -2,8 +2,9 @@
 //Require the functions also start the session automaticly.
 require_once 'includes/functions.inc.php';
 
-// Check if the user is already logged in.
-CheckIfLoggedIn();
+If (CheckIfLoggedIn() == true) {
+	header("Location: feed.php");
+}
 ?>
 <!doctype html>
 <html lang="en">

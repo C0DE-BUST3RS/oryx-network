@@ -8,9 +8,11 @@
 
 require 'functions.inc.php';
 
-if (isset($_POST['submit'])) {
 
+If (CheckIfLoggedIn() == true) {
+	session_unset();
+	session_destroy();
+	header("Location: ../index.php");
 } else {
-    header("Location ../index.php");
-    exit();
+	header("Location: ../index.php");
 }

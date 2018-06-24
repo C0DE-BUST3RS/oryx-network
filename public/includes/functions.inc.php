@@ -113,7 +113,8 @@ function UnHashPassword($UserTypedPassword, $hashedPassword)
 function CheckIfLoggedIn()
 {
 	if(isset($_SESSION['user']['id']) && !empty($_SESSION['user']['id'])) {
-		header("Location: ../feed.php");
+		//header("Location: ../feed.php");
+		return true;
 	} else {
 		return false;
 	}
@@ -122,6 +123,7 @@ function CheckIfLoggedIn()
 //This function will generate the current date and put it inside a variable.
 function GetCurrentDate()
 {
+	date_default_timezone_set('Europe/Amsterdam');
     $date = date('Y-m-d H:i:s');
     return $date;
 }
