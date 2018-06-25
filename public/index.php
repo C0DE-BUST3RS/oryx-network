@@ -48,7 +48,8 @@ require 'includes/functions.inc.php';
 
                 <div class="column is-one-third is-hidden-mobile">
                     <figure class="image">
-                        <img src="img/homepage/homepage-image.jpg" alt="" style="border-radius: 5%"/>
+						<img src="https://i.imgur.com/wKa5Va2.jpg" alt="" />
+<!--                        <img src="img/homepage/homepage-image.jpg" alt="" style="border-radius: 5%"/>-->
                     </figure>
                 </div>
 
