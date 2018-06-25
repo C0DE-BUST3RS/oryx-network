@@ -17,51 +17,45 @@ if (isset($_POST['submit'])) {
         if (CheckIfEmptyLogin($emailPost, $passwordPost) == false) {
 
             // Query the password from DB if the email is registered.
-            $query1 = $conn->query("SELECT password FROM user WHERE email = '" . $emailPost . "'");
+            $query = $conn->query("SELECT * FROM user WHERE email = '" . $emailPost . "'");
 
-            if ($query1->num_rows > 0) {
+            if ($query->num_rows > 0) {
 
                 // Get the password from the query.
-                if ($row = mysqli_fetch_array($query1)) {
-                    $hashedPWD = $row['password'];
-                }
+                $row = $query->fetch_array();
+                $hashedPWD = $row['password'];
 
                 // Verify if the password matches the one the user typed.
                 if (UnHashPassword($passwordPost, $hashedPWD) == true) {
-                    // If the password matches get all the info
-                    $query2 = $conn->query("SELECT * FROM user WHERE email = '" . $emailPost . "'");
 
-                    // Query all the info from DB.
-                    if ($query2->fetch_array())
-                        // ID vanuit DB.USER bv. 09221D38-D97D12BF-12BF2AFD
-                        $_SESSION['user']['id'] = $row['id'];
+                    //ID from DB.user - example: 09221D38-D97D12BF-12BF2AFD
+                    $_SESSION['user']['id'] = $row['id'];
 
-                        // Admin vanuit DB.USER 0 = user, 1 = admin
-                        $_SESSION['user']['rank'] = $row['admin'];
+                    //admin from DB.user - 0 = user, 1 = admin
+                    $_SESSION['user']['rank'] = $row['admin'];
 
-                        // Date vanuit DB.USER 2018-06-20 12:11:02
-                        $_SESSION['user']['date'] = $row['date'];
+                    //Date from signup - DB.user
+                    $_SESSION['user']['date'] = $row['date'];
 
-                        // Firstname uit DB.
-                        $_SESSION['user']['firstname'] = $row['firstname'];
+                    // Firstname from DB.user
+                    $_SESSION['user']['firstname'] = $row['firstname'];
 
-                        // Firstname uit DB.
-                        $_SESSION['user']['lastname'] = $row['lastname'];
+                    // Firstname from DB.user
+                    $_SESSION['user']['lastname'] = $row['lastname'];
 
-                        // Email vanuit DB. bv test@test.nl
-                        $_SESSION['user']['email'] = $row['email'];
+                    // Email from DB.user - Like test@test.com
+                    $_SESSION['user']['email'] = $row['email'];
 
-                        // Lastlogin vanuit DB. 2018-06-24 12:11:23
-                        $_SESSION['user']['lastlogin'] = $row['last_login'];
+                    // Lastlogin from DB.user - Like 2018-06-24 12:11:23
+                    $_SESSION['user']['lastlogin'] = $row['last_login'];
 
+                    // Update the user last_login time.
+                    $UserID = $_SESSION['user']['id'];
+                    $query = $conn->query("UPDATE user SET last_login = '" . GetCurrentDate() . "' WHERE `user`.`id` = '" . $UserID . "';");
 
-                        // Update the user last_login time.
-                        $UserID = $_SESSION['user']['id'];
-                        $queryLastLogin = mysqli_query($conn, "UPDATE user SET last_login = '" . GetCurrentDate() . "' WHERE `user`.`id` = '" . $UserID . "';");
+                    // Redirect the user to the feed page.
+                    header("Location: ../feed.php?login=successfull");
 
-                        // Redirect the user to the feed page.
-                        header("Location: ../feed.php?login=successfull");
-                    }
                 } else {
                     // If the password the user typed in DO NOT match with the DB then go back.
                     header("Location: ../login.php?login=failed");
@@ -69,7 +63,6 @@ if (isset($_POST['submit'])) {
 
             } else {
                 //If the user does not exist then go back
-
                 header("Location: ../login.php?login=failed");
                 exit();
             }

@@ -28,8 +28,8 @@ if (isset($_POST['submit'])) {
                 if (CheckIfPasswordLongEnough($password) == true) {
 
                     // Everything is good, proceed to signup query.
-                    $query = mysqli_query($conn, "INSERT INTO `user` (`id`, `admin`, `date`, `firstname`, `lastname`, `email`, `password`, `last_login`) VALUES ('" . GenerateUID() . "', 0, '" . GetCurrentDate() . "', '" . htmlspecialchars($firstname) . "', '" . htmlspecialchars($lastname) . "', '" . htmlspecialchars($email) . "', '" . HashPassword($password) . "', '" . GetCurrentDate() . "')");
-                    header("Location: ../index.php");
+                    $query = $conn->query("INSERT INTO `user` (`id`, `admin`, `date`, `firstname`, `lastname`, `email`, `password`, `last_login`) VALUES ('" . GenerateUID() . "', 0, '" . GetCurrentDate() . "', '" . htmlspecialchars($firstname) . "', '" . htmlspecialchars($lastname) . "', '" . htmlspecialchars($email) . "', '" . HashPassword($password) . "', '" . GetCurrentDate() . "')");
+                    header("Location: ../index.php?signup=succesfull");
                     exit();
 
                 } else {

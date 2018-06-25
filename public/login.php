@@ -18,6 +18,7 @@ If (CheckIfLoggedIn() == true) {
     <meta name="author" content="C0DE-BUST3RS">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/bulma.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
     <title>Login - Oryx Network</title>
 </head>
 <body>
@@ -77,7 +78,8 @@ If (CheckIfLoggedIn() == true) {
                             </div>
                         </div>
 
-                        <input type="submit" id="submit" name="submit" class="button is-danger is-outlined is-rounded" value="Login"/>
+                        <input type="submit" id="submit" name="submit" class="button is-danger is-outlined is-rounded"
+                               value="Login"/>
                         <a class="button is-danger is-outlined is-rounded" href="#">Reset password</a>
 
                     </form>
