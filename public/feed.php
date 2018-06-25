@@ -22,8 +22,8 @@ If (CheckIfLoggedIn() == false) {
 </head>
 <body>
 <?php
-foreach ($_SESSION['user'] as $item) {
-    echo $item . "<br>";
+foreach ($_SESSION['user'] as $key => $value ) {
+    echo $key . ": " . $value . "<br>";
 }
 
 ?>
