@@ -28,7 +28,7 @@ if (isset($_POST['submit'])) {
                 if (CheckIfPasswordLongEnough($password) == true) {
 
                     // Everything is good, proceed to signup query.
-                    $query = $conn->query("INSERT INTO `user` (`id`, `admin`, `date`, `firstname`, `lastname`, `email`, `password`, `last_login`) VALUES ('" . GenerateUID() . "', 0, '" . GetCurrentDate() . "', '" . htmlspecialchars($firstname) . "', '" . htmlspecialchars($lastname) . "', '" . htmlspecialchars($email) . "', '" . HashPassword($password) . "', '" . GetCurrentDate() . "')");
+                    $query = $conn->query("INSERT INTO `user` (`id`, `admin`, `ip`, `date`, `firstname`, `lastname`, `email`, `password`, `last_login`, `last_ip`) VALUES ('" . GenerateUID() . "', 0, '". GetUserIP() ."', '" . GetCurrentDate() . "', '" . htmlspecialchars($firstname) . "', '" . htmlspecialchars($lastname) . "', '" . htmlspecialchars($email) . "', '" . HashPassword($password) . "', '" . GetCurrentDate() . "', '". GetUserIP() ."')");
                     header("Location: ../index.php?signup=succesfull");
                     exit();
 
