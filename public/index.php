@@ -1,5 +1,11 @@
 <?php
 require 'includes/functions.inc.php';
+
+if (CheckIfLoggedIn() == true) {
+    header("Location: feed.php");
+    exit();
+}
+
 ?>
 <!doctype html>
 <html lang="en">
