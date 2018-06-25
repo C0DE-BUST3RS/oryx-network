@@ -15,24 +15,24 @@ function CheckIfEmailUsed($email)
     if ($resultCheck > 0) {
         return true;
 
-    //If the email does not exist
+        //If the email does not exist
     } else {
         return false;
     }
 }
 
 //This function will check if the user input at the Signup is not empty
-function CheckIfNotEmpty($firstname,$lastname,$email,$password)
+function CheckIfEmptySignup($firstname, $lastname, $email, $password)
 {
-    if(empty($firstname) || empty($lastname) || empty($email) || empty($password)) {
-		return false;
-	} else {
-    	return true;
-	}
+    if (empty($firstname) || empty($lastname) || empty($email) || empty($password)) {
+        return false;
+    } else {
+        return true;
+    }
 }
 
 //This function will check if the user input at the Login is not empty
-function CheckIfEmptyLogin($email,$password)
+function CheckIfEmptyLogin($email, $password)
 {
     if (empty($email) || empty($password)) {
         return true;
@@ -42,9 +42,9 @@ function CheckIfEmptyLogin($email,$password)
 }
 
 //This function will check if the users name is real
-function CheckIfRealName($firstname,$lastname)
+function CheckIfRealName($firstname, $lastname)
 {
-    if (preg_match('/^[A-Za-z \'-]+$/i',$firstname) || preg_match('/^[A-Za-z \'-]+$/i', $lastname)) {
+    if (preg_match('/^[A-Za-z \'-]+$/i', $firstname) || preg_match('/^[A-Za-z \'-]+$/i', $lastname)) {
         return true;
     } else {
         return false;
@@ -71,16 +71,6 @@ function CheckIfPasswordLongEnough($password)
     }
 }
 
-// This function will check if the Terms of Service is accepted.
-function CheckIfAcceptedTOF($tof)
-{
-	if($tof === 'accepted') {
-		return true;
-	} else {
-		return false;
-	}
-}
-
 //This function will generate a random userid, example: F98F13DE-BABA5AFD-5AFDB4F9
 function GenerateUID()
 {
@@ -102,28 +92,28 @@ function HashPassword($nothashedPWD)
 // This function will un-hash the user password.
 function UnHashPassword($UserTypedPassword, $hashedPassword)
 {
-	if (password_verify($UserTypedPassword, $hashedPassword)) {
-		return true;
-	} else {
-		return false;
-	}
+    if (password_verify($UserTypedPassword, $hashedPassword)) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 // This function wil check if the user is already logged in, ifso then redirect to feed page automaticly.
 function CheckIfLoggedIn()
 {
-	if(isset($_SESSION['user']['id']) && !empty($_SESSION['user']['id'])) {
-		//header("Location: ../feed.php");
-		return true;
-	} else {
-		return false;
-	}
+    if (isset($_SESSION['user']['id']) && !empty($_SESSION['user']['id'])) {
+        //header("Location: ../feed.php");
+        return true;
+    } else {
+        return false;
+    }
 }
 
 //This function will generate the current date and put it inside a variable.
 function GetCurrentDate()
 {
-	date_default_timezone_set('Europe/Amsterdam');
+    date_default_timezone_set('Europe/Amsterdam');
     $date = date('Y-m-d H:i:s');
     return $date;
 }
