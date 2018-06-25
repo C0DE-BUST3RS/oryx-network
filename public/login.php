@@ -77,9 +77,11 @@ If (CheckIfLoggedIn() == true) {
                             </div>
                         </div>
 
-                        <input type="submit" id="submit" name="submit" class="button is-danger is-outlined is-rounded"
-                               value="Login"/>
+                        <input type="submit" id="submit" name="submit" class="button is-danger is-outlined is-rounded" value="Login"/>
+                        <a class="button is-danger is-outlined is-rounded" href="#">Reset password</a>
+
                     </form>
+
                 </div>
 
 
