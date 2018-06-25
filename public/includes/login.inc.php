@@ -9,6 +9,9 @@ if (isset($_POST['submit'])) {
 	$emailPost = $conn->real_escape_string($_POST['loginEmail']);
 	$passwordPost = $conn->real_escape_string($_POST['loginPassword']);
 
+    //Make the value lower case
+    $emailPost = strtolower($emailPost);
+
 	if (CheckIfLoggedIn() == false) {
 
 		if (CheckIfEmptyLogin($emailPost, $passwordPost) == false) {
