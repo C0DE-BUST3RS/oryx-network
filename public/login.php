@@ -55,7 +55,20 @@ If (CheckIfLoggedIn() == true) {
                 </div>
 
                 <div class="column is-one-third">
-                    <h1 class="title is-1">Login</h1>
+
+                    <img src="img/logos/oryx-trans.png" alt="" width="80%">
+
+                    <h2 class="title is-2">Login</h2>
+
+                    <?php
+                    if (isset($_SESSION['loginfailed'])) { ?>
+                        <div class="notification is-danger is-rounded">
+                            Login failed
+                        </div>
+                        <?php
+                        unset($_SESSION['loginfailed']);
+                    }
+                    ?>
 
                     <form action="includes/login.inc.php" method="POST" enctype="multipart/form-data">
                         <div class="field">
