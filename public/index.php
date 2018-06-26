@@ -57,6 +57,23 @@ if (CheckIfLoggedIn() == true) {
                     <h5 class="subtitle is-5">
                         Register Now!
                     </h5>
+
+                    <?php
+                    if (isset($_SESSION['status'])) { ?>
+                        <div class="notification is-danger is-rounded">
+                           <?php echo $_SESSION['status']; ?>
+                        </div>
+                        <?php
+                        unset($_SESSION['status']);
+                    } elseif (isset($_SESSION['success'])) { ?>
+                        <div class="notification is-success is-rounded">
+                           <?php echo $_SESSION['success']; ?>
+                        </div>
+                        <?php
+                        unset($_SESSION['success']);
+                    }
+                    ?>
+
                     <form action="includes/signup.inc.php" method="POST" enctype="multipart/form-data">
 
                         <div class="field">
