@@ -53,5 +53,8 @@ If (CheckIfLoggedIn() == false) {
     require 'includes/footer.php';
     ?>
 </section>
+
+<script src="js/main.js"></script>
+<script src="js/navbarMenu.js"></script>
 </body>
 </html>
