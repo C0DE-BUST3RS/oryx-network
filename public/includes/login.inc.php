@@ -30,15 +30,15 @@ if (isset($_POST['submit'])) {
                     // Verify if the password matches the one the user typed.
                     if (UnHashPassword($passwordPost, $hashedPWD) == true) {
 
+						//ID from DB.user - example: 09221D38-D97D12BF-12BF2AFD
+						$_SESSION['user']['id'] = $row['id'];
+
                         // Update the user last_login time.
                         $UserID = $_SESSION['user']['id'];
                         $query = $conn->query("UPDATE user SET last_login = '" . GetCurrentDate() . "' WHERE `user`.`id` = '" . $UserID . "';");
 
                         // Update the user last_ip time.
                         $query = $conn->query("UPDATE user SET last_ip = '" . GetUserIP() . "' WHERE `user`.`id` = '" . $UserID . "';");
-
-                        //ID from DB.user - example: 09221D38-D97D12BF-12BF2AFD
-                        $_SESSION['user']['id'] = $row['id'];
 
                         //admin from DB.user - 0 = user, 1 = admin
                         $_SESSION['user']['rank'] = $row['admin'];
