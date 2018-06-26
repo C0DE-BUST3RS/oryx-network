@@ -26,6 +26,83 @@ require 'includes/functions.inc.php';
         require 'includes/nav-nologin.php';
     }
     ?>
+    <div class="hero-body">
+        <div class="container has-text-centered">
+            <div class="columns is-vcentered">
+
+                <div class="column is-one-third">
+                </div>
+
+                <div class="column is-one-third">
+
+                    <h1 class="title is-1">Contact us</h1>
+
+                    <form action="includes/contact.inc.php" method="POST" enctype="multipart/form-data">
+
+                        <div class="field">
+                            <div class="control has-icons-left">
+                                <input class="input is-primary is-info is-rounded" id="contactFirstname"
+                                       name="contactFirstname" type="text" placeholder="Firstname" required/>
+                                <span class="icon is-small is-left">
+									<i class="fa fa-address-card"></i>
+    							</span>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <div class="control has-icons-left">
+                                <input class="input is-primary is-info is-rounded" id="contactLastname"
+                                       name="contactLastname" type="text" placeholder="Lastname" required/>
+                                <span class="icon is-small is-left">
+									<i class="fa fa-address-card"></i>
+    							</span>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <div class="control has-icons-left">
+                                <input class="input is-primary is-info is-rounded" id="contactEmail"
+                                       name="contactEmail" type="email" placeholder="Email" required/>
+                                <span class="icon is-small is-left">
+									<i class="fa fa-envelope"></i>
+    							</span>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <div class="control">
+                                <div class="select is-rounded is-info">
+                                    <select>
+                                        <option>Question</option>
+                                        <option>Bug report</option>
+                                        <option>Suggestion</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <div class="control">
+                                <textarea class="textarea is-info" placeholder="Your message" name="contactMessage" rows="6"></textarea>
+                            </div>
+                        </div>
+
+                        <button type="submit" id="submit" name="submit" class="button is-danger is-outlined is-rounded">
+                            <i class="fa fa-envelope"></i> &nbsp;Send email
+                        </button>
+
+                    </form>
+
+                </div>
+
+                <div class="column is-one-third">
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
     <?php
     require 'includes/footer.php';
     ?>
