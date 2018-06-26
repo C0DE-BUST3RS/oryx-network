@@ -37,7 +37,7 @@ If (CheckIfLoggedIn() == false) {
                 <div class="column is-one-third">
                     <?php
                     foreach ($_SESSION['user'] as $key => $item) {
-                        echo "<b>" . $key . ":</b> " . $item . "<br>";
+                        echo "<b>" . $key . ":</b><br> " . $item . "<br>";
                     }
                     ?>
                     <a href="includes/logout.inc.php" class="button is-danger is-rounded">Logout</a>
