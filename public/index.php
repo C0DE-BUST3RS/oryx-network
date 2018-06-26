@@ -109,7 +109,7 @@ if (CheckIfLoggedIn() == true) {
                         <div class="field">
                             <div class="control has-icons-left">
                                 <input class="input is-primary is-info is-rounded" id="registerPassword"
-                                       name="registerPassword" type="password" placeholder="Password" required/>
+                                       name="registerPassword" type="password" placeholder="Password (min 8 characters)" required/>
                                 <span class="icon is-small is-left">
 									<i class="fa fa-lock"></i>
     							</span>

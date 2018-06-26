@@ -40,7 +40,7 @@ If (CheckIfLoggedIn() == false) {
                         echo "<b>" . $key . ":</b><br> " . $item . "<br>";
                     }
                     ?>
-                    <a href="includes/logout.inc.php" class="button is-danger is-rounded">Logout</a>
+                    <a href="includes/logout.inc.php" class="button is-danger is-rounded"><i class="fa fa-sign-out" aria-hidden="true"></i> &nbsp;Logout</a>
                 </div>
 
                 <div class="column is-one-third">
