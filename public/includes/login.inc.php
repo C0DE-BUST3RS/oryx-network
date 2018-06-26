@@ -73,28 +73,27 @@ if (isset($_POST['submit'])) {
 
             } else {
                 //If the user does not exist then go back
-                $_SESSION['loginfailed'] = "";
+                $_SESSION['loginfailed'];
                 header("Location: ../login.php?login=failed");
                 exit();
             }
 
         } else {
             //If the fields were empty then go back
-            $_SESSION['loginfailed'] = "";
+            $_SESSION['loginfailed'];
             header("Location: ../login.php?login=failed");
             exit();
         }
 
     } else {
         //If the user is already logged in then go back
-        $_SESSION['status'] = "login failed";
+        $_SESSION['loginfailed'];
         header("Location: ../login.php?login=failed");
         exit();
     }
 
 } else {
     //If the login button was not pressed go back
-    $_SESSION['status'] = "login failed";
     header("Location ../index.php");
     exit();
 }
