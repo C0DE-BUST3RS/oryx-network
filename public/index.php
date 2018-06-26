@@ -25,36 +25,16 @@ if (CheckIfLoggedIn() == true) {
 
 <body>
 <section class="hero is-fullheight is-default is-bold">
-    <div class="hero-head">
-        <nav class="navbar is-fixed-top" style="background: #ffffff">
-            <div class="container">
-                <div class="navbar-brand">
-                    <a class="navbar-item" href="#">
-                        <img src="img/logos/oryx-trans.png" alt="Logo">
-                    </a>
-                    <a class="navbar-item" href="index.php">
-                        <i class="fa fa-home" aria-hidden="true"></i> &nbsp;Home
-                    </a>
-                    <a class="navbar-item" href="#">
-                        <i class="fa fa-user-o" aria-hidden="true"></i> &nbsp;Privacy
-                    </a>
-                    <a class="navbar-item" href="#">
-                        <i class="fa fa-cogs" aria-hidden="true"></i> &nbsp;API
-                    </a>
-                    <a class="navbar-item" href="#">
-                        <i class="fa fa-envelope-o" aria-hidden="true"></i> &nbsp;Contact
-                    </a>
-                </div>
-            </div>
-        </nav>
-    </div>
+    <?php
+    require 'includes/nav-nologin.php';
+    ?>
     <div class="hero-body">
         <div class="container has-text-centered">
             <div class="columns is-vcentered">
 
                 <div class="column is-one-third is-hidden-mobile">
                     <figure class="image">
-						<img src="img/logos/mockup2.png" alt="" style="width: 50%; margin: 0 auto;" />
+                        <img src="img/logos/mockup2.png" alt="" style="width: 50%; margin: 0 auto;"/>
                     </figure>
                 </div>
 
