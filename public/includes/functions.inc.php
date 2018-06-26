@@ -7,7 +7,7 @@ require 'dbh.inc.php';
 function CheckIfEmailUsed($email)
 {
 	global $conn;
-	$sql = "SELECT * FROM user WHERE email = '$email';";
+	$sql = "SELECT email FROM user WHERE email = '$email';";
 	$result = $conn->query($sql);
 	$resultCheck = $result->num_rows;
 
