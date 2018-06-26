@@ -26,6 +26,9 @@ require 'includes/functions.inc.php';
         require 'includes/nav-nologin.php';
     }
     ?>
+    <?php
+    require 'includes/footer.php';
+    ?>
 </section>
 </body>
 

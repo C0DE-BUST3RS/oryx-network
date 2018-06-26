@@ -88,15 +88,9 @@ If (CheckIfLoggedIn() == true) {
             </div>
         </div>
     </div>
-    <div class="hero-foot">
-        <div class="container">
-            <div class="tabs is-centered">
-                <ul>
-                    <li><a>&copy; <?php CopyrightYear(); ?> Oryx Network</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
+    <?php
+    require 'includes/footer.php';
+    ?>
 </section>
 <script src="js/main.js"></script>
 </body>

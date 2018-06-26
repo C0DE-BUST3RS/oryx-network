@@ -109,7 +109,8 @@ if (CheckIfLoggedIn() == true) {
                         <div class="field">
                             <div class="control has-icons-left">
                                 <input class="input is-primary is-info is-rounded" id="registerPassword"
-                                       name="registerPassword" type="password" placeholder="Password (min 8 characters)" required/>
+                                       name="registerPassword" type="password" placeholder="Password (min 8 characters)"
+                                       required/>
                                 <span class="icon is-small is-left">
 									<i class="fa fa-lock"></i>
     							</span>
@@ -135,15 +136,9 @@ if (CheckIfLoggedIn() == true) {
             </div>
         </div>
     </div>
-    <div class="hero-foot">
-        <div class="container">
-            <div class="tabs is-centered">
-                <ul>
-                    <li><a>&copy; <?php CopyrightYear(); ?> Oryx Network</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
+    <?php
+    require 'includes/footer.php';
+    ?>
 </section>
 <script src="js/main.js"></script>
 </body>

@@ -19,7 +19,7 @@ If (CheckIfLoggedIn() == false) {
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/bulma.css">
     <link rel="stylesheet" href="css/font-awesome.min.css">
-    <title><?php echo $_SESSION['user']['firstname'] . "'s Feed"; ?> - Oryx Network</title>
+    <title><?php echo ucwords($_SESSION['user']['firstname']) . "'s Feed"; ?> - Oryx Network</title>
 </head>
 <body>
 <section class="hero is-fullheight is-default is-bold">
@@ -40,7 +40,7 @@ If (CheckIfLoggedIn() == false) {
                         echo "<b>" . $key . ":</b><br> " . $item . "<br>";
                     }
                     ?>
-                    <a href="includes/logout.inc.php" class="button is-danger is-rounded"><i class="fa fa-sign-out" aria-hidden="true"></i> &nbsp;Logout</a>
+                    <a href="includes/logout.inc.php" class="button is-danger is-rounded"><i class="fa fa-sign-out" aria-hidden="true"></i> &nbsp; Logout</a>
                 </div>
 
                 <div class="column is-one-third">
@@ -49,6 +49,9 @@ If (CheckIfLoggedIn() == false) {
             </div>
         </div>
     </div>
+    <?php
+    require 'includes/footer.php';
+    ?>
 </section>
 </body>
 </html>
