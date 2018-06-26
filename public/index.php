@@ -33,16 +33,16 @@ if (CheckIfLoggedIn() == true) {
                         <img src="img/logos/oryx-trans.png" alt="Logo">
                     </a>
                     <a class="navbar-item" href="index.php">
-                        Home
+                        <i class="fa fa-home" aria-hidden="true"></i> &nbsp;Home
                     </a>
                     <a class="navbar-item" href="#">
-                        Privacy
+                        <i class="fa fa-user-o" aria-hidden="true"></i> &nbsp;Privacy
                     </a>
                     <a class="navbar-item" href="#">
-                        Contact
+                        <i class="fa fa-cogs" aria-hidden="true"></i> &nbsp;API
                     </a>
                     <a class="navbar-item" href="#">
-                        API
+                        <i class="fa fa-envelope-o" aria-hidden="true"></i> &nbsp;Contact
                     </a>
                 </div>
             </div>
