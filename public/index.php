@@ -54,8 +54,7 @@ if (CheckIfLoggedIn() == true) {
 
                 <div class="column is-one-third is-hidden-mobile">
                     <figure class="image">
-						<img src="img/logos/mockup1.jpg" alt="" />
-<!--                        <img src="img/homepage/homepage-image.jpg" alt="" style="border-radius: 5%"/>-->
+						<img src="img/logos/mockup2.png" alt="" style="width: 50%; margin: 0 auto;" />
                     </figure>
                 </div>
 
