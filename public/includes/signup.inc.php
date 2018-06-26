@@ -10,7 +10,6 @@ if (isset($_POST['submit'])) {
     $lastname = $conn->real_escape_string($_POST['registerLastname']);
     $email = $conn->real_escape_string($_POST['registerEmail']);
     $password = $conn->real_escape_string($_POST['registerPassword']);
-    $termsofservice = $conn->real_escape_string($_POST['registerTOF']);
 
     //Make the value lower case
     $email = strtolower($email);
