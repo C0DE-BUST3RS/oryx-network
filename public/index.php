@@ -46,7 +46,7 @@ if (CheckIfLoggedIn() == true) {
                         The best place to make new friends
                     </h2>
                     <a class="button is-danger is-outlined is-rounded" href="login.php">
-                        Login
+                        <i class="fa fa-sign-in" aria-hidden="true"></i> &nbsp;Login
                     </a>
                 </div>
 
@@ -61,13 +61,13 @@ if (CheckIfLoggedIn() == true) {
                     <?php
                     if (isset($_SESSION['status'])) { ?>
                         <div class="notification is-danger is-rounded">
-                           <?php echo $_SESSION['status']; ?>
+                            <?php echo $_SESSION['status']; ?>
                         </div>
                         <?php
                         unset($_SESSION['status']);
                     } elseif (isset($_SESSION['success'])) { ?>
                         <div class="notification is-success is-rounded">
-                           <?php echo $_SESSION['success']; ?>
+                            <?php echo $_SESSION['success']; ?>
                         </div>
                         <?php
                         unset($_SESSION['success']);
@@ -79,7 +79,7 @@ if (CheckIfLoggedIn() == true) {
                         <div class="field">
                             <div class="control has-icons-left">
                                 <input class="input is-primary is-info is-rounded" id="registerFirstname"
-                                       name="registerFirstname" type="text" placeholder="Firstname"/>
+                                       name="registerFirstname" type="text" placeholder="Firstname" required/>
                                 <span class="icon is-small is-left">
 									<i class="fa fa-address-card"></i>
     							</span>
@@ -89,7 +89,7 @@ if (CheckIfLoggedIn() == true) {
                         <div class="field">
                             <div class="control has-icons-left">
                                 <input class="input is-primary is-info is-rounded" id="registerLastname"
-                                       name="registerLastname" type="text" placeholder="Lastname"/>
+                                       name="registerLastname" type="text" placeholder="Lastname" required/>
                                 <span class="icon is-small is-left">
 									<i class="fa fa-address-card"></i>
     							</span>
@@ -99,7 +99,7 @@ if (CheckIfLoggedIn() == true) {
                         <div class="field">
                             <div class="control has-icons-left">
                                 <input class="input is-primary is-info is-rounded" id="registerEmail"
-                                       name="registerEmail" type="email" placeholder="Email"/>
+                                       name="registerEmail" type="email" placeholder="Email" required/>
                                 <span class="icon is-small is-left">
 									<i class="fa fa-envelope"></i>
     							</span>
@@ -109,7 +109,7 @@ if (CheckIfLoggedIn() == true) {
                         <div class="field">
                             <div class="control has-icons-left">
                                 <input class="input is-primary is-info is-rounded" id="registerPassword"
-                                       name="registerPassword" type="password" placeholder="Password"/>
+                                       name="registerPassword" type="password" placeholder="Password" required/>
                                 <span class="icon is-small is-left">
 									<i class="fa fa-lock"></i>
     							</span>
@@ -126,7 +126,9 @@ if (CheckIfLoggedIn() == true) {
                             </div>
                         </div>
 
-                        <input type="submit" id="submit" name="submit" class="button is-danger is-outlined is-rounded" value="Register"/>
+                        <button type="submit" id="submit" name="submit" class="button is-danger is-outlined is-rounded">
+                            <i class="fa fa-user-plus" aria-hidden="true"></i> &nbsp;Register
+                        </button>
 
                     </form>
                 </div>

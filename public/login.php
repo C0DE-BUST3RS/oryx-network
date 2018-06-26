@@ -23,34 +23,14 @@ If (CheckIfLoggedIn() == true) {
 </head>
 <body>
 <section class="hero is-fullheight is-default is-bold">
-    <div class="hero-head">
-        <nav class="navbar is-fixed-top" style="background: #ffffff">
-            <div class="container">
-                <div class="navbar-brand">
-                    <a class="navbar-item" href="#">
-                        <img src="img/logos/oryx-trans.png" alt="Logo">
-                    </a>
-                    <a class="navbar-item" href="index.php">
-                        Home
-                    </a>
-                    <a class="navbar-item" href="#">
-                        Privacy
-                    </a>
-                    <a class="navbar-item" href="#">
-                        Contact
-                    </a>
-                    <a class="navbar-item" href="#">
-                        API
-                    </a>
-                </div>
-            </div>
-        </nav>
-    </div>
+    <?php
+    require 'includes/nav-nologin.php';
+    ?>
     <div class="hero-body">
         <div class="container has-text-centered">
             <div class="columns is-vcentered">
 
-                <div class="column is-one-third is-hidden-mobile">
+                <div class="column is-one-third">
 
                 </div>
 
@@ -63,7 +43,7 @@ If (CheckIfLoggedIn() == true) {
                     <?php
                     if (isset($_SESSION['loginfailed'])) { ?>
                         <div class="notification is-danger is-rounded">
-                            Login failed
+                            Login failed, check your credentials!
                         </div>
                         <?php
                         unset($_SESSION['loginfailed']);
@@ -91,9 +71,14 @@ If (CheckIfLoggedIn() == true) {
                             </div>
                         </div>
 
-                        <input type="submit" id="submit" name="submit" class="button is-danger is-outlined is-rounded"
-                               value="Login"/>
-                        <a class="button is-danger is-outlined is-rounded" href="#">Reset password</a>
+                        <input type="submit" id="submit" name="submit" class="button is-danger is-outlined is-rounded" value="Login"/>
+
+                        <br>
+                        <br>
+
+                        <a class="button is-danger is-outlined is-rounded" href="#">Forgot password?</a>
+
+                        <a class="button is-danger is-outlined is-rounded" href="index.php">Signup</a>
 
                     </form>
 

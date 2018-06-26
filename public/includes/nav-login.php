@@ -2,10 +2,10 @@
     <nav class="navbar is-fixed-top" style="background: #ffffff">
         <div class="container">
             <div class="navbar-brand">
-                <a class="navbar-item" href="#">
+                <a class="navbar-item" href="feed.php">
                     <img src="img/logos/oryx-trans.png" alt="Logo">
                 </a>
-                <a class="navbar-item" href="index.php">
+                <a class="navbar-item" href="feed.php">
                     <i class="fa fa-home" aria-hidden="true"></i> &nbsp;My Feed
                 </a>
                 <a class="navbar-item" href="privacy.php">
