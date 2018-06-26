@@ -29,9 +29,14 @@ if (isset($_POST['submit'])) {
                     //Check if the password is long enough
                     if (CheckIfPasswordLongEnough($password) == true) {
 
+                        //Generate a user ID
+                        $uid = GenerateUID();
+
                         // Everything is good, proceed to signup query.
-                        $query = $conn->query("INSERT INTO `user` (`id`, `admin`, `ip`, `date`, `firstname`, `lastname`, `email`, `password`, `last_login`, `last_ip`) VALUES ('" . GenerateUID() . "', 0, '" . GetUserIP() . "', '" . GetCurrentDate() . "', '" . htmlspecialchars($firstname) . "', '" . htmlspecialchars($lastname) . "', '" . htmlspecialchars($email) . "', '" . HashPassword($password) . "', '" . GetCurrentDate() . "', '" . GetUserIP() . "')");
-                        $_SESSION['success'] = "Signup was successful!";
+                        $accountquery = $conn->query("INSERT INTO `user` (`id`, `admin`, `ip`, `date`, `firstname`, `lastname`, `email`, `password`, `last_login`, `last_ip`) VALUES ('" . $uid . "', 0, '" . GetUserIP() . "', '" . GetCurrentDate() . "', '" . htmlspecialchars($firstname) . "', '" . htmlspecialchars($lastname) . "', '" . htmlspecialchars($email) . "', '" . HashPassword($password) . "', '" . GetCurrentDate() . "', '" . GetUserIP() . "')");
+                        $tokenquery = $conn->query("INSERT INTO activationtoken (id, date, user_id, email, used, value) VALUES ('','" . GetCurrentDate() . "','" . $uid . "','" . htmlspecialchars($email) . "',0,'" . GenerateToken() . "')");
+
+                        $_SESSION['success'] = "Signup was successful! <br> Please check your email!";
                         header("Location: ../index.php?signup=succesfull");
                         exit();
 
