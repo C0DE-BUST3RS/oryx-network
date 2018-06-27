@@ -153,44 +153,66 @@ function GetUserIP()
     return $ip;
 }
 
-// This function will check if the activation token provided is same as in activationtoken table.
-function CheckActivation($email, $token)
+//This function will generate a token that will be send to the user
+function GenerateToken()
 {
-	global $conn;
-	$sql = "SELECT activationtoken.email, activationtoken.value FROM activationtoken WHERE activationtoken.email = '$email' AND activationtoken.value = '$token';";
-	$result = $conn->query($sql);
-	$resultCheck = $result->num_rows;
+    $string = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    $string = str_shuffle($string);
+    $token = substr($string, 40);
+    $tokenfinal = str_shuffle($token);
+    return $tokenfinal;
+}
 
-	//Everything is good proceed further
-	if ($resultCheck > 0) {
-		return true;
+// This function will check if the activation token provided is same as in activationtoken table.
+function CheckbeforeActivation($email, $token)
+{
+    global $conn;
+    $sql = "SELECT * FROM activationtoken WHERE activationtoken.email = '$email' AND activationtoken.value = '$token';";
+    $result = $conn->query($sql);
+    $resultCheck = $result->num_rows;
 
-		//If the token is not the same as in db.
-	} else {
-		return false;
-	}
+    //Everything is good proceed further
+    if ($resultCheck > 0) {
+        return true;
+
+        //If the token is not the same as in db.
+    } else {
+        return false;
+    }
 }
 
 // This function will activate the account.
 function ActivateAccount($email)
 {
-	global $conn;
-	// Update token used to 1 (true)
-	$sql = "UPDATE `activationtoken` SET `used` = 1 WHERE `activationtoken`.`email` = '$email';";
+    global $conn;
+    // Update token used to 1 (true)
+    $sql = "UPDATE `activationtoken` SET `used` = 1 WHERE `activationtoken`.`email` = '$email';";
 
-	if ($conn->query($sql) === TRUE) {
-		$sql2 = "UPDATE `user` SET `activated` = 1 WHERE `user`.`email` = '$email';";
-		$conn->query($sql2);
+    $conn->query($sql);
 
-		if ($conn->query($sql2) === TRUE) {
-			return true;
-		} else {
-			return false;
-		}
+    $sql2 = "UPDATE `user` SET `activated` = 1 WHERE `user`.`email` = '$email';";
+    $conn->query($sql2);
 
-	} else {
-		return false;
-	}
+    if ($conn->query($sql2) === TRUE) {
+        return true;
+    } else {
+        return false;
+    }
+
+}
+
+function CheckIfActivated($email)
+{
+    global $conn;
+    $sql = "SELECT * FROM user WHERE user.email = '$email' AND user.activated = 1;";
+    $result = $conn->query($sql);
+    $rows = $result->num_rows;
+
+    if ($rows > 0) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 //This function will logout the user
@@ -209,16 +231,6 @@ function CopyrightYear()
     } elseif (date('Y') != 2018) {
         echo "2018 - " . date('Y');
     }
-}
-
-//This function will generate a token that will be send to the user
-function GenerateToken()
-{
-    $string = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    $string = str_shuffle($string);
-    $token = substr($string, 40);
-    $tokenfinal = str_shuffle($token);
-    return $tokenfinal;
 }
 
 function RecaptchaCheck($responseKey, $ip)

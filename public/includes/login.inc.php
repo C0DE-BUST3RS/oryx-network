@@ -18,14 +18,12 @@ if (isset($_POST['submit'])) {
 
 			if (CheckIfEmptyLogin($emailPost, $passwordPost) == false) {
 
-				// Query the password from DB if the email is registered and the account is activated!
-				$query = $conn->query("SELECT * FROM user WHERE email = '" . $emailPost . "' AND activated = 1;");
+			    if (CheckIfActivated($emailPost) == true) {
 
-				if ($query->num_rows > 0) {
+			        $sql = $conn->query("SELECT * FROM user WHERE email = '$emailPost';");
+			        $row = $sql->fetch_array();
 
-					// Get the password from the query.
-					$row = $query->fetch_array();
-					$hashedPWD = $row['password'];
+			        $hashedPWD = $row['password'];
 
 					// Verify if the password matches the one the user typed.
 					if (UnHashPassword($passwordPost, $hashedPWD) == true) {
@@ -74,7 +72,7 @@ if (isset($_POST['submit'])) {
 					}
 
 				} else {
-					//If the user does not exist then go back
+					//If the account is not activated redirect the user
 					$_SESSION['loginfailed'] = "";
 					header("Location: ../login.php?login=failed");
 					exit();
