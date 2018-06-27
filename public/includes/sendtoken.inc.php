@@ -17,7 +17,7 @@ function SendToken($receiveremail, $receivername, $token)
     global $secretEmail;
 
     // URL for activating user account.
-    $url = "localhost:8080/activate.php?email=" . $receiveremail . "?token=" . $token . "";
+    $url = "localhost:8080/activate.php?email=" . $receiveremail . "&token=" . $token . "";
 
     // Email body message (html supported).
     $body = "
