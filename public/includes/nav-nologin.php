@@ -16,7 +16,7 @@
 					<a href="index.php" class="navbar-item <?php if (basename($_SERVER['PHP_SELF']) == 'index.php') { echo 'is-active'; } ?>"><i class="fa fa-home" aria-hidden="true"></i>
 						&nbsp;Home</a>
 					<a href="login.php" class="navbar-item <?php if (basename($_SERVER['PHP_SELF']) == 'login.php') { echo 'is-active'; } ?>"><i class="fa fa-sign-in" aria-hidden="true"></i> &nbsp;Login</a>
-					<a href="privacy.php" class="navbar-item <?php if (basename($_SERVER['PHP_SELF']) == 'privacy.php') { echo 'is-active'; } ?>"><i class="fa fa-user-o" aria-hidden="true"></i> &nbsp;Privacy</a>
+					<a href="privacy.php" class="navbar-item <?php if (basename($_SERVER['PHP_SELF']) == 'privacy.php') { echo 'is-active'; } ?>"><i class="fa fa-user-secret" aria-hidden="true"></i> &nbsp;Privacy</a>
 					<a href="api.php" class="navbar-item <?php if (basename($_SERVER['PHP_SELF']) == 'api.php') { echo 'is-active'; } ?>"><i class="fa fa-cogs" aria-hidden="true"></i> &nbsp;API</a>
 					<a href="contact.php" class="navbar-item <?php if (basename($_SERVER['PHP_SELF']) == 'contact.php') { echo 'is-active'; } ?>"><i class="fa fa-envelope-o" aria-hidden="true"></i> &nbsp;Contact</a>
 				</div>
