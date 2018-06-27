@@ -184,3 +184,19 @@ function SendEmailToken($receiveremail, $receivername, $token)
 {
 
 }
+
+function RecaptchaCheck($responseKey,$ip) {
+    //Import secret recaptcha key
+    global $secretRecaptchakey;
+
+    //Get response from Google URL
+    $url = "https://www.google.com/recaptcha/api/siteverify?secret=$secretRecaptchakey&response=$responseKey&remoteip=$ip";
+    $response = file_get_contents($url);
+    $response = json_decode($response);
+
+    //If the response is success return true
+    if ($response->success)
+        return true;
+    else
+        return false;
+}
