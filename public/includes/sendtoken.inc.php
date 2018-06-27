@@ -2,28 +2,31 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
+// Require DB connection.
 require 'dbh.inc.php';
-require 'vendor/autoload.php';
-require 'vendor/phpmailer/phpmailer/src/Exception.php';
-require 'vendor/phpmailer/phpmailer/src/PHPMailer.php';
-require 'vendor/phpmailer/phpmailer/src/SMTP.php';
+// Require everything needed for composer + phpmailer.
+require 'vendor/load-all.php';
 
+// This function will send an activation token but needs some parameters.
 function SendToken($receiveremail, $receivername, $token)
 {
-
+	// Secret email password.
     global $secretEmail;
 
-    $url = "localhost:8080/public/activate.php?email=" . $receiveremail . "?token=" . $token . "";
+    // URL for activating user account.
+    $url = "localhost:8080/activate.php?email=" . $receiveremail . "?token=" . $token . "";
 
+    // Email body message (html supported).
     $body = "
     <h1>Welcome!</h1>
     <p>Welcome at Oryx Network " . $receivername . ".</p>
     <p>Click on the link below to activate your account</p>
-    <p>" . $url . "</p>
+    <p><a href=".$url." target='_blank'>" . $url . "</a></p>
     <p>Kind regards</p>
     <p>Oryx Network</p>
     ";
 
+    // Initialize PHPMailer instance.
     $mail = new PHPMailer(true);
     try {
         $mail->isSMTP();
@@ -59,5 +62,3 @@ function SendToken($receiveremail, $receivername, $token)
     }
 
 }
-
-SendToken("luuk2014@hotmail.com","Luuk Kenselaar","saijsdiusjisjiijs");
