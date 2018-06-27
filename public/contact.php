@@ -1,5 +1,12 @@
 <?php
 require 'includes/functions.inc.php';
+
+if (CheckIfLoggedIn() == true) {
+    $firstname = $_SESSION['user']['firstname'];
+    $lastname = $_SESSION['user']['lastname'];
+    $email = $_SESSION['user']['email'];
+}
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -42,7 +49,7 @@ require 'includes/functions.inc.php';
                         <div class="field">
                             <div class="control has-icons-left">
                                 <input class="input is-primary is-info is-rounded" id="contactFirstname"
-                                       name="contactFirstname" type="text" placeholder="Firstname" required/>
+                                       name="contactFirstname" type="text" placeholder="Firstname" value="<?php if (isset($firstname)) {echo $firstname;}?>" required/>
                                 <span class="icon is-small is-left">
 									<i class="fa fa-address-card"></i>
     							</span>
@@ -52,7 +59,7 @@ require 'includes/functions.inc.php';
                         <div class="field">
                             <div class="control has-icons-left">
                                 <input class="input is-primary is-info is-rounded" id="contactLastname"
-                                       name="contactLastname" type="text" placeholder="Lastname" required/>
+                                       name="contactLastname" type="text" placeholder="Lastname" value="<?php if (isset($firstname)) {echo $lastname;}?>" required/>
                                 <span class="icon is-small is-left">
 									<i class="fa fa-address-card"></i>
     							</span>
@@ -62,7 +69,7 @@ require 'includes/functions.inc.php';
                         <div class="field">
                             <div class="control has-icons-left">
                                 <input class="input is-primary is-info is-rounded" id="contactEmail"
-                                       name="contactEmail" type="email" placeholder="Email" required/>
+                                       name="contactEmail" type="email" placeholder="Email" value="<?php if (isset($firstname)) {echo $email;}?>" required/>
                                 <span class="icon is-small is-left">
 									<i class="fa fa-envelope"></i>
     							</span>
