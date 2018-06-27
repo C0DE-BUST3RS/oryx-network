@@ -153,6 +153,30 @@ function GetUserIP()
     return $ip;
 }
 
+// This function will check if the activation token provided is same as in activationtoken table.
+function CheckActivation($email, $token)
+{
+	global $conn;
+	$sql = "SELECT activationtoken.email, activationtoken.value FROM activationtoken WHERE activationtoken.email = '$email' AND activationtoken.value = '$token';";
+	$result = $conn->query($sql);
+	$resultCheck = $result->num_rows;
+
+	//Everything is good proceed further
+	if ($resultCheck > 0) {
+		return true;
+
+		//If the token is not the same as in db.
+	} else {
+		return false;
+	}
+}
+
+// This function will activate the account.
+function ActivateAccount($email, $token)
+{
+	// activate query here.
+}
+
 //This function will logout the user
 function LogoutUser()
 {
