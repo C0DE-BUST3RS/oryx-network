@@ -69,12 +69,6 @@ if (CheckIfLoggedIn() == true) {
                         </div>
                         <?php
                         unset($_SESSION['status']);
-                    } elseif (isset($_SESSION['success'])) { ?>
-                        <div class="notification is-success is-rounded">
-                            <?php echo $_SESSION['success']; ?>
-                        </div>
-                        <?php
-                        unset($_SESSION['success']);
                     }
                     ?>
 
