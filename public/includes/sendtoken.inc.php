@@ -2,10 +2,13 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
+require 'vendor/autoload.php';
+require 'vendor/phpmailer/phpmailer/src/Exception.php';
+require 'vendor/phpmailer/phpmailer/src/PHPMailer.php';
+require 'vendor/phpmailer/phpmailer/src/SMTP.php';
+
 // Require DB connection.
 require 'dbh.inc.php';
-// Require everything needed for composer + phpmailer.
-require 'vendor/load-all.php';
 
 // This function will send an activation token but needs some parameters.
 function SendToken($receiveremail, $receivername, $token)

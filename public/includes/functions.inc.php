@@ -174,7 +174,7 @@ function CheckActivation($email, $token)
 // This function will activate the account.
 function ActivateAccount($email, $token)
 {
-	// activate query here.
+	echo "$email, $token, <br/> gg finish this.";
 }
 
 //This function will logout the user
