@@ -34,8 +34,7 @@ if (CheckIfLoggedIn() == true) {
 
                 <div class="column is-one-third is-hidden-mobile">
                     <figure class="image">
-                        <img src="img/logos/iphone_mockup1.png" alt="" style="width: 45%; margin: 0 auto; float: left;"/>
-						<img src="img/logos/android_mockup1.png" alt="" style="width: 35%; margin: 0 auto;"/>
+						<img src="img/logos/android_mockup1.png" alt="" style="width: 45%; margin: 0 auto;"/>
                     </figure>
                 </div>
 
