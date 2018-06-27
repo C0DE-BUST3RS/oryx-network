@@ -8,7 +8,7 @@ require 'vendor/phpmailer/phpmailer/src/PHPMailer.php';
 require 'vendor/phpmailer/phpmailer/src/SMTP.php';
 
 // Require DB connection.
-require 'dbh.inc.php';
+require 'credentials.inc.php';
 
 // This function will send an activation token but needs some parameters.
 function SendToken($receiveremail, $receivername, $token)
