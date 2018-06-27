@@ -134,8 +134,15 @@ if (CheckIfLoggedIn() == true) {
                         <button type="submit" id="submit" name="submit" class="button is-danger is-outlined is-rounded">
                             <i class="fa fa-user-plus" aria-hidden="true"></i> &nbsp;Register
                         </button>
-
+                        <a class="button is-danger is-outlined is-rounded is-hidden-desktop" href="login.php">
+                            <i class="fa fa-sign-in" aria-hidden="true"></i> &nbsp;Login
+                        </a>
                     </form>
+
+                    <div class="is-hidden-desktop">
+
+                    </div>
+
                 </div>
             </div>
         </div>
