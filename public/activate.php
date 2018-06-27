@@ -7,10 +7,7 @@ if (CheckIfLoggedIn() == true) {
 	exit();
 }
 
-echo $_GET['email'];
-echo $_GET['token'];
-
-if ($_GET['email']) {
+if ($_GET['email'] && $_GET['token']) {
 
 	$getEmail = htmlspecialchars($_GET['email']);
 	$getToken = htmlspecialchars($_GET['token']);
@@ -21,9 +18,15 @@ if ($_GET['email']) {
 			// Check if activation token is same as in DB.
 			if(CheckActivation($getEmail, $getToken) == true) {
 
-				ActivateAccount($getEmail, $getToken);
+				if(ActivateAccount($getEmail) == true) {
+					// Set session message.
+					$_SESSION['activated'] = "Account is successful activated! <br> Login Now!";
+					// Redirect to login page.
+					header("Location: login.php");
+				} else {
+					// Account is not actived.
+				}
 
-				header("Location: /feed.php");
 			} else {
 				// Token is not same as DB.
 			}
@@ -31,6 +34,7 @@ if ($_GET['email']) {
 		} else {
 			// Token is empty.
 		}
+
 	} else {
 		// Email is empty.
 	}

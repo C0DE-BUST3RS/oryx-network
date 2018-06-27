@@ -50,6 +50,7 @@ if (isset($_POST['submit'])) {
                             SendToken(htmlspecialchars($email), htmlspecialchars($firstname) . htmlspecialchars($lastname), $token);
 
                             $_SESSION['success'] = "Signup was successful! <br> Please check your email!";
+
                             header("Location: ../login.php?signup=succesfull");
                             exit();
 

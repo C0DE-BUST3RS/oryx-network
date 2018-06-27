@@ -18,8 +18,8 @@ if (isset($_POST['submit'])) {
 
 			if (CheckIfEmptyLogin($emailPost, $passwordPost) == false) {
 
-				// Query the password from DB if the email is registered.
-				$query = $conn->query("SELECT * FROM user WHERE email = '" . $emailPost . "'");
+				// Query the password from DB if the email is registered and the account is activated!
+				$query = $conn->query("SELECT * FROM user WHERE email = '" . $emailPost . "' AND activated = 1;");
 
 				if ($query->num_rows > 0) {
 

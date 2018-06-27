@@ -172,9 +172,25 @@ function CheckActivation($email, $token)
 }
 
 // This function will activate the account.
-function ActivateAccount($email, $token)
+function ActivateAccount($email)
 {
-	echo "$email, $token, <br/> gg finish this.";
+	global $conn;
+	// Update token used to 1 (true)
+	$sql = "UPDATE `activationtoken` SET `used` = 1 WHERE `activationtoken`.`email` = '$email';";
+
+	if ($conn->query($sql) === TRUE) {
+		$sql2 = "UPDATE `user` SET `activated` = 1 WHERE `user`.`email` = '$email';";
+		$conn->query($sql2);
+
+		if ($conn->query($sql2) === TRUE) {
+			return true;
+		} else {
+			return false;
+		}
+
+	} else {
+		return false;
+	}
 }
 
 //This function will logout the user
