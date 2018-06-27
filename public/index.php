@@ -39,7 +39,7 @@ if (CheckIfLoggedIn() == true) {
                     </figure>
                 </div>
 
-                <div class="column is-one-third">
+                <div class="column is-one-third is-hidden-mobile">
                     <h1 class="title is-1">
                         Oryx Network
                     </h1>
@@ -49,6 +49,10 @@ if (CheckIfLoggedIn() == true) {
                     <a class="button is-danger is-outlined is-rounded" href="login.php">
                         <i class="fa fa-sign-in" aria-hidden="true"></i> &nbsp;Login
                     </a>
+                </div>
+
+                <div class="is-hidden-desktop">
+                    <img src="img/logos/oryx-trans.png" alt="">
                 </div>
 
                 <div class="column is-one-third">
