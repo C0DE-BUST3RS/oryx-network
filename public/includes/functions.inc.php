@@ -200,3 +200,30 @@ function RecaptchaCheck($responseKey,$ip) {
     else
         return false;
 }
+
+function RefillAtErrorSignup($firstname,$lastname,$email) {
+    $_SESSION['user']['firstname'] = $firstname;
+    $_SESSION['user']['lastname'] = $lastname;
+    $_SESSION['user']['email'] = $email;
+}
+
+function FirstnameFillIn() {
+    if (isset($_SESSION['user']['firstname'])) {
+        echo $_SESSION['user']['firstname'];
+        unset($_SESSION['user']['firstname']);
+    }
+}
+
+function LastnameFillIn() {
+    if (isset($_SESSION['user']['lastname'])) {
+        echo $_SESSION['user']['lastname'];
+        unset($_SESSION['user']['lastname']);
+    }
+}
+
+function EmailFillIn() {
+    if (isset($_SESSION['user']['email'])) {
+        echo $_SESSION['user']['email'];
+        unset($_SESSION['user']['email']);
+    }
+}

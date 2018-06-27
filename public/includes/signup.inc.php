@@ -5,7 +5,7 @@ require_once 'functions.inc.php';
 require 'dbh.inc.php';
 
 if (isset($_POST['submit'])) {
-    // Define variable from POST
+    //Define variable from POST
     $firstname = $conn->real_escape_string($_POST['registerFirstname']);
     $lastname = $conn->real_escape_string($_POST['registerLastname']);
     $email = $conn->real_escape_string($_POST['registerEmail']);
@@ -30,7 +30,7 @@ if (isset($_POST['submit'])) {
                 //Check if its a real email
                 if (CheckIfRealEmail($email) == true) {
 
-                    // Check if the email is already present in the database. if not (false) proceed further.
+                    //Check if the email is already present in the database. if not (false) proceed further.
                     if (CheckIfEmailUsed($email) == false) {
 
                         //Check if the password is long enough
@@ -48,41 +48,55 @@ if (isset($_POST['submit'])) {
                             exit();
 
                         } else {
-                            // ERROR go back and fix.
+                            //Set the error status
                             $_SESSION['status'] = "Password not long enough!";
+                            //Make the sessions, the sessions will be filled in at the form
+                            RefillAtErrorSignup($firstname,$lastname,$email);
+                            //Redirect the user back to index.php
                             header("Location: ../index.php?error=length");
                             exit();
                         }
                     } else {
-                        // ERROR go back and fix.
+                        //Set the error status
                         $_SESSION['status'] = "Email taken!";
+                        //Make the sessions, the sessions will be filled in at the form
+                        RefillAtErrorSignup($firstname,$lastname,$email);
+                        //Redirect the user back to index.php
                         header("Location: ../index.php?error=emailtaken");
                         exit();
                     }
                 } else {
-                    // ERROR go back and fix.
+                    //Set the error status
                     $_SESSION['status'] = "Email incorrect!";
+                    //Make the sessions, the sessions will be filled in at the form
+                    RefillAtErrorSignup($firstname,$lastname,$email);
                     header("Location: ../index.php?error=emailincorrect");
                     exit();
                 }
 
             } else {
-                // ERROR go back and fix.
+                //Set the error status
                 $_SESSION['status'] = "False name!";
+                //Make the sessions, the sessions will be filled in at the form
+                RefillAtErrorSignup($firstname,$lastname,$email);
                 header("Location: ../index.php?error=falsename");
                 exit();
             }
 
         } else {
-            // ERROR go back and fix.
+            //Set the error status
             $_SESSION['status'] = "Signup is empty!";
+            //Make the sessions, the sessions will be filled in at the form
+            RefillAtErrorSignup($firstname,$lastname,$email);
             header("Location: ../index.php?error=empty");
             exit();
         }
 
     } else {
-        // ERROR go back and fix.
+        //Set the error status
         $_SESSION['status'] = "Recaptcha error!";
+        //Make the sessions, the sessions will be filled in at the form
+        RefillAtErrorSignup($firstname,$lastname,$email);
         header("Location: ../index.php?error=recaptcha");
         exit();
     }

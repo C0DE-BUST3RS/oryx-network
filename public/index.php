@@ -34,7 +34,7 @@ if (CheckIfLoggedIn() == true) {
 
                 <div class="column is-one-third is-hidden-mobile">
                     <figure class="image">
-						<img src="img/logos/android_mockup1.png" alt="" style="width: 45%; margin: 0 auto;"/>
+                        <img src="img/logos/android_mockup1.png" alt="" style="width: 45%; margin: 0 auto;"/>
                     </figure>
                 </div>
 
@@ -77,7 +77,8 @@ if (CheckIfLoggedIn() == true) {
                         <div class="field">
                             <div class="control has-icons-left">
                                 <input class="input is-primary is-info is-rounded" id="registerFirstname"
-                                       name="registerFirstname" type="text" placeholder="Firstname" required/>
+                                       name="registerFirstname" type="text" placeholder="Firstname"
+                                       value="<?php FirstnameFillIn(); ?>" required/>
                                 <span class="icon is-small is-left">
 									<i class="fa fa-address-card"></i>
     							</span>
@@ -87,7 +88,8 @@ if (CheckIfLoggedIn() == true) {
                         <div class="field">
                             <div class="control has-icons-left">
                                 <input class="input is-primary is-info is-rounded" id="registerLastname"
-                                       name="registerLastname" type="text" placeholder="Lastname" required/>
+                                       name="registerLastname" type="text" placeholder="Lastname"
+                                       value="<?php LastnameFillIn(); ?>" required/>
                                 <span class="icon is-small is-left">
 									<i class="fa fa-address-card"></i>
     							</span>
@@ -97,7 +99,8 @@ if (CheckIfLoggedIn() == true) {
                         <div class="field">
                             <div class="control has-icons-left">
                                 <input class="input is-primary is-info is-rounded" id="registerEmail"
-                                       name="registerEmail" type="email" placeholder="Email" required/>
+                                       name="registerEmail" type="email" placeholder="Email"
+                                       value="<?php EmailFillIn(); ?>" required/>
                                 <span class="icon is-small is-left">
 									<i class="fa fa-envelope"></i>
     							</span>
@@ -118,7 +121,8 @@ if (CheckIfLoggedIn() == true) {
                         <div class="field">
                             <div class="control">
                                 <label class="checkbox">
-                                    <div class="g-recaptcha" data-sitekey="6Ldk_mAUAAAAAJtQAWL1VBDHUyKG5yEQxesxjSWe"></div>
+                                    <div class="g-recaptcha"
+                                         data-sitekey="6Ldk_mAUAAAAAJtQAWL1VBDHUyKG5yEQxesxjSWe"></div>
                                 </label>
                             </div>
                         </div>
@@ -129,7 +133,7 @@ if (CheckIfLoggedIn() == true) {
                         <a class="button is-danger is-outlined is-rounded is-hidden-desktop" href="login.php">
                             <i class="fa fa-sign-in" aria-hidden="true"></i> &nbsp;Login
                         </a>
-                    </form> 
+                    </form>
 
                 </div>
             </div>
