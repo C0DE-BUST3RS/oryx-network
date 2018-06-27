@@ -1,8 +1,5 @@
 <?php
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
 session_start();
 require 'dbh.inc.php';
 require 'credentials.inc.php';
@@ -182,51 +179,6 @@ function GenerateToken()
     $token = substr($string, 40);
     $tokenfinal = str_shuffle($token);
     return $tokenfinal;
-}
-
-function SendEmailToken($receiveremail, $receivername, $token)
-{
-    require '../vendor/autoload.php';
-    require '../vendor/phpmailer/phpmailer/src/Exception.php';
-    require '../vendor/phpmailer/phpmailer/src/PHPMailer.php';
-    require '../vendor/phpmailer/phpmailer/src/SMTP.php';
-
-    global $secretEmail;
-
-    $mail = new PHPMailer(true);
-    try {
-        $mail->isSMTP();
-        $mail->Host = gethostbyname('mail.oryx.network');
-        $mail->SMTPAuth = true;
-        $mail->Username = 'noreply@oryx.network';
-        $mail->Password = $secretEmail;
-        $mail->SMTPSecure = 'tls';
-        $mail->SMTPAuth = true;
-        $mail->Port = 587;
-        $mail->SMTPOptions = array(
-            'ssl' => array(
-                'verify_peer' => false,
-                'verify_peer_name' => false,
-                'allow_self_signed' => true
-            )
-        );
-
-        //Recipients
-        $mail->setFrom("noreply@oryx.network", "Oryx Network");
-        $mail->addAddress($receiveremail, $receivername);
-
-        //Content
-        $mail->isHTML(true);
-        $mail->Subject = 'Your activation code';
-        $mail->Body = '<h1>Welcome!</h1> <br> Here you have your activation code: <b>' . $token . '</b>';
-
-        $mail->send();
-        echo 'Message has been sent';
-    } catch (Exception $e) {
-        echo 'Message could not be sent.';
-        echo 'Mailer Error: ' . $mail->ErrorInfo;
-    }
-
 }
 
 function RecaptchaCheck($responseKey, $ip)

@@ -1,6 +1,7 @@
 <?php
 //Require the functions
 require_once 'functions.inc.php';
+require_once 'sendtoken.inc.php';
 //Require var $conn
 require 'dbh.inc.php';
 
@@ -19,7 +20,7 @@ if (isset($_POST['submit'])) {
     $ip = GetUserIP();
 
     //Check if the recaptcha has been clicked
-    if (RecaptchaCheck($responseKey,$ip) == true) {
+    if (RecaptchaCheck($responseKey, $ip) == true) {
 
         //Check if the values are not empty
         if (CheckIfEmptySignup($firstname, $lastname, $email, $password) == true) {
@@ -39,9 +40,14 @@ if (isset($_POST['submit'])) {
                             //Generate a user ID
                             $uid = GenerateUID();
 
+                            //Generate a activation token
+                            $token = GenerateToken();
+
                             // Everything is good, proceed to signup query.
                             $accountquery = $conn->query("INSERT INTO `user` (`id`, `admin`, `ip`, `date`, `firstname`, `lastname`, `email`, `password`, `last_login`, `last_ip`) VALUES ('" . $uid . "', 0, '" . GetUserIP() . "', '" . GetCurrentDate() . "', '" . htmlspecialchars($firstname) . "', '" . htmlspecialchars($lastname) . "', '" . htmlspecialchars($email) . "', '" . HashPassword($password) . "', '" . GetCurrentDate() . "', '" . GetUserIP() . "')");
-                            $tokenquery = $conn->query("INSERT INTO activationtoken (id, date, user_id, email, used, value) VALUES ('','" . GetCurrentDate() . "','" . $uid . "','" . htmlspecialchars($email) . "',0,'" . GenerateToken() . "')");
+                            $tokenquery = $conn->query("INSERT INTO activationtoken (id, date, user_id, email, used, value) VALUES ('','" . GetCurrentDate() . "','" . $uid . "','" . htmlspecialchars($email) . "',0,'" . $token . "')");
+
+                            SendToken(htmlspecialchars($email), htmlspecialchars($firstname) . htmlspecialchars($lastname), $token);
 
                             $_SESSION['success'] = "Signup was successful! <br> Please check your email!";
                             header("Location: ../login.php?signup=succesfull");
@@ -51,7 +57,7 @@ if (isset($_POST['submit'])) {
                             //Set the error status
                             $_SESSION['status'] = "Password not long enough!";
                             //Make the sessions, the sessions will be filled in at the form
-                            RefillAtErrorSignup($firstname,$lastname,$email);
+                            RefillAtErrorSignup($firstname, $lastname, $email);
                             //Redirect the user back to index.php
                             header("Location: ../index.php?error=length");
                             exit();
@@ -60,7 +66,7 @@ if (isset($_POST['submit'])) {
                         //Set the error status
                         $_SESSION['status'] = "Email taken!";
                         //Make the sessions, the sessions will be filled in at the form
-                        RefillAtErrorSignup($firstname,$lastname,$email);
+                        RefillAtErrorSignup($firstname, $lastname, $email);
                         //Redirect the user back to index.php
                         header("Location: ../index.php?error=emailtaken");
                         exit();
@@ -69,7 +75,7 @@ if (isset($_POST['submit'])) {
                     //Set the error status
                     $_SESSION['status'] = "Email incorrect!";
                     //Make the sessions, the sessions will be filled in at the form
-                    RefillAtErrorSignup($firstname,$lastname,$email);
+                    RefillAtErrorSignup($firstname, $lastname, $email);
                     header("Location: ../index.php?error=emailincorrect");
                     exit();
                 }
@@ -78,7 +84,7 @@ if (isset($_POST['submit'])) {
                 //Set the error status
                 $_SESSION['status'] = "False name!";
                 //Make the sessions, the sessions will be filled in at the form
-                RefillAtErrorSignup($firstname,$lastname,$email);
+                RefillAtErrorSignup($firstname, $lastname, $email);
                 header("Location: ../index.php?error=falsename");
                 exit();
             }
@@ -87,7 +93,7 @@ if (isset($_POST['submit'])) {
             //Set the error status
             $_SESSION['status'] = "Signup is empty!";
             //Make the sessions, the sessions will be filled in at the form
-            RefillAtErrorSignup($firstname,$lastname,$email);
+            RefillAtErrorSignup($firstname, $lastname, $email);
             header("Location: ../index.php?error=empty");
             exit();
         }
@@ -96,7 +102,7 @@ if (isset($_POST['submit'])) {
         //Set the error status
         $_SESSION['status'] = "Recaptcha error!";
         //Make the sessions, the sessions will be filled in at the form
-        RefillAtErrorSignup($firstname,$lastname,$email);
+        RefillAtErrorSignup($firstname, $lastname, $email);
         header("Location: ../index.php?error=recaptcha");
         exit();
     }

@@ -192,7 +192,7 @@ $RECYCLE.BIN/
 
 ### Composer ###
 composer.phar
-public/vendor/
+public/includes/vendor
 
 vagrant-commands\.txt
 hosting\.txt
