@@ -124,9 +124,7 @@ if (CheckIfLoggedIn() == true) {
                         <div class="field">
                             <div class="control">
                                 <label class="checkbox">
-                                    <input type="checkbox" name="registerTOF" id="registerTOF" value="accepted"
-                                           required/>
-                                    I agree to the <a href="#">terms and conditions</a>
+                                    <div class="g-recaptcha" data-sitekey="6Ldk_mAUAAAAAJtQAWL1VBDHUyKG5yEQxesxjSWe"></div>
                                 </label>
                             </div>
                         </div>
@@ -137,11 +135,7 @@ if (CheckIfLoggedIn() == true) {
                         <a class="button is-danger is-outlined is-rounded is-hidden-desktop" href="login.php">
                             <i class="fa fa-sign-in" aria-hidden="true"></i> &nbsp;Login
                         </a>
-                    </form>
-
-                    <div class="is-hidden-desktop">
-
-                    </div>
+                    </form> 
 
                 </div>
             </div>
@@ -154,6 +148,7 @@ if (CheckIfLoggedIn() == true) {
 
 <script src="js/main.js"></script>
 <script src="js/navbarMenu.js"></script>
+<script src='https://www.google.com/recaptcha/api.js'></script>
 </body>
 
 </html>
