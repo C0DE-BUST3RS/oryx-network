@@ -44,7 +44,7 @@ if (isset($_POST['submit'])) {
                             $tokenquery = $conn->query("INSERT INTO activationtoken (id, date, user_id, email, used, value) VALUES ('','" . GetCurrentDate() . "','" . $uid . "','" . htmlspecialchars($email) . "',0,'" . GenerateToken() . "')");
 
                             $_SESSION['success'] = "Signup was successful! <br> Please check your email!";
-                            header("Location: ../index.php?signup=succesfull");
+                            header("Location: ../login.php?signup=succesfull");
                             exit();
 
                         } else {

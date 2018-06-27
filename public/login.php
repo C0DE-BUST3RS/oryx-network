@@ -49,6 +49,15 @@ If (CheckIfLoggedIn() == true) {
                         unset($_SESSION['loginfailed']);
                     }
                     ?>
+                    <?php
+                    if (isset($_SESSION['success'])) { ?>
+                        <div class="notification is-success is-rounded">
+                            <?php echo $_SESSION['success']; ?>
+                        </div>
+                        <?php
+                        unset($_SESSION['success']);
+                    }
+                    ?>
 
                     <form action="includes/login.inc.php" method="POST" enctype="multipart/form-data">
                         <div class="field">
