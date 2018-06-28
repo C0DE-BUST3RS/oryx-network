@@ -1,4 +1,5 @@
 <?php
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -13,7 +14,7 @@ require 'credentials.inc.php';
 // This function will send an activation token but needs some parameters.
 function SendToken($receiveremail, $receivername, $token)
 {
-	// Secret email password.
+    // Secret email password.
     global $secretEmail;
 
     // URL for activating user account.
@@ -24,7 +25,7 @@ function SendToken($receiveremail, $receivername, $token)
     <h1>Welcome!</h1>
     <p>Welcome at Oryx Network " . $receivername . ".</p>
     <p>Click on the link below to activate your account</p>
-    <p><a href=".$url." target='_blank'>" . $url . "</a></p>
+    <p><a href=" . $url . " target='_blank'>" . $url . "</a></p>
     <p>Kind regards</p>
     <p>Oryx Network</p>
     ";
