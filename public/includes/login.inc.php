@@ -12,96 +12,115 @@ if (isset($_POST['submit'])) {
     //Make the value lower case
     $emailPost = strtolower($emailPost);
 
+    //Define variable from POST for Recaptcha
+    $responseKey = $_POST['g-recaptcha-response'];
+    $ip = GetUserIP();
+
+    //Check if the user is loggedin
     if (CheckIfLoggedIn() == false) {
 
-        if (CheckIfEmailUsed($emailPost) == true) {
+        //Check if the recaptcha response was successful
+        if (RecaptchaCheck($responseKey, $ip) == true) {
 
-            if (CheckIfEmptyLogin($emailPost, $passwordPost) == false) {
+            //Check if the email has been used
+            if (CheckIfEmailUsed($emailPost) == true) {
 
-                if (CheckIfActivated($emailPost) == true) {
+                //Check if the login fields are not empty
+                if (CheckIfEmptyLogin($emailPost, $passwordPost) == false) {
 
-                    $sql = $conn->query("SELECT * FROM user WHERE email = '$emailPost';");
-                    $row = $sql->fetch_array();
+                    //Check if the account has been activated
+                    if (CheckIfActivated($emailPost) == true) {
 
-                    $hashedPWD = $row['password'];
+                        //Get all data about the user
+                        $sql = $conn->query("SELECT * FROM user WHERE email = '$emailPost';");
+                        $row = $sql->fetch_array();
 
-                    // Verify if the password matches the one the user typed.
-                    if (UnHashPassword($passwordPost, $hashedPWD) == true) {
+                        $hashedPWD = $row['password'];
 
-                        //ID from DB.user - example: 09221D38-D97D12BF-12BF2AFD
-                        $_SESSION['user']['id'] = $row['id'];
+                        // Verify if the password matches the one the user typed.
+                        if (UnHashPassword($passwordPost, $hashedPWD) == true) {
 
-                        // Update the user last_login time.
-                        $UserID = $_SESSION['user']['id'];
-                        $query = $conn->query("UPDATE user SET last_login = '" . GetCurrentDate() . "' WHERE `user`.`id` = '" . $UserID . "';");
+                            //ID from DB.user - example: 09221D38-D97D12BF-12BF2AFD
+                            $_SESSION['user']['id'] = $row['id'];
 
-                        // Update the user last_ip time.
-                        $query = $conn->query("UPDATE user SET last_ip = '" . GetUserIP() . "' WHERE `user`.`id` = '" . $UserID . "';");
+                            //Update the user last_login time.
+                            $UserID = $_SESSION['user']['id'];
+                            $query = $conn->query("UPDATE user SET last_login = '" . GetCurrentDate() . "' WHERE `user`.`id` = '" . $UserID . "';");
 
-                        //admin from DB.user - 0 = user, 1 = admin
-                        $_SESSION['user']['rank'] = $row['admin'];
+                            //Update the user last_ip time.
+                            $query = $conn->query("UPDATE user SET last_ip = '" . GetUserIP() . "' WHERE `user`.`id` = '" . $UserID . "';");
 
-                        //Date from signup - DB.user
-                        $_SESSION['user']['date'] = $row['date'];
+                            //admin from DB.user - 0 = user, 1 = admin
+                            $_SESSION['user']['admin'] = $row['admin'];
 
-                        //IP from DB.user - Like 10.2.2.2
-                        $_SESSION['user']['ip'] = $row['ip'];
+                            //Date from signup - DB.user
+                            $_SESSION['user']['date'] = $row['date'];
 
-                        // Firstname from DB.user
-                        $_SESSION['user']['firstname'] = $row['firstname'];
+                            //IP from DB.user - Like 10.2.2.2
+                            $_SESSION['user']['ip'] = $row['ip'];
 
-                        // Firstname from DB.user
-                        $_SESSION['user']['lastname'] = $row['lastname'];
+                            //Firstname from DB.user
+                            $_SESSION['user']['firstname'] = $row['firstname'];
 
-                        // Email from DB.user - Like test@test.com
-                        $_SESSION['user']['email'] = $row['email'];
+                            //Lastname from DB.user
+                            $_SESSION['user']['lastname'] = $row['lastname'];
 
-                        // Lastlogin from DB.user - Like 2018-06-24 12:11:23
-                        $_SESSION['user']['lastlogin'] = $row['last_login'];
+                            //Email from DB.user - Like test@test.com
+                            $_SESSION['user']['email'] = $row['email'];
 
-                        //Last Logged in IP - Like 10.2.2.3
-                        $_SESSION['user']['lastip'] = $row['last_ip'];
+                            //Lastlogin from DB.user - Like 2018-06-24 12:11:23
+                            $_SESSION['user']['lastlogin'] = $row['last_login'];
 
-                        // Redirect the user to the feed page.
-                        header("Location: ../feed.php?login=successfull");
+                            //Last Logged in IP - Like 10.2.2.3
+                            $_SESSION['user']['lastip'] = $row['last_ip'];
+
+                            //Redirect the user to the feed page.
+                            header("Location: ../feed.php?login=successfull");
+
+                        } else {
+                            // If the password the user typed in DOES NOT match with the DB then redirect.
+                            $_SESSION['loginfailed'] = "";
+                            header("Location: ../login.php?login=failed");
+                        }
 
                     } else {
-                        // If the password the user typed in DO NOT match with the DB then go back.
+                        //If the account is not activated redirect the user
                         $_SESSION['loginfailed'] = "";
                         header("Location: ../login.php?login=failed");
+                        exit();
                     }
 
                 } else {
-                    //If the account is not activated redirect the user
+                    //If the fields were empty then redirect
                     $_SESSION['loginfailed'] = "";
                     header("Location: ../login.php?login=failed");
                     exit();
                 }
 
             } else {
-                //If the fields were empty then go back
+                //If the email does not exist redirect
                 $_SESSION['loginfailed'] = "";
                 header("Location: ../login.php?login=failed");
                 exit();
+
             }
 
         } else {
-            //If the email does not exist
-            $_SESSION['loginfailed'] = "";
+            //If the recaptcha failed redirect
+            $_SESSION['recaptcha'] = "";
             header("Location: ../login.php?login=failed");
             exit();
-
         }
 
     } else {
-        //If the user is already logged in then go back
+        //If the user is already logged in then redirect
         $_SESSION['loginfailed'] = "";
         header("Location: ../login.php?login=failed");
         exit();
     }
 
 } else {
-    //If the login button was not pressed go back
+    //If the login button was not pressed redirect
     header("Location ../index.php");
     exit();
 }
