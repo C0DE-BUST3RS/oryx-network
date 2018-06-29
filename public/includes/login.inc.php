@@ -51,7 +51,7 @@ if (isset($_POST['submit'])) {
                             $query = $conn->query("UPDATE user SET last_ip = '" . GetUserIP() . "' WHERE `user`.`id` = '" . $UserID . "';");
 
                             //admin from DB.user - 0 = user, 1 = admin
-                            $_SESSION['user']['rank'] = $row['admin'];
+                            $_SESSION['user']['admin'] = $row['admin'];
 
                             //Date from signup - DB.user
                             $_SESSION['user']['date'] = $row['date'];
