@@ -48,8 +48,15 @@ If (CheckIfLoggedIn() == true) {
                         <?php
                         unset($_SESSION['loginfailed']);
                     }
-                    ?>
-                    <?php
+
+                    if (isset($_SESSION['recaptcha'])) { ?>
+                        <div class="notification is-danger is-rounded">
+                            Recaptcha failed
+                        </div>
+                        <?php
+                        unset($_SESSION['recaptcha']);
+                    }
+
                     if (isset($_SESSION['success'])) { ?>
                         <div class="notification is-success is-rounded">
                             <?php echo $_SESSION['success']; ?>
@@ -57,8 +64,7 @@ If (CheckIfLoggedIn() == true) {
                         <?php
                         unset($_SESSION['success']);
                     }
-                    ?>
-					<?php
+
 					if (isset($_SESSION['activated'])) { ?>
 						<div class="notification is-success is-rounded">
 							<?php echo $_SESSION['activated']; ?>
@@ -89,20 +95,27 @@ If (CheckIfLoggedIn() == true) {
                             </div>
                         </div>
 
+                        <div class="field">
+                            <div class="control">
+                                <label class="checkbox">
+                                    <div class="g-recaptcha"
+                                         data-sitekey="6Ldk_mAUAAAAAJtQAWL1VBDHUyKG5yEQxesxjSWe"></div>
+                                </label>
+                            </div>
+                        </div>
+
                         <button type="submit" id="submit" name="submit" class="button is-danger is-outlined is-rounded"><i class="fa fa-sign-in" aria-hidden="true"></i> &nbsp;Login</button>
                         <a class="button is-danger is-outlined is-rounded" href="#"><i class="fa fa-question-circle" aria-hidden="true"></i> &nbsp;Forgot password?</a>
 
                         <br>
                         <br>
 
-
                         <a class="button is-danger is-outlined is-rounded" href="index.php"><i class="fa fa-user-plus" aria-hidden="true"></i> &nbsp;Signup</a>
 
                     </form>
 
                 </div>
-
-
+                
             </div>
         </div>
     </div>
@@ -113,6 +126,7 @@ If (CheckIfLoggedIn() == true) {
 
 <script src="js/main.js"></script>
 <script src="js/navbarMenu.js"></script>
+<script src='https://www.google.com/recaptcha/api.js'></script>
 </body>
 </html>
 
