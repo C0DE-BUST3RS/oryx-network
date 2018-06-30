@@ -12,7 +12,9 @@ if (isset($_POST['submit'])) {
     $email = $conn->real_escape_string($_POST['registerEmail']);
     $password = $conn->real_escape_string($_POST['registerPassword']);
 
-    //Make the value lower case
+    //Make the values lower case
+    $firstname = strtolower($firstname);
+    $lastname = strtolower($lastname);
     $email = strtolower($email);
 
     //Define variable from POST for Recaptcha

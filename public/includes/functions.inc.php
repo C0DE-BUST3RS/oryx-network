@@ -137,6 +137,8 @@ function GetCurrentDate()
 
 function Greetings($firstname)
 {
+    $firstname = ucwords(strtolower($firstname));
+
     date_default_timezone_set('Europe/Amsterdam');
 
     if (date("H") < 12) {
