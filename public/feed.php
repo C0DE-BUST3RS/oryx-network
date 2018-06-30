@@ -36,6 +36,7 @@ If (CheckIfLoggedIn() == false) {
 
                 <div class="column is-one-third">
                     <?php
+                    echo "<h4 class='title is-4'>" . Greetings($_SESSION['user']['firstname']) . "</h4>";
                     foreach ($_SESSION['user'] as $key => $item) {
                         echo "<b>" . $key . ":</b><br> " . $item . "<br>";
                     }

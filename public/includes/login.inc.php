@@ -65,6 +65,9 @@ if (isset($_POST['submit'])) {
                             //Lastname from DB.user
                             $_SESSION['user']['lastname'] = $row['lastname'];
 
+                            //Get the full name from DB.user
+                            $_SESSION['user']['fullname'] = $row['firstname'] . $row['lastname'];
+
                             //Email from DB.user - Like test@test.com
                             $_SESSION['user']['email'] = $row['email'];
 
