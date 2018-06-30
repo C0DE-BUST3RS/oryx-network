@@ -9,11 +9,11 @@ if (CheckIfLoggedIn() == true) {
 
 if (isset($_GET['email']) && isset($_GET['token'])) {
 
-    //Get all the data
-    $getEmail = htmlspecialchars($_GET['email']);
-    $getToken = htmlspecialchars($_GET['token']);
+		//Get all the data
+		$getEmail = htmlspecialchars($_GET['email']);
+		$getToken = htmlspecialchars($_GET['token']);
 
-    if (!empty($getEmail) && !empty($getToken)) {
+		if (!empty($getEmail) && !empty($getToken)) {
 
         //Check if the account is not already activated
         if (CheckIfActivated($getEmail) == false) {
