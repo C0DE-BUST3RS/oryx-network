@@ -24,14 +24,14 @@ if ($_GET['email'] && $_GET['token']) {
                 //Activate the final account
                 if (ActivateAccount($getEmail) == true) {
                     // Set session message.
-                    $_SESSION['status']['activated'] = "Account was successfully activated! <br> You can now login.";
+                    $_SESSION['activated'] = "Account was successfully activated! <br> You can now login.";
                     // Redirect to login page.
                     header("Location: login.php?activate=succesful");
                     exit();
 
                 } else {
                     // Set session message.
-                    $_SESSION['status']['activated'] = "There was a problem with activating the account";
+                    $_SESSION['activated'] = "There was a problem with activating the account";
                     // Redirect to login page.
                     header("Location: login.php?activate=failed");
                     exit();

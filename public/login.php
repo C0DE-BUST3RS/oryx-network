@@ -65,12 +65,12 @@ If (CheckIfLoggedIn() == true) {
                         unset($_SESSION['success']);
                     }
 
-					if (isset($_SESSION['status']['activated'])) { ?>
+					if (isset($_SESSION['activated'])) { ?>
 						<div class="notification is-success is-rounded">
-							<?php echo $_SESSION['status']['activated']; ?>
+							<?php echo $_SESSION['activated']; ?>
 						</div>
 						<?php
-						unset($_SESSION['status']['activated']);
+						unset($_SESSION['activated']);
 					}
 					?>
 
