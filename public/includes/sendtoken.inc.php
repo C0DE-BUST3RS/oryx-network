@@ -11,24 +11,47 @@ require 'vendor/phpmailer/phpmailer/src/SMTP.php';
 // Require DB connection.
 require 'credentials.inc.php';
 
-// This function will send an activation token but needs some parameters.
-function SendToken($receiveremail, $receivername, $token)
+// This function will send an token but it needs some parameters.
+function SendToken($receiveremail, $receivername, $token,$reset,$activate)
 {
     // Secret email password.
     global $secretEmail;
 
-    // URL for activating user account.
-    $url = "localhost:8080/activate.php?email=" . $receiveremail . "&token=" . $token . "";
+    //Account activation part:
+    if ($activate == true && $reset == false) {
+        // URL for activating user account.
+        $url = "localhost:8080/activate.php?email=" . $receiveremail . "&token=" . $token . "";
 
-    // Email body message (html supported).
-    $body = "
-    <h1>Welcome!</h1>
-    <p>Welcome at Oryx Network " . $receivername . ".</p>
-    <p>Click on the link below to activate your account</p>
-    <p><a href=" . $url . " target='_blank'>" . $url . "</a></p>
-    <p>Kind regards</p>
-    <p>Oryx Network</p>
-    ";
+        $subject = "Your account activation";
+
+        // Email body message (html supported).
+        $body = "
+        <h1>Welcome!</h1>
+        <p>Welcome at Oryx Network " . $receivername . ".</p>
+        <p>Click on the link below to activate your account</p>
+        <p><a href=" . $url . " target='_blank'>" . $url . "</a></p>
+        <p>Kind regards</p>
+        <p>Oryx Network</p>
+        ";
+
+    }
+
+    if ($reset == true && $activate == false) {
+        // URL for resetting the users password.
+        $url = "localhost:8080/resetpw.php?email=" . $receiveremail . "&token=" . $token . "";
+
+        $subject = "Your password reset";
+
+        // Email body message (html supported).
+        $body = "
+        <h1>Welcome!</h1>
+        <p>Welcome at Oryx Network " . $receivername . ".</p>
+        <p>Click on the link below to reset your password</p>
+        <p><a href=" . $url . " target='_blank'>" . $url . "</a></p>
+        <p>Kind regards</p>
+        <p>Oryx Network</p>
+        ";
+    }
 
     // Initialize PHPMailer instance.
     $mail = new PHPMailer(true);
@@ -55,7 +78,7 @@ function SendToken($receiveremail, $receivername, $token)
 
         //Content
         $mail->isHTML(true);
-        $mail->Subject = 'Your activation code';
+        $mail->Subject = $subject;
         $mail->Body = $body;
 
         $mail->send();

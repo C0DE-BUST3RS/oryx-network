@@ -48,7 +48,7 @@ if (isset($_POST['submit'])) {
                             $tokenquery = $conn->query("INSERT INTO activationtoken (id, date, user_id, email, used, value) VALUES ('','" . GetCurrentDate() . "','" . $uid . "','" . htmlspecialchars($email) . "',0,'" . $token . "')");
                             $levelquery = $conn->query("INSERT INTO `level` (`id`, `user_id`, `current_level`, `current_xp`, `amount_to_level_up`, `last_level_up`, `level_icon`) VALUES ('', '" . $uid . "', 0, 0, 0, '0000-00-00 00:00:00', 'img/levels/rank000.png')");
 
-                            SendToken(htmlspecialchars($email), htmlspecialchars($firstname) . htmlspecialchars($lastname), $token);
+                            SendToken(htmlspecialchars($email), htmlspecialchars($firstname) . htmlspecialchars($lastname), $token,false,true);
 
                             $_SESSION['success'] = "Signup was successful! <br> Please check your email!";
 
