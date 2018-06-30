@@ -38,7 +38,7 @@ function SendToken($receiveremail, $receivername, $token, $reset, $activate)
     //Password reset part
     if ($reset == true && $activate == false) {
         // URL for resetting the users password.
-        $url = "localhost:8080/includes/resetpw.php?email=" . $receiveremail . "&token=" . $token . "";
+        $url = "localhost:8080/changepw.php?email=" . $receiveremail . "&token=" . $token . "";
 
         $subject = "Password Reset Request";
 
