@@ -50,6 +50,10 @@ if (isset($_POST['submit'])) {
                             //Update the user last_ip time.
                             $query = $conn->query("UPDATE user SET last_ip = '" . GetUserIP() . "' WHERE `user`.`id` = '" . $UserID . "';");
 
+                            //Get all data about the user
+                            $sql = $conn->query("SELECT * FROM user WHERE email = '$emailPost';");
+                            $row = $sql->fetch_array();
+
                             //admin from DB.user - 0 = user, 1 = admin
                             $_SESSION['user']['admin'] = $row['admin'];
 
