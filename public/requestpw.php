@@ -41,6 +41,16 @@ If (CheckIfLoggedIn() == true) {
 
                     <h2 class="title is-2">Reset password</h2>
 
+                    <?php
+                    if (isset($_SESSION['tokensend'])) { ?>
+                    <div class="notification is-success is-rounded">
+                        <?php echo $_SESSION['tokensend']; ?>
+                    </div>
+                    <?php
+                        unset($_SESSION['tokensend']);
+                    }
+                    ?>
+
                     <form action="includes/requestpw.inc.php" method="POST" enctype="multipart/form-data">
 
                         <div class="field">
