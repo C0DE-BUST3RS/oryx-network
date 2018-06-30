@@ -41,7 +41,7 @@ if (isset($_POST['submit'])) {
         SendToken($emailPost,"",$token,true,false);
 
         // Set session message.
-        $_SESSION['tokensend'] = "Password reset has been send (if the email is used at us)";
+        $_SESSION['tokensend'] = "Password reset has been send (if the email is used)";
 
         // Redirect to login page.
         header("Location: ../requestpw.php");

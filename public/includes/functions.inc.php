@@ -188,10 +188,27 @@ function GenerateToken()
 }
 
 // This function will check if the activation token provided is same as in activationtoken table.
-function CheckbeforeActivation($email, $token)
+function CheckBeforeActivation($email, $token)
 {
     global $conn;
     $sql = "SELECT * FROM activationtoken WHERE activationtoken.email = '$email' AND activationtoken.value = '$token';";
+    $result = $conn->query($sql);
+    $resultCheck = $result->num_rows;
+
+    //Everything is good proceed further
+    if ($resultCheck > 0) {
+        return true;
+
+        //If the token is not the same as in db.
+    } else {
+        return false;
+    }
+}
+
+function CheckBeforeReset($email, $token)
+{
+    global $conn;
+    $sql = "SELECT * FROM resettoken WHERE resettoken.email = '$email' AND resettoken.value = '$token';";
     $result = $conn->query($sql);
     $resultCheck = $result->num_rows;
 
@@ -307,6 +324,20 @@ function EmailFillIn()
     if (isset($_SESSION['user']['email'])) {
         echo $_SESSION['user']['email'];
         unset($_SESSION['user']['email']);
+    }
+}
+
+function PWResetTokenFillIn()
+{
+    if (isset($_GET['token'])) {
+        echo $_GET['token'];
+    }
+}
+
+function PWResetEmailFillIn()
+{
+    if (isset($_GET['email'])) {
+        echo $_GET['email'];
     }
 }
 

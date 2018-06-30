@@ -19,7 +19,7 @@ if (isset($_GET['email']) && isset($_GET['token'])) {
         if (CheckIfActivated($getEmail) == false) {
 
             // Check if activation token is same as in DB.
-            if (CheckbeforeActivation($getEmail, $getToken) == true) {
+            if (CheckBeforeActivation($getEmail, $getToken) == true) {
 
                 //Activate the final account
                 if (ActivateAccount($getEmail) == true) {

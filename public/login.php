@@ -72,6 +72,14 @@ If (CheckIfLoggedIn() == true) {
 						<?php
 						unset($_SESSION['activated']);
 					}
+
+                    if (isset($_SESSION['reset'])) { ?>
+                        <div class="notification is-success is-rounded">
+                            <?php echo $_SESSION['reset']; ?>
+                        </div>
+                        <?php
+                        unset($_SESSION['reset']);
+                    }
 					?>
 
                     <form action="includes/login.inc.php" method="POST" enctype="multipart/form-data">
