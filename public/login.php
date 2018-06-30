@@ -65,30 +65,29 @@ If (CheckIfLoggedIn() == true) {
                         unset($_SESSION['success']);
                     }
 
-					if (isset($_SESSION['activated'])) { ?>
+					if (isset($_SESSION['status']['activated'])) { ?>
 						<div class="notification is-success is-rounded">
-							<?php echo $_SESSION['activated']; ?>
+							<?php echo $_SESSION['status']['activated']; ?>
 						</div>
 						<?php
-						unset($_SESSION['activated']);
+						unset($_SESSION['status']['activated']);
 					}
 					?>
 
                     <form action="includes/login.inc.php" method="POST" enctype="multipart/form-data">
+
                         <div class="field">
                             <div class="control has-icons-left">
-                                <input class="input is-primary is-info is-rounded" id="loginEmail"
-                                       name="loginEmail" type="email" placeholder="Email"/>
+                                <input class="input is-primary is-info is-rounded" id="loginEmail" name="loginEmail" type="email" placeholder="Email"/>
                                 <span class="icon is-small is-left">
-									<i class="fa fa-envelope"></i>
+                                    <i class="fa fa-envelope"></i>
     							</span>
                             </div>
                         </div>
 
                         <div class="field">
                             <div class="control has-icons-left">
-                                <input class="input is-primary is-info is-rounded" id="loginPassword"
-                                       name="loginPassword" type="password" placeholder="Password"/>
+                                <input class="input is-primary is-info is-rounded" id="loginPassword" name="loginPassword" type="password" placeholder="Password"/>
                                 <span class="icon is-small is-left">
 									<i class="fa fa-lock"></i>
     							</span>
@@ -98,14 +97,13 @@ If (CheckIfLoggedIn() == true) {
                         <div class="field">
                             <div class="control">
                                 <label class="checkbox">
-                                    <div class="g-recaptcha"
-                                         data-sitekey="6Ldk_mAUAAAAAJtQAWL1VBDHUyKG5yEQxesxjSWe"></div>
+                                    <div class="g-recaptcha" data-sitekey="6Ldk_mAUAAAAAJtQAWL1VBDHUyKG5yEQxesxjSWe"></div>
                                 </label>
                             </div>
                         </div>
 
                         <button type="submit" id="submit" name="submit" class="button is-danger is-outlined is-rounded"><i class="fa fa-sign-in" aria-hidden="true"></i> &nbsp;Login</button>
-                        <a class="button is-danger is-outlined is-rounded" href="#"><i class="fa fa-question-circle" aria-hidden="true"></i> &nbsp;Forgot password?</a>
+                        <a class="button is-danger is-outlined is-rounded" href="requestpw.php"><i class="fa fa-question-circle" aria-hidden="true"></i> &nbsp;Forgot password?</a>
 
                         <br>
                         <br>
@@ -115,7 +113,7 @@ If (CheckIfLoggedIn() == true) {
                     </form>
 
                 </div>
-                
+
             </div>
         </div>
     </div>
