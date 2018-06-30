@@ -12,7 +12,7 @@ require 'vendor/phpmailer/phpmailer/src/SMTP.php';
 require 'credentials.inc.php';
 
 // This function will send an token but it needs some parameters.
-function SendToken($receiveremail, $receivername, $token,$reset,$activate)
+function SendToken($receiveremail, $receivername, $token, $reset, $activate)
 {
     // Secret email password.
     global $secretEmail;
@@ -36,6 +36,7 @@ function SendToken($receiveremail, $receivername, $token,$reset,$activate)
 
     }
 
+    //Password reset part
     if ($reset == true && $activate == false) {
         // URL for resetting the users password.
         $url = "localhost:8080/resetpw.php?email=" . $receiveremail . "&token=" . $token . "";
@@ -44,8 +45,7 @@ function SendToken($receiveremail, $receivername, $token,$reset,$activate)
 
         // Email body message (html supported).
         $body = "
-        <h1>Welcome!</h1>
-        <p>Welcome at Oryx Network " . $receivername . ".</p>
+        <h1>Hi!</h1>
         <p>Click on the link below to reset your password</p>
         <p><a href=" . $url . " target='_blank'>" . $url . "</a></p>
         <p>Kind regards</p>
