@@ -1,9 +1,9 @@
 <?php
 // Require functions file. (includes DB + session_start)
-require 'includes/functions.inc.php';
+require 'functions.inc.php';
 
 if (CheckIfLoggedIn() == true) {
-    header("Location: feed.php");
+    header("Location: ../feed.php");
     exit();
 }
 
@@ -26,37 +26,37 @@ if ($_GET['email'] && $_GET['token']) {
                     // Set session message.
                     $_SESSION['activated'] = "Account was successfully activated! <br> You can now login.";
                     // Redirect to login page.
-                    header("Location: login.php?activate=succesful");
+                    header("Location: ../login.php?activate=succesful");
                     exit();
 
                 } else {
                     // Set session message.
                     $_SESSION['activated'] = "There was a problem with activating the account";
                     // Redirect to login page.
-                    header("Location: login.php?activate=failed");
+                    header("Location: ../login.php?activate=failed");
                     exit();
                 }
 
             } else {
                 // Redirect to login page.
-                header("Location: login.php");
+                header("Location: ../login.php");
                 exit();
             }
 
         } else {
             // Redirect to login page.
-            header("Location: login.php");
+            header("Location: ../login.php");
             exit();
         }
 
     } else {
         // Redirect to login page.
-        header("Location: login.php");
+        header("Location: ../login.php");
         exit();
     }
 
 } else {
     // Redirect to login page.
-    header("Location: login.php");
+    header("Location: ../login.php");
     exit();
 }
