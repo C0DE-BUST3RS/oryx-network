@@ -7,7 +7,7 @@ if (CheckIfLoggedIn() == true) {
     exit();
 }
 
-if ($_GET['email'] && $_GET['token']) {
+if (isset($_GET['email']) && isset($_GET['token'])) {
 
     //Get all the data
     $getEmail = htmlspecialchars($_GET['email']);
