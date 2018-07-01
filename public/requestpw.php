@@ -66,7 +66,7 @@ If (CheckIfLoggedIn() == true) {
                             <i class="fa fa-sign-in" aria-hidden="true"></i> &nbsp;Reset password
                         </button>
 
-                        <a class="button is-danger is-outlined is-rounded" href="login.php.php"><i class="fa fa-envelope"></i>&nbsp;Login</a>
+                        <a class="button is-danger is-outlined is-rounded" href="login.php"><i class="fa fa-envelope"></i>&nbsp;Login</a>
 
                     </form>
                 </div>
