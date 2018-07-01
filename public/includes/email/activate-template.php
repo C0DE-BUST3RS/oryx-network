@@ -1,6 +1,6 @@
 <?php
 
-function activateEmailTemplate($receivername, $url)
+function activateEmailTemplate($fullname, $url)
 {
 	$body = '
 <head>
@@ -796,7 +796,7 @@ function activateEmailTemplate($receivername, $url)
                                                       <tbody>
                                                          <tr style="padding: 0; text-align: left; vertical-align: top;" align="left">
                                                             <th style="color: #1c232b; font-family: Helvetica, Arial, sans-serif; font-size: 16px; font-weight: normal; line-height: 1.3; margin: 0; padding: 0; text-align: left;" align="left">
-                                                               <h2 class="welcome-subcontent" style="color: #6f7881; font-family: Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 300; line-height: 22px; margin: 0; padding: 0; text-align: left; width: 100%; word-wrap: normal;" align="left">Hey '.$receivername.',</h2>
+                                                               <h2 class="welcome-subcontent" style="color: #6f7881; font-family: Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 300; line-height: 22px; margin: 0; padding: 0; text-align: left; width: 100%; word-wrap: normal;" align="left">Hey ' . ucwords($fullname) . ',</h2>
                                                             </th>
                                                             <th class="expander" style="color: #1c232b; font-family: Helvetica, Arial, sans-serif; font-size: 16px; font-weight: normal; line-height: 1.3; margin: 0; padding: 0; text-align: left; visibility: hidden; width: 0;" align="left">&nbsp;</th>
                                                          </tr>
