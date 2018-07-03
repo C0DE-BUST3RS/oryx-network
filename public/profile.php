@@ -66,15 +66,15 @@ If (CheckIfLoggedIn() == false) {
                             <article class="tile is-child notification is-info">
                                 <p class="title"><?php echo ucwords($_SESSION['user']['firstname']). " " . ucwords($_SESSION['user']['lastname']);?></p>
                                 <p class="subtitle">Description goes here</p>
-                                <figure class="image is-4by3">
-                                    <img src="https://bulma.io/images/placeholders/640x480.png">
+                                <figure class="image is-256x256">
+                                    <img class="image is-rounded" src="<?php echo $_SESSION['user']['profilepicture'];?>">
                                 </figure>
                             </article>
                         </div>
                         <div class="tile is-parent is-vertical">
                             <article class="tile is-child notification is-primary">
                                 <p class="title">Intro</p>
-                                <p class="subtitle">Description goes here</p>
+                                <p class="subtitle"><?php echo $_SESSION['user']['intro'];?></p>
                             </article>
                             <article class="tile is-child notification is-warning">
                                 <p class="title">Friends</p>
