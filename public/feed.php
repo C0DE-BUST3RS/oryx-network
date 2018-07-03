@@ -37,43 +37,105 @@ If (CheckIfLoggedIn() == false) {
 
 				<div class="column is-half is-fixed-top">
 
-					<article class="media">
-						<figure class="media-left">
-							<p class="image is-64x64">
-								<img src="https://bulma.io/images/placeholders/128x128.png">
-							</p>
-						</figure>
-						<div class="media-content">
-							<div class="field">
-								<p class="control">
-									<textarea class="textarea" placeholder="Add a comment..."></textarea>
-								</p>
+					<div class="tile is-parent">
+						<div class="tile is-child box">
+
+							<div class="is-fixed-top">
+								<article class="media">
+									<figure class="media-left">
+										<p class="image is-64x64">
+											<img class="is-rounded" src="<?php echo $_SESSION['user']['profilepicture'];?>">
+										</p>
+									</figure>
+
+
+									<form action="includes/post.inc.php" method="POST" style="width: 100%;">
+										<div class="media-content">
+											<div class="field">
+												<p class="control">
+													<textarea name="textarea" class="textarea" placeholder="What are you up to today?"></textarea>
+												</p>
+											</div>
+											<nav class="level">
+												<div class="level-left">
+													<div class="level-item">
+														<button type="submit" class="button is-success is-rounded is-outlined">Submit</button>
+													</div>
+												</div>
+												<div class="level-right">
+													<div class="level-item">
+														<div class="level-item">
+															<button type="reset" class="button is-warning is-rounded is-outlined">Clear</button>
+														</div>
+													</div>
+												</div>
+											</nav>
+										</div>
+									</form>
+
+								</article>
 							</div>
-							<nav class="level">
-								<div class="level-left">
-									<div class="level-item">
-										<a class="button is-info">Submit</a>
-									</div>
-								</div>
-								<div class="level-right">
-									<div class="level-item">
-										<label class="checkbox">
-											<input type="checkbox"> Press enter to submit
-										</label>
-									</div>
-								</div>
-							</nav>
+
 						</div>
-					</article>
+					</div>
 
-				</div>
+					<hr/>
 
-				<div class="column is-one-quarter">
+
+					<?php
+					$sql = "SELECT u.id ,u.email ,u.firstname ,u.lastname ,po.id ,po.date ,po.user_id ,po.likes ,po.content ,pr.profile_picture ,pr.intro FROM user u INNER JOIN post po on u.id = po.user_id INNER JOIN profiles pr on po.user_id = pr.user_id ORDER BY po.id DESC;";
+					$sqlConnect = $conn->query($sql);
+					while($row = mysqli_fetch_assoc($sqlConnect)) {
+					?>
+					<div class="box">
+						<article class="media">
+							<div class="media-left">
+								<figure class="image is-64x64">
+									<img class="is-rounded" src="<?php echo $row['profile_picture'];?>" alt="Image">
+								</figure>
+							</div>
+							<div class="media-content">
+								<div class="content">
+									<p>
+										<strong><span class="tag is-warning"><?php echo ucfirst($row['firstname'])." ".ucfirst($row['lastname']); ?></span></strong>
+										<small>
+											<?php if(CheckIfAdmin($row['email']) == TRUE){ ?>
+														<span class="tag is-danger">Admin</span>
+											<?php }?>
+										</small>
+										<small><?php echo time_elapsed_string($row['date'], false); ?></small>
+										<br>
+											<?php echo $row['content'];?>
+									</>
+								</div>
+								<nav class="level is-mobile">
+									<div class="level-left">
+										<a class="level-item" aria-label="like">
+											<span class="icon is-small">
+											  <i class="fa fa-heart" aria-hidden="true"><?php echo $row['likes']; ?></i>
+											</span>
+										</a>
+									</div>
+								</nav>
+							</div>
+						</article>
+					</div>
+					<?php
+					}
+					?>
+
+
 
 				</div>
 
 			</div>
+
+			<div class="column is-one-quarter">
+
+			</div>
+
 		</div>
+	</div>
 	</div>
 	<?php
 	require 'includes/footer.php';
