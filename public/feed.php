@@ -105,7 +105,7 @@ If (CheckIfLoggedIn() == false) {
 										</small>
 										<small><?php echo time_elapsed_string($row['date'], false); ?></small>
 										<br>
-											<?php echo $row['content'];?>
+											<?php echo htmlspecialchars($row['content']);?>
 									</>
 								</div>
 								<nav class="level is-mobile">
