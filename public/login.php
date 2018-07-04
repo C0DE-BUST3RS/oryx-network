@@ -86,7 +86,6 @@ If (CheckIfLoggedIn() == true) {
                     <form action="includes/login.inc.php" method="POST" enctype="multipart/form-data">
 
                         <div class="field">
-                            <label class="label is-small">Email</label>
                             <div class="control has-icons-left">
                                 <input class="input is-info is-rounded" id="loginEmail" name="loginEmail" type="email" placeholder="Email"/>
                                 <span class="icon is-small is-left">
@@ -96,7 +95,6 @@ If (CheckIfLoggedIn() == true) {
                         </div>
 
                         <div class="field">
-                            <label class="label is-small">Password</label>
                             <div class="control has-icons-left">
                                 <input class="input is-info is-rounded" id="loginPassword" name="loginPassword" type="password" placeholder="Password"/>
                                 <span class="icon is-small is-left">

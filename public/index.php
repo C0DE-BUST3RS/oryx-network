@@ -77,7 +77,6 @@ if (CheckIfLoggedIn() == true) {
                     <form action="includes/signup.inc.php" method="POST">
 
                         <div class="field">
-                            <label class="label is-small">First name</label>
                             <div class="control has-icons-left">
                                 <input class="input is-primary is-info is-rounded" id="registerFirstname"
                                        name="registerFirstname" type="text" placeholder="Firstname"
@@ -89,7 +88,6 @@ if (CheckIfLoggedIn() == true) {
                         </div>
 
                         <div class="field">
-                            <label class="label is-small">Last name</label>
                             <div class="control has-icons-left">
                                 <input class="input is-primary is-info is-rounded" id="registerLastname"
                                        name="registerLastname" type="text" placeholder="Lastname"
@@ -101,7 +99,6 @@ if (CheckIfLoggedIn() == true) {
                         </div>
 
                         <div class="field">
-                            <label class="label is-small">Email</label>
                             <div class="control has-icons-left">
                                 <input class="input is-primary is-info is-rounded" id="registerEmail"
                                        name="registerEmail" type="email" placeholder="Email"
@@ -113,7 +110,6 @@ if (CheckIfLoggedIn() == true) {
                         </div>
 
                         <div class="field">
-                            <label class="label is-small">Password (min 8 char)</label>
                             <div class="control has-icons-left">
                                 <input class="input is-primary is-info is-rounded" id="registerPassword"
                                        name="registerPassword" type="password" placeholder="Password"
