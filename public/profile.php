@@ -29,52 +29,45 @@ If (CheckIfLoggedIn() == false) {
     ?>
     <div class="hero-body">
         <div class="container has-text-centered">
-            <h1 class="title is-1"><?php echo ucwords($_SESSION['user']['firstname']). " " . ucwords($_SESSION['user']['lastname']);?></h1>
-            <div class="field is-grouped is-grouped-centered">
-                <div class="control">
-                    <div class="tags has-addons">
-                        <span class="tag is-dark">Oryx Network</span>
-                        <span class="tag is-success">Admin</span>
-                    </div>
-                </div>
-
-                <div class="control">
-                    <div class="tags has-addons">
-                        <span class="tag is-dark">Oryx Network</span>
-                        <span class="tag is-primary">Developer</span>
-                    </div>
-                </div>
-            </div>
             <nav class="level">
-                <div class="level-item has-text-centered">
+                <div class="level-item has-text-centered is-hidden-mobile">
                     <div>
                         <p class="heading">Posts</p>
                         <p class="title">3,456</p>
                     </div>
                 </div>
+                <h1 class="title is-1"><?php echo ucwords($_SESSION['user']['firstname']). " " . ucwords($_SESSION['user']['lastname']);?></h1>
                 <div class="level-item has-text-centered">
                     <div>
                         <p class="heading">Friends</p>
                         <p class="title">456K</p>
                     </div>
                 </div>
+                <div class="level-item has-text-centered is-hidden-desktop">
+                    <div>
+                        <p class="heading">Posts</p>
+                        <p class="title">3,456</p>
+                    </div>
+                </div>
             </nav>
+
             <div class="tile is-ancestor">
                 <div class="tile is-vertical is-8">
                     <div class="tile">
                         <div class="tile is-parent">
                             <article class="tile is-child notification is-info">
                                 <p class="title"><?php echo ucwords($_SESSION['user']['firstname']). " " . ucwords($_SESSION['user']['lastname']);?></p>
-                                <p class="subtitle">Description goes here</p>
-                                <figure class="image is-4by3">
-                                    <img src="https://bulma.io/images/placeholders/640x480.png">
+                                <figure class="image">
+                                    <img src="img/profilepictures/default.jpg" style="border-radius: 5%">
                                 </figure>
+                                <br>
+                                <a href="settings.php" class="button is-info is-outlined is-inverted">My Settings</a>
                             </article>
                         </div>
                         <div class="tile is-parent is-vertical">
                             <article class="tile is-child notification is-primary">
-                                <p class="title">Intro</p>
-                                <p class="subtitle">Description goes here</p>
+                                <p class="title">Introduction</p>
+                                <p class="subtitle">Introduction goes here</p>
                             </article>
                             <article class="tile is-child notification is-warning">
                                 <p class="title">Friends</p>
@@ -84,10 +77,26 @@ If (CheckIfLoggedIn() == false) {
                     </div>
                     <div class="tile is-parent">
                         <article class="tile is-child notification is-danger">
-                            <p class="title">Information</p>
-                            <p class="subtitle">Information goes here</p>
-                            <div class="content">
-                                <!-- Content -->
+                            <p class="title">Description</p>
+                            <div class="content is-hidden-mobile">
+                                <?php
+                                if ($_SESSION['user']['admin'] == 1) { ?>
+                                    <div class="field is-grouped is-grouped-centered">
+                                        <div class="control">
+                                            <div class="tags has-addons">
+                                                <span class="tag is-dark">Oryx Network</span>
+                                                <span class="tag is-success">Admin</span>
+                                            </div>
+                                        </div>
+                                        <div class="control">
+                                            <div class="tags has-addons">
+                                                <span class="tag is-dark">Oryx Network</span>
+                                                <span class="tag is-primary">Developer</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php }
+                                ?>
                             </div>
                         </article>
                     </div>
@@ -96,7 +105,7 @@ If (CheckIfLoggedIn() == false) {
                     <article class="tile is-child notification is-success">
                         <div class="content">
                             <p class="title">Posts</p>
-                            <p class="subtitle">Description goes here</p>
+                            <p class="subtitle">Posts go here</p>
                             <div class="content">
                                 <!-- Content -->
                             </div>
