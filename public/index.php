@@ -45,7 +45,7 @@ if (CheckIfLoggedIn() == true) {
                     <h2 class="subtitle is-4">
                         The best place to make new friends
                     </h2>
-                    <a class="button is-danger is-outlined is-rounded" href="login.php">
+                    <a class="button is-info is-outlined is-rounded" href="login.php">
                         <i class="fa fa-sign-in" aria-hidden="true"></i> &nbsp;Login
                     </a>
                 </div>
@@ -127,10 +127,10 @@ if (CheckIfLoggedIn() == true) {
                             </div>
                         </div>
 
-                        <button type="submit" id="submit" name="submit" class="button is-danger is-outlined is-rounded">
+                        <button type="submit" id="submit" name="submit" class="button is-info is-outlined is-rounded">
                             <i class="fa fa-user-plus" aria-hidden="true"></i> &nbsp;Register
                         </button>
-                        <a class="button is-danger is-outlined is-rounded is-hidden-desktop" href="login.php">
+                        <a class="button is-info is-outlined is-rounded is-hidden-desktop" href="login.php">
                             <i class="fa fa-sign-in" aria-hidden="true"></i> &nbsp;Login
                         </a>
                     </form>

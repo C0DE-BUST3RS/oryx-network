@@ -94,7 +94,7 @@ if (CheckIfLoggedIn() == true) {
                             </div>
                         </div>
 
-                        <button type="submit" id="submit" name="submit" class="button is-danger is-outlined is-rounded">
+                        <button type="submit" id="submit" name="submit" class="button is-info is-outlined is-rounded">
                             <i class="fa fa-envelope"></i> &nbsp;Send email
                         </button>
 

@@ -110,7 +110,7 @@ if (isset($_POST['submit'])) {
                             </div>
                         </div>
 
-                        <button type="submit" id="submit" name="submit" class="button is-danger is-outlined is-rounded">
+                        <button type="submit" id="submit" name="submit" class="button is-info is-outlined is-rounded">
                             <i class="fa fa-sign-in" aria-hidden="true"></i> &nbsp;Change password
                         </button>
 

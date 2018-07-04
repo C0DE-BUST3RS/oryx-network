@@ -110,13 +110,13 @@ If (CheckIfLoggedIn() == true) {
                             </div>
                         </div>
 
-                        <button type="submit" id="submit" name="submit" class="button is-danger is-outlined is-rounded"><i class="fa fa-sign-in" aria-hidden="true"></i> &nbsp;Login</button>
-                        <a class="button is-danger is-outlined is-rounded" href="requestpw.php"><i class="fa fa-question-circle" aria-hidden="true"></i> &nbsp;Forgot password?</a>
+                        <button type="submit" id="submit" name="submit" class="button is-info is-outlined is-rounded"><i class="fa fa-sign-in" aria-hidden="true"></i> &nbsp;Login</button>
+                        <a class="button is-info is-outlined is-rounded" href="requestpw.php"><i class="fa fa-question-circle" aria-hidden="true"></i> &nbsp;Forgot password?</a>
 
                         <br>
                         <br>
 
-                        <a class="button is-danger is-outlined is-rounded" href="index.php"><i class="fa fa-user-plus" aria-hidden="true"></i> &nbsp;Signup</a>
+                        <a class="button is-info is-outlined is-rounded" href="index.php"><i class="fa fa-user-plus" aria-hidden="true"></i> &nbsp;Signup</a>
 
                     </form>
 
