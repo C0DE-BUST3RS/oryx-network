@@ -1,18 +1,21 @@
 <?php
-// Require functions file. (includes DB + session_start)
+//Require the functions and start the session
 require 'includes/functions.inc.php';
 
+//Check if the user is logged in
 if (CheckIfLoggedIn() == true) {
     header("Location: feed.php");
     exit();
 }
 
+//If the token and email are filled in the url set the variables
 if (isset($_GET['email']) && isset($_GET['token'])) {
     //Get all the data
     $getEmail = htmlspecialchars($_GET['email']);
     $getToken = htmlspecialchars($_GET['token']);
 }
 
+//If the user pressed the button change the password
 if (isset($_POST['submit'])) {
     $resetToken = $_POST['resetToken'];
     $resetEmail = strtolower($_POST['resetEmail']);

@@ -275,34 +275,35 @@ function CopyrightYear()
 }
 
 // This function will convert datetime / timestamp to : 0 time ago
-function time_elapsed_string($datetime, $full = false) {
-	date_default_timezone_set('Europe/Amsterdam');
-	$now = new DateTime;
-	$ago = new DateTime($datetime);
-	$diff = $now->diff($ago);
+function time_elapsed_string($datetime, $full = false)
+{
+    date_default_timezone_set('Europe/Amsterdam');
+    $now = new DateTime;
+    $ago = new DateTime($datetime);
+    $diff = $now->diff($ago);
 
-	$diff->w = floor($diff->d / 7);
-	$diff->d -= $diff->w * 7;
+    $diff->w = floor($diff->d / 7);
+    $diff->d -= $diff->w * 7;
 
-	$string = array(
-		'y' => 'year',
-		'm' => 'month',
-		'w' => 'week',
-		'd' => 'day',
-		'h' => 'hour',
-		'i' => 'minute',
-		's' => 'second',
-	);
-	foreach ($string as $k => &$v) {
-		if ($diff->$k) {
-			$v = $diff->$k . ' ' . $v . ($diff->$k > 1 ? 's' : '');
-		} else {
-			unset($string[$k]);
-		}
-	}
+    $string = array(
+        'y' => 'year',
+        'm' => 'month',
+        'w' => 'week',
+        'd' => 'day',
+        'h' => 'hour',
+        'i' => 'minute',
+        's' => 'second',
+    );
+    foreach ($string as $k => &$v) {
+        if ($diff->$k) {
+            $v = $diff->$k . ' ' . $v . ($diff->$k > 1 ? 's' : '');
+        } else {
+            unset($string[$k]);
+        }
+    }
 
-	if (!$full) $string = array_slice($string, 0, 1);
-	return $string ? implode(', ', $string) . ' ago' : 'just now';
+    if (!$full) $string = array_slice($string, 0, 1);
+    return $string ? implode(', ', $string) . ' ago' : 'just now';
 }
 
 // This function is needed for Google Recaptcha to work.
@@ -546,5 +547,29 @@ function CheckAmountToLevelUp($userid)
             return false;
         }
 
+    }
+}
+
+function LoadProfileData($userid)
+{
+    global $conn;
+    $sql = "SELECT * FROM profiles WHERE user_id = '$userid';";
+    $query = $conn->query($sql);
+    $row = $query->fetch_array();
+
+    $_SESSION['user']['introduction'] = $row['intro'];
+    $_SESSION['user']['picture'] = $row['profile_picture'];
+}
+
+function ChangeIntro($userid, $newintro)
+{
+    global $conn;
+    $newintro = htmlspecialchars($conn->real_escape_string($newintro));
+    $query = $conn->query("UPDATE profiles SET intro = '$newintro' WHERE user_id = '$userid';");
+
+    if ($query) {
+        return true;
+    } else {
+        return false;
     }
 }

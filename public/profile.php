@@ -1,10 +1,14 @@
 <?php
-// Require DB file for feed.
+//Require the functions and start the session
 require 'includes/functions.inc.php';
 
-If (CheckIfLoggedIn() == false) {
+//Check if the user is logged in
+if (CheckIfLoggedIn() == false) {
     header("Location: ../index.php");
 }
+
+//Load the latest profile data
+LoadProfileData($_SESSION['user']['id']);
 ?>
 <!doctype html>
 <html lang="en">

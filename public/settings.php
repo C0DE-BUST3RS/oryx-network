@@ -1,10 +1,23 @@
 <?php
-// Require DB file for feed.
+//Require the functions and start the session
 require 'includes/functions.inc.php';
 
+//Check if the user is logged in
 If (CheckIfLoggedIn() == false) {
     header("Location: ../index.php");
 }
+
+//Change intro
+if (isset($_POST['changeintro'])) {
+    if (ChangeIntro($_SESSION['user']['id'], $_POST['newIntro']) == true) {
+        $_SESSION['success'] = "Your intro has been changed!";
+    } else {
+        $_SESSION['error'] = "Your intro has not been changed!";
+    }
+}
+
+//Load the latest profile data
+LoadProfileData($_SESSION['user']['id']);
 ?>
 <!doctype html>
 <html lang="en">
@@ -29,32 +42,48 @@ If (CheckIfLoggedIn() == false) {
     ?>
     <div class="hero-body">
         <div class="container has-text-centered">
+
             <h1 class="title is-1">Settings</h1>
 
             <div class="columns is-vcentered">
 
-                <div class="column is-half">
-                    <h3 class="title is-3">Change introduction</h3>
-                    <form action="">
+                <div class="column is-one-third">
+                </div>
+
+
+                <div class="column is-one-third">
+                    <h3 class="subtitle is-4">Change introduction</h3>
+                    <?php
+                    if (isset($_SESSION['success'])) { ?>
+                        <div class="notification is-success is-rounded">
+                            <?php
+                            echo $_SESSION['success'];
+                            unset($_SESSION['success']);
+                            ?>
+                        </div> <?php
+                    }
+
+                    if (isset($_SESSION['error'])) { ?>
+                        <div class="notification is-danger is-rounded">
+                            <?php
+                            echo $_SESSION['error'];
+                            unset($_SESSION['error']);
+                            ?>
+                        </div> <?php
+                    }
+                    ?>
+                    <form action="settings.php" method="post">
                         <div class="field">
                             <div class="control">
-                                <textarea class="textarea is-large is-info" placeholder="Introduction" rows="1"></textarea>
+                                <textarea class="textarea is-info" placeholder="Introduction" name="newIntro"><?php echo $_SESSION['user']['introduction']; ?></textarea>
                             </div>
                         </div>
-                        <button type="submit" id="submit" name="submit" class="button is-info is-outlined is-rounded">Change introduction</button>
+                        <button type="submit" id="submit" name="changeintro" class="button is-info is-outlined is-rounded">Change introduction
+                        </button>
                     </form>
                 </div>
 
-                <div class="column is-half">
-                    <h3 class="title is-3">Change Description</h3>
-                    <form action="">
-                        <div class="field">
-                            <div class="control">
-                                <textarea class="textarea is-large is-info" placeholder="Description" rows="1"></textarea>
-                            </div>
-                        </div>
-                        <button type="submit" id="submit" name="submit" class="button is-info is-outlined is-rounded">Change description</button>
-                    </form>
+                <div class="column is-one-third">
                 </div>
 
             </div>

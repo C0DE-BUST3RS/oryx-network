@@ -1,6 +1,8 @@
 <?php
+//Require the functions and start the session
 require 'includes/functions.inc.php';
 
+//Check if the user is logged in
 if (CheckIfLoggedIn() == true) {
     $firstname = $_SESSION['user']['firstname'];
     $lastname = $_SESSION['user']['lastname'];
@@ -47,6 +49,7 @@ if (CheckIfLoggedIn() == true) {
                     <form action="includes/contact.inc.php" method="POST" enctype="multipart/form-data">
 
                         <div class="field">
+                            <label class="label is-small">First name</label>
                             <div class="control has-icons-left">
                                 <input class="input is-primary is-info is-rounded" id="contactFirstname"
                                        name="contactFirstname" type="text" placeholder="Firstname" value="<?php if (isset($firstname)) {echo $firstname;}?>" required/>
@@ -57,6 +60,7 @@ if (CheckIfLoggedIn() == true) {
                         </div>
 
                         <div class="field">
+                            <label class="label is-small">Last name</label>
                             <div class="control has-icons-left">
                                 <input class="input is-primary is-info is-rounded" id="contactLastname"
                                        name="contactLastname" type="text" placeholder="Lastname" value="<?php if (isset($firstname)) {echo $lastname;}?>" required/>
@@ -67,6 +71,7 @@ if (CheckIfLoggedIn() == true) {
                         </div>
 
                         <div class="field">
+                            <label class="label is-small">Email</label>
                             <div class="control has-icons-left">
                                 <input class="input is-primary is-info is-rounded" id="contactEmail"
                                        name="contactEmail" type="email" placeholder="Email" value="<?php if (isset($firstname)) {echo $email;}?>" required/>
@@ -77,18 +82,7 @@ if (CheckIfLoggedIn() == true) {
                         </div>
 
                         <div class="field">
-                            <div class="control">
-                                <div class="select is-rounded is-info">
-                                    <select>
-                                        <option>Question</option>
-                                        <option>Bug report</option>
-                                        <option>Suggestion</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="field">
+                            <label class="label is-small">Message</label>
                             <div class="control">
                                 <textarea class="textarea is-info" placeholder="Your message" name="contactMessage" rows="6"></textarea>
                             </div>

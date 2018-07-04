@@ -1,4 +1,5 @@
 <?php
+//Require the functions and start the session
 require 'includes/functions.inc.php';
 ?>
 <!doctype html>

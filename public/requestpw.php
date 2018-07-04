@@ -1,6 +1,8 @@
 <?php
+//Require the functions and start the session
 require 'includes/functions.inc.php';
 
+//Check if the user is logged in
 If (CheckIfLoggedIn() == true) {
     header("Location: feed.php");
 }
