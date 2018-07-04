@@ -21,93 +21,85 @@ if (isset($_POST['submit'])) {
     $responseKey = $_POST['g-recaptcha-response'];
     $ip = GetUserIP();
 
-    //Check if the recaptcha has been clicked
-    if (RecaptchaCheck($responseKey, $ip) == true) {
+    //Check if the values are not empty
+    if (CheckIfEmptySignup($firstname, $lastname, $email, $password) == true) {
 
-        //Check if the values are not empty
-        if (CheckIfEmptySignup($firstname, $lastname, $email, $password) == true) {
+        //Check if the name is a real name
+        if (CheckIfRealName($firstname, $lastname) == true) {
 
-            //Check if the name is a real name
-            if (CheckIfRealName($firstname, $lastname) == true) {
+            //Check if its a real email
+            if (CheckIfRealEmail($email) == true) {
 
-                //Check if its a real email
-                if (CheckIfRealEmail($email) == true) {
+                //Check if the email is already present in the database. if not (false) proceed further.
+                if (CheckIfEmailUsed($email) == false) {
 
-                    //Check if the email is already present in the database. if not (false) proceed further.
-                    if (CheckIfEmailUsed($email) == false) {
+                    //Check if the password is long enough
+                    if (CheckIfPasswordLongEnough($password) == true) {
 
-                        //Check if the password is long enough
-                        if (CheckIfPasswordLongEnough($password) == true) {
+                        //Generate a user ID
+                        $uid = GenerateUID();
 
-                            //Generate a user ID
-                            $uid = GenerateUID();
+                        //Generate a activation token
+                        $token = GenerateToken();
 
-                            //Generate a activation token
-                            $token = GenerateToken();
+                        //Everything is good, proceed to querys.
+                        $account = $conn->query("INSERT INTO `user` (`id`, `admin`, `ip`, `date`, `firstname`, `lastname`, `email`, `password`, `last_login`, `last_ip`) VALUES ('" . $uid . "', '0','" . GetUserIP() . "', '" . GetCurrentDate() . "', '" . htmlspecialchars($firstname) . "', '" . htmlspecialchars($lastname) . "', '" . htmlspecialchars($email) . "', '" . HashPassword($password) . "', '" . GetCurrentDate() . "', '" . GetUserIP() . "')");
+                        $activation = $conn->query("INSERT INTO activationtoken (id, date, user_id, email, used, value) VALUES ('','" . GetCurrentDate() . "','" . $uid . "','" . htmlspecialchars($email) . "',0,'" . $token . "')");
+                        $level = $conn->query("INSERT INTO `level` (`id`, `user_id`, `current_level`, `current_xp`, `amount_to_level_up`, `last_level_up`, `level_icon`) VALUES ('', ' . $uid . ', 0, 0, 0, '0000-00-00 00:00:00', 'img/levels/rank000.png')");
+                        $profile = $conn->query("INSERT INTO `profiles` (`id`, `user_id`, `profile_picture`, `intro`) VALUES ('', ' . $uid . ', '' , '')");
 
-                            // Everything is good, proceed to signup query.
-                            $accountquery = $conn->query("INSERT INTO `user` (`id`, `admin`, `ip`, `date`, `firstname`, `lastname`, `email`, `password`, `last_login`, `last_ip`) VALUES ('" . $uid . "', '0','" . GetUserIP() . "', '" . GetCurrentDate() . "', '" . htmlspecialchars($firstname) . "', '" . htmlspecialchars($lastname) . "', '" . htmlspecialchars($email) . "', '" . HashPassword($password) . "', '" . GetCurrentDate() . "', '" . GetUserIP() . "')");
-                            $tokenquery = $conn->query("INSERT INTO activationtoken (id, date, user_id, email, used, value) VALUES ('','" . GetCurrentDate() . "','" . $uid . "','" . htmlspecialchars($email) . "',0,'" . $token . "')");
-                            $levelquery = $conn->query("INSERT INTO `level` (`id`, `user_id`, `current_level`, `current_xp`, `amount_to_level_up`, `last_level_up`, `level_icon`) VALUES ('', ' . $uid . ', 0, 0, 0, '0000-00-00 00:00:00', 'img/levels/rank000.png')");
-							$profilequery = $conn->query("INSERT INTO `profiles` (`id`, `user_id`, `profile_picture`, `intro`) VALUES ('', ' . $uid . ', '' , '')");
-                            SendToken(htmlspecialchars($email), htmlspecialchars($firstname) . " " . htmlspecialchars($lastname), $token,false,true);
+                        //Send the activation token to the user
+                        SendToken(htmlspecialchars($email), htmlspecialchars($firstname) . " " . htmlspecialchars($lastname), $token,false,true);
 
-                            $_SESSION['success'] = "Signup was successful! <br> Please check your email!";
+                        //Set the success status
+                        $_SESSION['success'] = "Signup was successful! <br> Please check your email!";
 
-                            header("Location: ../login.php?signup=succesfull");
-                            exit();
+                        //Redirect the user to the login page
+                        header("Location: ../login.php?signup=succesfull");
+                        exit();
 
-                        } else {
-                            //Set the error status
-                            $_SESSION['status'] = "Password not long enough!";
-                            //Make the sessions, the sessions will be filled in at the form
-                            RefillAtErrorSignup($firstname, $lastname, $email);
-                            //Redirect the user back to index.php
-                            header("Location: ../index.php?error=length");
-                            exit();
-                        }
                     } else {
                         //Set the error status
-                        $_SESSION['status'] = "Email taken!";
+                        $_SESSION['status'] = "Password not long enough!";
                         //Make the sessions, the sessions will be filled in at the form
                         RefillAtErrorSignup($firstname, $lastname, $email);
                         //Redirect the user back to index.php
-                        header("Location: ../index.php?error=emailtaken");
+                        header("Location: ../index.php?error=length");
                         exit();
                     }
                 } else {
                     //Set the error status
-                    $_SESSION['status'] = "Email incorrect!";
+                    $_SESSION['status'] = "Email taken!";
                     //Make the sessions, the sessions will be filled in at the form
                     RefillAtErrorSignup($firstname, $lastname, $email);
-                    header("Location: ../index.php?error=emailincorrect");
+                    //Redirect the user back to index.php
+                    header("Location: ../index.php?error=emailtaken");
                     exit();
                 }
-
             } else {
                 //Set the error status
-                $_SESSION['status'] = "False name!";
+                $_SESSION['status'] = "Email incorrect!";
                 //Make the sessions, the sessions will be filled in at the form
                 RefillAtErrorSignup($firstname, $lastname, $email);
-                header("Location: ../index.php?error=falsename");
+                header("Location: ../index.php?error=emailincorrect");
                 exit();
             }
 
         } else {
             //Set the error status
-            $_SESSION['status'] = "Signup is empty!";
+            $_SESSION['status'] = "False name!";
             //Make the sessions, the sessions will be filled in at the form
             RefillAtErrorSignup($firstname, $lastname, $email);
-            header("Location: ../index.php?error=empty");
+            header("Location: ../index.php?error=falsename");
             exit();
         }
 
     } else {
         //Set the error status
-        $_SESSION['status'] = "Recaptcha error!";
+        $_SESSION['status'] = "Signup is empty!";
         //Make the sessions, the sessions will be filled in at the form
         RefillAtErrorSignup($firstname, $lastname, $email);
-        header("Location: ../index.php?error=recaptcha");
+        header("Location: ../index.php?error=empty");
         exit();
     }
 

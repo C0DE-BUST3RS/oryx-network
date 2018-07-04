@@ -306,23 +306,6 @@ function time_elapsed_string($datetime, $full = false)
     return $string ? implode(', ', $string) . ' ago' : 'just now';
 }
 
-// This function is needed for Google Recaptcha to work.
-function RecaptchaCheck($responseKey, $ip)
-{
-    //Import secret recaptcha key
-    global $secretRecaptchakey;
-
-    //Get response from Google URL
-    $url = "https://www.google.com/recaptcha/api/siteverify?secret=$secretRecaptchakey&response=$responseKey&remoteip=$ip";
-    $response = file_get_contents($url);
-    $response = json_decode($response);
-
-    //If the response is success return true
-    if ($response->success)
-        return true;
-    else
-        return false;
-}
 
 // This function will setup the sessions for auto-filling.
 function RefillAtErrorSignup($firstname, $lastname, $email)
@@ -553,7 +536,7 @@ function CheckAmountToLevelUp($userid)
 function LoadProfileData($userid)
 {
     global $conn;
-    $query = $conn->query("SELECT * FROM profiles WHERE user_id = '$userid';");
+    $query = $conn->query("SELECT profiles.intro, profiles.profile_picture FROM profiles WHERE user_id = '$userid';");
     $row = $query->fetch_array();
 
     $_SESSION['user']['introduction'] = $row['intro'];
@@ -563,7 +546,7 @@ function LoadProfileData($userid)
 function LoadNumPosts($userid)
 {
     global $conn;
-    $query = $conn->query("SELECT * FROM post WHERE user_id = '$userid';");
+    $query = $conn->query("SELECT post.content FROM post WHERE user_id = '$userid';");
     $num = $query->num_rows;
     if ($num > 0) {
         return $num;

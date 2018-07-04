@@ -103,17 +103,8 @@ If (CheckIfLoggedIn() == true) {
                             </div>
                         </div>
 
-                        <div class="field">
-                            <div class="control">
-                                <label class="checkbox">
-                                    <div class="g-recaptcha" data-sitekey="6Ldk_mAUAAAAAJtQAWL1VBDHUyKG5yEQxesxjSWe"></div>
-                                </label>
-                            </div>
-                        </div>
-
                         <button type="submit" id="submit" name="submit" class="button is-info is-outlined is-rounded"><i class="fa fa-sign-in" aria-hidden="true"></i> &nbsp;Login</button>
                         <a class="button is-info is-outlined is-rounded" href="requestpw.php"><i class="fa fa-question-circle" aria-hidden="true"></i> &nbsp;Forgot password?</a>
-                        <a class="button is-info is-outlined is-rounded" href="index.php"><i class="fa fa-user-plus" aria-hidden="true"></i> &nbsp;Signup</a>
 
                     </form>
 
@@ -129,7 +120,6 @@ If (CheckIfLoggedIn() == true) {
 
 <script src="js/main.js"></script>
 <script src="js/navbarMenu.js"></script>
-<script src='https://www.google.com/recaptcha/api.js'></script>
 </body>
 </html>
 
