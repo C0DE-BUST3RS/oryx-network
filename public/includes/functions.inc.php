@@ -553,12 +553,22 @@ function CheckAmountToLevelUp($userid)
 function LoadProfileData($userid)
 {
     global $conn;
-    $sql = "SELECT * FROM profiles WHERE user_id = '$userid';";
-    $query = $conn->query($sql);
+    $query = $conn->query("SELECT * FROM profiles WHERE user_id = '$userid';");
     $row = $query->fetch_array();
 
     $_SESSION['user']['introduction'] = $row['intro'];
     $_SESSION['user']['picture'] = $row['profile_picture'];
+}
+
+function LoadNumPosts($userid)
+{
+    global $conn;
+    $query = $conn->query("SELECT * FROM post WHERE user_id = '$userid';");
+    $num = $query->num_rows;
+    if ($num > 0) {
+        return $num;
+    }
+    return 0;
 }
 
 function ChangeIntro($userid, $newintro)

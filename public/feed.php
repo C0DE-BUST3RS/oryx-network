@@ -102,7 +102,7 @@ LoadProfileData($_SESSION['user']['id']);
 							<div class="media-content">
 								<div class="content">
 									<p>
-										<strong><span class="tag is-warning"><?php echo ucfirst($row['firstname'])." ".ucfirst($row['lastname']); ?></span></strong>
+										<strong><span class="tag is-warning"><?php echo ucwords($row['firstname'])." ".ucwords($row['lastname']); ?></span></strong>
 										<small>
 											<?php if(CheckIfAdmin($row['email']) == TRUE){ ?>
 														<span class="tag is-danger">Admin</span>
