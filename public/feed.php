@@ -117,6 +117,17 @@ If (CheckIfLoggedIn() == false) {
 											</span>
 										</a>
 									</div>
+									<?php if($row['user_id'] == $_SESSION['user']['id']) { ?>
+										<div class="level-right">
+											<a class="level-item">
+												<form action="includes/delete.inc.php" method="POST">
+													<button class="delete-button" type="submit" name="delete">
+														<i class="fa fa-trash"></i>
+													</button>
+												</form>
+											</a>
+										</div>
+									<?php }?>
 								</nav>
 							</div>
 						</article>
@@ -136,7 +147,6 @@ If (CheckIfLoggedIn() == false) {
 			</div>
 
 		</div>
-	</div>
 	</div>
 	<?php
 	require 'includes/footer.php';

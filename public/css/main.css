@@ -1,4 +1,11 @@
-
+/* Padding left for correct allignment. */
 .has-padding-left {
     padding-left: 40px !important;
+}
+
+/* Feed.php - Delete button border removed. */
+.delete-button {
+    border: none !important;
+    padding: 0 !important;
+    background: none !important;
 }
