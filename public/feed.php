@@ -44,7 +44,7 @@ If (CheckIfLoggedIn() == false) {
 								<article class="media">
 									<figure class="media-left">
 										<p class="image is-64x64">
-											<img class="is-rounded" src="<?php echo $_SESSION['user']['profilepicture'];?>">
+											<img class="is-rounded" src="<?php echo $_SESSION['user']['picture'];?>">
 										</p>
 									</figure>
 
@@ -84,8 +84,9 @@ If (CheckIfLoggedIn() == false) {
 
 					<?php
 					$sql = "SELECT u.id ,u.email ,u.firstname ,u.lastname ,po.id ,po.date ,po.user_id ,po.likes ,po.content ,pr.profile_picture ,pr.intro FROM user u INNER JOIN post po on u.id = po.user_id INNER JOIN profiles pr on po.user_id = pr.user_id ORDER BY po.id DESC;";
-					$sqlConnect = $conn->query($sql);
-					while($row = mysqli_fetch_assoc($sqlConnect)) {
+					$query = $conn->query($sql);
+					while ($row = $query->fetch_assoc()) {
+
 					?>
 					<div class="box">
 						<article class="media">
@@ -112,7 +113,7 @@ If (CheckIfLoggedIn() == false) {
 									<div class="level-left">
 										<a class="level-item" aria-label="like">
 											<span class="icon is-small">
-											  <i class="fa fa-heart" aria-hidden="true"><?php echo $row['likes']; ?></i>
+											  <i class="fa fa-heart" aria-hidden="true"></i>&nbsp;<?php echo $row['likes']; ?>
 											</span>
 										</a>
 									</div>

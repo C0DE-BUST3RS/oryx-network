@@ -81,15 +81,15 @@ if (isset($_POST['submit'])) {
                             //Last Logged in IP - Like 10.2.2.3
                             $_SESSION['user']['lastip'] = $row['last_ip'];
 
-							//Get all data about the user
-							$sqlProfiles = $conn->query("SELECT * FROM profiles WHERE user_id = '$UserID';");
-							$rowProfile = $sqlProfiles->fetch_array();
+							//Get all profile data
+							$query = $conn->query("SELECT * FROM profiles WHERE user_id = '$UserID';");
+							$row = $query->fetch_array();
 
 							// Get user profile picture
-							$_SESSION['user']['profilepicture'] = $rowProfile['profile_picture'];
+							$_SESSION['user']['picture'] = $row['profile_picture'];
 
 							// Get user intro text on profile
-							$_SESSION['user']['intro'] = $rowProfile['intro'];
+							$_SESSION['user']['introduction'] = $row['intro'];
 
                             //Redirect the user to the feed page.
                             header("Location: ../feed.php?login=successfull");
