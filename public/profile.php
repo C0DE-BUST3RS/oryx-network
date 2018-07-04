@@ -58,7 +58,7 @@ If (CheckIfLoggedIn() == false) {
                             <article class="tile is-child notification is-info">
                                 <p class="title"><?php echo ucwords($_SESSION['user']['firstname']). " " . ucwords($_SESSION['user']['lastname']);?></p>
                                 <figure class="image">
-                                    <img src="img/profilepictures/default.jpg" style="border-radius: 5%">
+                                    <img class="image is-rounded" src="<?php echo $_SESSION['user']['profilepicture'];?>">
                                 </figure>
                                 <br>
                                 <a href="settings.php" class="button is-info is-outlined is-inverted">My Settings</a>
@@ -67,7 +67,7 @@ If (CheckIfLoggedIn() == false) {
                         <div class="tile is-parent is-vertical">
                             <article class="tile is-child notification is-primary">
                                 <p class="title">Introduction</p>
-                                <p class="subtitle">Introduction goes here</p>
+                                <p class="subtitle"><?php echo $_SESSION['user']['intro'];?></p>
                             </article>
                             <article class="tile is-child notification is-warning">
                                 <p class="title">Friends</p>
