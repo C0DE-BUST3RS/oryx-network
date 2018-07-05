@@ -9,6 +9,8 @@ If (CheckIfLoggedIn() == false) {
 
 //Load the latest profile data
 LoadProfileData($_SESSION['user']['id']);
+
+$firstname = $_SESSION['user']['firstname'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,7 +26,7 @@ LoadProfileData($_SESSION['user']['id']);
 	<link rel="stylesheet" href="css/bulma.css">
 	<link rel="stylesheet" href="css/font-awesome.min.css">
 
-	<title><?php echo ucwords($_SESSION['user']['firstname']) . "'s Feed"; ?> - Oryx Network</title>
+	<title><?php echo ucwords($firstname) . "'s Feed"; ?> - Oryx Network</title>
 </head>
 <body>
 <section class="hero is-fullheight is-default is-bold">
@@ -40,6 +42,7 @@ LoadProfileData($_SESSION['user']['id']);
 				</div>
 
 				<div class="column is-half is-fixed-top">
+                    <?php echo "<h1 class='title is-4'>".Greetings("$firstname")."</h1>"; ?>
 
 					<div class="tile is-parent">
 						<div class="tile is-child box">
