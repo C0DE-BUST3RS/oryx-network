@@ -16,9 +16,8 @@ function CheckIfEmailUsed($email)
     //If the email has been used
     if ($resultCheck > 0) {
         return true;
-
-        //If the email does not exist
     } else {
+        //If the email does not exist
         return false;
     }
 }
@@ -73,22 +72,26 @@ function CheckIfPasswordLongEnough($password)
     }
 }
 
-// This function wil check if the user is an admin or not.
+//This function wil check if the user is an admin or not.
 function CheckIfAdmin($email)
 {
     global $conn;
-    $sql = $conn->query("SELECT admin FROM user WHERE email = '$email';");
-    $result = $sql->fetch_array();
-    $rank = $result['admin'];
+    $sql = "SELECT admin FROM user WHERE email = '$email';";
+    $query = $conn->query($sql);
 
-    if ($rank == 0) {
-        return false;
-    } elseif ($rank == 1) {
-        return true;
+    if ($query) {
+        $row = $query->fetch_array();
+        $rank = $row['admin'];
+
+        if ($rank == 1) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
 
-//This function will generate a random userid, example: F98F13DE-BABA5AFD-5AFDB4F9
+//This function will generate a random user id, example: F98F13DE-BABA5AFD-5AFDB4F9
 function GenerateUID()
 {
     $s = strtoupper(md5(uniqid(rand(), true)));
@@ -106,7 +109,7 @@ function HashPassword($nothashedPWD)
     return $hashedPWD;
 }
 
-// This function will un-hash the user password.
+//This function will un-hash the user password.
 function UnHashPassword($UserTypedPassword, $hashedPassword)
 {
     if (password_verify($UserTypedPassword, $hashedPassword)) {
@@ -116,11 +119,11 @@ function UnHashPassword($UserTypedPassword, $hashedPassword)
     }
 }
 
-// This function wil check if the user is already logged in, ifso then redirect to feed page automaticly.
+//This function wil check if the user is already logged in
 function CheckIfLoggedIn()
 {
     if (isset($_SESSION['user']['id']) && !empty($_SESSION['user']['id'])) {
-        //header("Location: ../feed.php");
+
         return true;
     } else {
         return false;
@@ -135,6 +138,7 @@ function GetCurrentDate()
     return $date;
 }
 
+//This function will greet the user on the feed page
 function Greetings($firstname)
 {
     $firstname = ucwords(strtolower($firstname));
@@ -156,7 +160,7 @@ function Greetings($firstname)
     }
 }
 
-// This function will get the users ip.
+//This function will get the users ip.
 function GetUserIP()
 {
     if (isset($_SERVER['HTTP_CLIENT_IP'])) {
@@ -177,7 +181,7 @@ function GetUserIP()
     return $ip;
 }
 
-//This function will generate a token that will be send to the user
+//This function will generate a reset or activation token that will be send to the user
 function GenerateToken()
 {
     $string = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -187,7 +191,7 @@ function GenerateToken()
     return $tokenfinal;
 }
 
-// This function will check if the activation token provided is same as in activationtoken table.
+//This function will check if the activation token and email are the same as in the db table
 function CheckBeforeActivation($email, $token)
 {
     global $conn;
@@ -205,6 +209,7 @@ function CheckBeforeActivation($email, $token)
     }
 }
 
+//This function will check if the reset token and email are the same as in the db table
 function CheckBeforeReset($email, $token)
 {
     global $conn;
@@ -222,7 +227,7 @@ function CheckBeforeReset($email, $token)
     }
 }
 
-// This function will activate the account.
+//This function will activate the account.
 function ActivateAccount($email)
 {
     global $conn;
@@ -242,6 +247,8 @@ function ActivateAccount($email)
 
 }
 
+//This function checks if the account has been activated
+//The function returns true if the account is activated
 function CheckIfActivated($email)
 {
     global $conn;
@@ -274,7 +281,7 @@ function CopyrightYear()
     }
 }
 
-// This function will convert datetime / timestamp to : 0 time ago
+//This function will convert datetime / timestamp to : 0 time ago
 function time_elapsed_string($datetime, $full = false)
 {
     date_default_timezone_set('Europe/Amsterdam');
@@ -307,7 +314,7 @@ function time_elapsed_string($datetime, $full = false)
 }
 
 
-// This function will setup the sessions for auto-filling.
+//This function will setup the sessions for auto-filling.
 function RefillAtErrorSignup($firstname, $lastname, $email)
 {
     $_SESSION['user']['firstname'] = $firstname;
@@ -315,7 +322,7 @@ function RefillAtErrorSignup($firstname, $lastname, $email)
     $_SESSION['user']['email'] = $email;
 }
 
-// This function will automaticly fill in the firstname when there is an error in the signup form.
+//This function will automatically fill in the firstname when there is an error in the signup form.
 function FirstnameFillIn()
 {
     if (isset($_SESSION['user']['firstname'])) {
@@ -324,7 +331,7 @@ function FirstnameFillIn()
     }
 }
 
-// This function will automaticly fill in the lastname when there is an error in the signup form.
+//This function will automatically fill in the lastname when there is an error in the signup form.
 function LastnameFillIn()
 {
     if (isset($_SESSION['user']['lastname'])) {
@@ -333,7 +340,7 @@ function LastnameFillIn()
     }
 }
 
-// This function will automaticly fill in the email when there is an error in the signup form.
+//This function will automatically fill in the email when there is an error in the signup form.
 function EmailFillIn()
 {
     if (isset($_SESSION['user']['email'])) {
@@ -342,6 +349,8 @@ function EmailFillIn()
     }
 }
 
+//This function is used at the PW request page.
+//If the user provided a token and a email, the form will be filled in
 function PWResetTokenFillIn()
 {
     if (isset($_GET['token'])) {
@@ -349,6 +358,8 @@ function PWResetTokenFillIn()
     }
 }
 
+//This function is used at the PW request page.
+//If the user provided a token and a email, the form will be filled in
 function PWResetEmailFillIn()
 {
     if (isset($_GET['email'])) {
@@ -356,8 +367,8 @@ function PWResetEmailFillIn()
     }
 }
 
-// This function will get the current Level (Precentage) of the user.
-function GetUserLevelPrecentage($userid)
+//@TODO This function will get the current Level (Percentage) of the user.
+function GetUserLevelPercentage($userid)
 {
     if (isset($userid) && !empty($userid)) {
         // need to be done.
@@ -403,13 +414,10 @@ function LevelUserAdd($userid)
                 return false;
             }
 
-
         } else {
             return false;
         }
-
     }
-
 }
 
 // This function will -1 level to the user.
@@ -427,7 +435,6 @@ function LevelUserMinus($userid)
         } else {
             return false;
         }
-
     }
 }
 
@@ -454,7 +461,6 @@ function LevelXPAdd($userid, $xp = 0)
         } else {
             return false;
         }
-
     }
 }
 
@@ -490,7 +496,6 @@ function LevelXPMinus($userid, $xp = 0)
             return false;
         }
     }
-
 }
 
 // This function will check the amount to rankup level of the user.
@@ -508,11 +513,10 @@ function AmountToLevelUp($userid, $amountToLevelUp = 0)
         } else {
             return false;
         }
-
     }
 }
 
-// This function will check of the user has passed the amount to level up limit ifso it will add +1 to level.
+// This function will check of the user has passed the amount to level up limit if so it will add +1 to level.
 function CheckAmountToLevelUp($userid)
 {
     if (isset($userid) && !empty($userid)) {
@@ -529,20 +533,23 @@ function CheckAmountToLevelUp($userid)
         } else {
             return false;
         }
-
     }
 }
 
+//This function will retrieve the latest profile data, after that it puts the data into a session
 function LoadProfileData($userid)
 {
     global $conn;
     $query = $conn->query("SELECT profiles.intro, profiles.profile_picture FROM profiles WHERE user_id = '$userid';");
-    $row = $query->fetch_array();
 
-    $_SESSION['user']['introduction'] = $row['intro'];
-    $_SESSION['user']['picture'] = $row['profile_picture'];
+    if ($query) {
+        $row = $query->fetch_array();
+        $_SESSION['user']['introduction'] = $row['intro'];
+        $_SESSION['user']['picture'] = $row['profile_picture'];
+    }
 }
 
+//This function will load the number of posts
 function LoadNumPosts($userid)
 {
     global $conn;
@@ -554,6 +561,7 @@ function LoadNumPosts($userid)
     return 0;
 }
 
+//This function will change the intro
 function ChangeIntro($userid, $newintro)
 {
     global $conn;
@@ -562,6 +570,22 @@ function ChangeIntro($userid, $newintro)
 
     if ($query) {
         return true;
+    } else {
+        return false;
+    }
+}
+
+//This function will return the path to the users profile picture
+function GetPathProfilePicture($userid)
+{
+    global $conn;
+    $sql = "SELECT profiles.profile_picture FROM profiles WHERE profiles.user_id = '$userid';";
+    $query = $conn->query($sql);
+
+    if ($query) {
+        $row = $query->fetch_array();
+        $path = $row['profile_picture'];
+        return $path;
     } else {
         return false;
     }
