@@ -62,16 +62,17 @@ LoadProfileData($_SESSION['user']['id']);
                             <article class="tile is-child notification is-info">
                                 <p class="title"><?php echo ucwords($_SESSION['user']['firstname']). " " . ucwords($_SESSION['user']['lastname']);?></p>
                                 <figure class="image">
-                                    <img class="image is-rounded" src="<?php echo $_SESSION['user']['picture'];?>">
+                                    <img class="image" src="<?php echo $_SESSION['user']['picture'];?>">
                                 </figure>
                                 <br>
-                                <a href="settings.php" class="button is-info is-outlined is-inverted">My Settings</a>
+                                <a href="settings.php" class="button is-info is-outlined is-inverted">Change picture</a>
                             </article>
                         </div>
                         <div class="tile is-parent is-vertical">
                             <article class="tile is-child notification is-primary">
                                 <p class="title">Introduction</p>
                                 <p class="subtitle"><?php echo $_SESSION['user']['introduction'];?></p>
+                                <a href="settings.php" class="button is-info is-outlined is-inverted">Change intro</a>
                             </article>
                             <article class="tile is-child notification is-warning">
                                 <p class="title">Friends</p>
