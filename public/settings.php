@@ -51,7 +51,7 @@ if (isset($_POST['changepicture'])) {
     }
 }
 
-//Change profile picture
+//Delete profile picture
 if (isset($_POST['deletepicture'])) {
     $userID = $_SESSION['user']['id'];
 
