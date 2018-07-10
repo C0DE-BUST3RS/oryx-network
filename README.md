@@ -9,26 +9,25 @@
 :steam_locomotive::train::train::train::train::train: <br>
 **Thomas was here ..**
 
-### Vagrant commands
+### Authors:
 
-```
-'vagrant up' will start the Vagrant box
-'vagrant halt' will stop the Vagrant box
-'vagrant destroy' will destroy the Vagrant box
-```
-
-### Authors
 Oryx Network has been build with ❤ by
 * **Luuk Kenselaar** - *Initial work* - [Luuk2016](https://github.com/Luuk2016)
 * **Casper van Genderingen** - *Initial work* - [vanGenderingen](https://github.com/vanGenderingen)
 * **Umit Canbolat** - *Initial work* - [hoxsec](https://github.com/hoxsec)
 
-### Built With
+### Tools used:
 
 * [IntelliJ IDEA Ultimate](https://www.jetbrains.com/idea/) - The IDE
 * [Gitkraken](https://www.gitkraken.com/) - GIT Client
 * [Vagrant](https://www.vagrantup.com/) - Development environment
 
-### License
+### Dependencies:
+
+* [Bulma](https://bulma.io/) - Bulma CSS Framework
+* [Composer](https://getcomposer.org/) - Composer Dependency Manager
+* [PHPMailer](https://github.com/PHPMailer/PHPMailer) - PHPMailer library
+
+### License:
 
 This project is licensed under the MIT License - see the LICENSE file for details.
