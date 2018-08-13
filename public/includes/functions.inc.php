@@ -9,12 +9,22 @@ require 'credentials.inc.php';
 function CheckIfEmailUsed($email)
 {
     global $conn;
-    $sql = "SELECT email FROM user WHERE email = '$email';";
-    $result = $conn->query($sql);
-    $resultCheck = $result->num_rows;
+
+    //Prepare the query
+    $stmt = $conn->prepare("SELECT email FROM user WHERE email = ?");
+    $stmt->bind_param("s",$email);
+
+    //Execute the query
+    $stmt->execute();
+
+    //Store the results
+    $stmt->store_result();
+
+    //Get rows
+    $rows = $stmt->num_rows;
 
     //If the email has been used
-    if ($resultCheck > 0) {
+    if ($rows > 0) {
         return true;
     } else {
         //If the email does not exist
