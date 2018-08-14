@@ -1,0 +1,20 @@
+/* DEVELOPER */
+	Web Developer/Designer: Luuk Kenselaar
+	Contact: luuk.kenselaar[at]protonmail[dot]com
+	From: Haarlem, The Netherlands
+
+/* DEVELOPER */
+	Web Developer/Designer: Umit Canbolat
+	Contact: umit[at]canbolat[dot]nl
+	From: Amsterdam, The Netherlands
+
+/* DEVELOPER */
+	Web Developer/Designer: Casper van Genderingen
+	From: Haarlem, The Netherlands
+
+/* WEBSITE */
+	Last update: 14/08/2018
+	Language: English
+	Language: PHP, HTML5, CSS
+
+IDE: Jetbrains IntelliJ Ultimate
