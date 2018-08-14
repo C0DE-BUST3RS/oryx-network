@@ -12,10 +12,6 @@ if (isset($_POST['submit'])) {
     //Make the value lower case
     $emailPost = strtolower($emailPost);
 
-    //Define variable from POST for Recaptcha
-    $responseKey = $_POST['g-recaptcha-response'];
-    $ip = GetUserIP();
-
     //Check if the user is loggedin
     if (CheckIfLoggedIn() == false) {
 
