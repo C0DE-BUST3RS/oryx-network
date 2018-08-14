@@ -6,6 +6,7 @@ require 'functions.inc.php';
 require 'dbh.inc.php';
 
 if (isset($_POST['submit'])) {
+    //Get the values using POST
     $emailPost = $conn->real_escape_string($_POST['loginEmail']);
     $passwordPost = $conn->real_escape_string($_POST['loginPassword']);
 
@@ -86,11 +87,13 @@ if (isset($_POST['submit'])) {
 
                         //Redirect the user to the feed page.
                         header("Location: ../feed.php?login=successfull");
+                        exit();
 
                     } else {
                         // If the password the user typed in DOES NOT match with the DB then redirect.
                         $_SESSION['loginfailed'] = "";
                         header("Location: ../login.php?login=failed");
+                        exit();
                     }
 
                 } else {
@@ -112,7 +115,6 @@ if (isset($_POST['submit'])) {
             $_SESSION['loginfailed'] = "";
             header("Location: ../login.php?login=failed");
             exit();
-
         }
 
     } else {
