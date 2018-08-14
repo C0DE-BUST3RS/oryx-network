@@ -4,8 +4,8 @@ require 'includes/functions.inc.php';
 
 //Check if the user is logged in
 if (CheckIfLoggedIn() == true) {
-    $firstname = $_SESSION['user']['firstname'];
-    $lastname = $_SESSION['user']['lastname'];
+    $firstname = ucwords($_SESSION['user']['firstname']);
+    $lastname = ucwords($_SESSION['user']['lastname']);
     $email = $_SESSION['user']['email'];
 }
 
@@ -61,7 +61,7 @@ if (CheckIfLoggedIn() == true) {
                         <div class="field">
                             <div class="control has-icons-left">
                                 <input class="input is-primary is-info is-rounded" id="contactLastname"
-                                       name="contactLastname" type="text" placeholder="Lastname" value="<?php if (isset($firstname)) {echo $lastname;}?>" required/>
+                                       name="contactLastname" type="text" placeholder="Lastname" value="<?php if (isset($lastname)) {echo $lastname;}?>" required/>
                                 <span class="icon is-small is-left">
 									<i class="fa fa-address-card"></i>
     							</span>
@@ -71,7 +71,7 @@ if (CheckIfLoggedIn() == true) {
                         <div class="field">
                             <div class="control has-icons-left">
                                 <input class="input is-primary is-info is-rounded" id="contactEmail"
-                                       name="contactEmail" type="email" placeholder="Email" value="<?php if (isset($firstname)) {echo $email;}?>" required/>
+                                       name="contactEmail" type="email" placeholder="Email" value="<?php if (isset($email)) {echo $email;}?>" required/>
                                 <span class="icon is-small is-left">
 									<i class="fa fa-envelope"></i>
     							</span>
