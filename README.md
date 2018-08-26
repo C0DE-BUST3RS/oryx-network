@@ -6,6 +6,7 @@
 [![GitHub issues](https://img.shields.io/github/issues/C0DE-BUST3RS/oryx-network.svg)](https://github.com/C0DE-BUST3RS/oryx-network/issues)
 [![GitHub license](https://img.shields.io/github/license/C0DE-BUST3RS/oryx-network.svg)](https://github.com/C0DE-BUST3RS/oryx-network/blob/master/LICENSE)
 [![Twitter](https://img.shields.io/twitter/url/https/github.com/C0DE-BUST3RS/oryx-network.svg?style=social)](https://twitter.com/intent/tweet?text=Wow:&url=https%3A%2F%2Fgithub.com%2FC0DE-BUST3RS%2Foryx-network)
+[![Feature Requests](http://feathub.com/C0DE-BUST3RS/oryx-network?format=svg)](http://feathub.com/C0DE-BUST3RS/oryx-network)
 
 :steam_locomotive::train::train::train::train::train: <br>
 **Thomas was here ..**
