@@ -486,18 +486,22 @@ function LevelUserAdd($userid)
 // This function will -1 level to the user.
 function LevelUserMinus($userid)
 {
-    global $conn;
-
     if (isset($userid) && !empty($userid)) {
 
-        $sql = "UPDATE `level` SET `current_level` = -1 WHERE `level`.`user_id` = '$userid';";
-        $conn->query($sql);
+        global $conn;
 
-        if ($conn->query($sql) === TRUE) {
+        //Prepare the query
+        $stmt = $conn->prepare("UPDATE level SET current_level = -1 WHERE user_id = ?");
+        $stmt->bind_param("s", $userid);
+
+        if ($stmt->execute()) {
             return true;
         } else {
             return false;
         }
+
+    } else {
+        return false;
     }
 }
 
@@ -508,22 +512,39 @@ function LevelXPAdd($userid, $xp = 0)
 
     if (isset($userid) && !empty($userid)) {
 
-        // Get the current xp of the user.
-        $sql = $conn->query("SELECT current_xp FROM level WHERE user_id = '$userid';");
-        $result = $sql->fetch_array();
-        $currentXP = $result['current_xp'];
+        //Prepare the query
+        $stmt = $conn->prepare("SELECT current_xp FROM level WHERE user_id = ?");
+        $stmt->bind_param("s", $userid);
 
-        // CurrentXP + new XP
-        $newXP = $currentXP + $xp;
+        if ($stmt->execute()) {
 
-        $sql = "UPDATE `level` SET `current_xp` = '$newXP' WHERE `level`.`user_id` = '$userid';";
-        $conn->query($sql);
+            //Get the results
+            $result = $stmt->get_result();
 
-        if ($conn->query($sql) === TRUE) {
-            return true;
+            //Fetch the data
+            $row = $result->fetch_assoc();
+
+            $currentXP = $row['current_xp'];
+
+            //Calculate new XP
+            $newXP = $currentXP + $xp;
+
+            //Prepare the query
+            $stmt = $conn->prepare("UPDATE level SET current_xp = ? WHERE user_id = ?");
+            $stmt->bind_param("is", $currentXP, $userid);
+
+            if ($stmt->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+
         } else {
             return false;
         }
+
+    } else {
+        return false;
     }
 }
 
@@ -533,14 +554,19 @@ function LevelXPRankUp($userid)
     global $conn;
 
     if (isset($userid) && !empty($userid)) {
-        $sql = "UPDATE `level` SET `current_xp` = 0 WHERE `level`.`user_id` = '$userid';";
-        $conn->query($sql);
 
-        if ($conn->query($sql) === TRUE) {
+        //Prepare the query
+        $stmt = $conn->prepare("UPDATE level SET current_xp = 0 WHERE user_id = ?");
+        $stmt->bind_param("s", $userid);
+
+        if ($stmt->execute()) {
             return true;
         } else {
             return false;
         }
+
+    } else {
+        return false;
     }
 }
 
@@ -550,14 +576,19 @@ function LevelXPMinus($userid, $xp = 0)
     global $conn;
 
     if (isset($userid) && !empty($userid)) {
-        $sql = "UPDATE `level` SET `current_xp` = $xp WHERE `level`.`user_id` = '$userid';";
-        $conn->query($sql);
 
-        if ($conn->query($sql) === TRUE) {
+        //Prepare the query
+        $stmt = $conn->prepare("UPDATE level SET current_xp = ? WHERE user_id = ?");
+        $stmt->bind_param("ss", $xp, $userid);
+
+        if ($stmt->execute()) {
             return true;
         } else {
             return false;
         }
+
+    } else {
+        return false;
     }
 }
 
@@ -568,34 +599,52 @@ function AmountToLevelUp($userid, $amountToLevelUp = 0)
 
     if (isset($userid) && !empty($userid)) {
 
-        $sql = "UPDATE `level` SET `amount_to_level_up` = $amountToLevelUp WHERE `level`.`user_id` = '$userid';";
-        $conn->query($sql);
+        //Prepare the query
+        $stmt = $conn->prepare("UPDATE level SET amount_to_level_up = ? WHERE user_id = ?");
+        $stmt->bind_param("ss", $amountToLevelUp, $userid);
 
-        if ($conn->query($sql) === TRUE) {
+        if ($stmt->execute()) {
             return true;
         } else {
             return false;
         }
+
+    } else {
+        return false;
     }
 }
 
 // This function will check of the user has passed the amount to level up limit if so it will add +1 to level.
 function CheckAmountToLevelUp($userid)
 {
+    global $conn;
+
     if (isset($userid) && !empty($userid)) {
 
-        global $conn;
-        $sql = "SELECT * FROM level WHERE level.user_id = '$userid' AND current_xp >= amount_to_level_up;";
-        $result = $conn->query($sql);
-        $rows = $result->num_rows;
+        //Prepare the query
+        $stmt = $conn->prepare("SELECT * FROM level WHERE user_id = ? AND current_xp >= amount_to_level_up");
+        $stmt->bind_param("s", $userid);
 
-        if ($rows > 0) {
-            // If the query is true then add +1 level to user.
-            LevelUserAdd($userid);
-            return true;
+        if ($stmt->execute()) {
+
+            //Store the results
+            $stmt->store_result();
+
+            //Get rows
+            $rows = $stmt->num_rows;
+
+            if ($rows > 0) {
+                return true;
+            } else {
+                return false;
+            }
+
         } else {
             return false;
         }
+        
+    } else {
+        return false;
     }
 }
 
