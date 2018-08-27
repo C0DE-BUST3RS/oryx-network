@@ -642,7 +642,7 @@ function CheckAmountToLevelUp($userid)
         } else {
             return false;
         }
-        
+
     } else {
         return false;
     }
