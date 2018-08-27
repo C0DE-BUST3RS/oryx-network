@@ -15,20 +15,19 @@ function CheckIfEmailUsed($email)
     $stmt->bind_param("s", $email);
 
     //Execute the query
-    $stmt->execute();
+    if ($stmt->execute()) {
 
-    //Store the results
-    $stmt->store_result();
+        //Store the results
+        $stmt->store_result();
 
-    //Get rows
-    $rows = $stmt->num_rows;
+        //Get rows
+        $rows = $stmt->num_rows;
 
-    //If the email has been used
-    if ($rows > 0) {
-        return true;
-    } else {
-        //If the email does not exist
-        return false;
+        if ($rows > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
 
@@ -141,7 +140,6 @@ function UnHashPassword($UserTypedPassword, $hashedPassword)
 function CheckIfLoggedIn()
 {
     if (isset($_SESSION['user']['id']) && !empty($_SESSION['user']['id'])) {
-
         return true;
     } else {
         return false;
@@ -164,17 +162,11 @@ function Greetings($firstname)
     date_default_timezone_set('Europe/Amsterdam');
 
     if (date("H") < 12) {
-
         return "Good morning " . $firstname;
-
     } elseif (date("H") > 11 && date("H") < 18) {
-
         return "Good afternoon " . $firstname;
-
     } elseif (date("H") > 17) {
-
         return "Good evening " . $firstname;
-
     }
 }
 
@@ -229,7 +221,6 @@ function CheckBeforeActivation($email, $token)
 
         if ($rows > 0) {
             return true;
-
         } else {
             return false;
         }
@@ -237,7 +228,6 @@ function CheckBeforeActivation($email, $token)
     } else {
         return false;
     }
-
 }
 
 //This function will check if the reset token and email are the same as in the db table
@@ -260,7 +250,6 @@ function CheckBeforeReset($email, $token)
 
         if ($rows > 0) {
             return true;
-
         } else {
             return false;
         }
@@ -268,7 +257,6 @@ function CheckBeforeReset($email, $token)
     } else {
         return false;
     }
-
 }
 
 //This function will activate the account.
@@ -297,7 +285,6 @@ function ActivateAccount($email)
     } else {
         return false;
     }
-
 }
 
 //This function checks if the account has been activated
@@ -607,12 +594,23 @@ function CheckAmountToLevelUp($userid)
 function LoadProfileData($userid)
 {
     global $conn;
-    $query = $conn->query("SELECT profiles.intro, profiles.profile_picture FROM profiles WHERE user_id = '$userid';");
 
-    if ($query) {
-        $row = $query->fetch_array();
+    //Prepare the query
+    $stmt = $conn->prepare("SELECT profiles.intro, profiles.profile_picture FROM profiles WHERE user_id = ?");
+    $stmt->bind_param("s", $userid);
+
+    if ($stmt->execute()) {
+
+        //Store the results
+        $result = $stmt->get_result();
+
+        //Fetch the data
+        $row = $result->fetch_assoc();
+
         $_SESSION['user']['introduction'] = $row['intro'];
         $_SESSION['user']['picture'] = $row['profile_picture'];
+    } else {
+        return false;
     }
 }
 
@@ -620,12 +618,30 @@ function LoadProfileData($userid)
 function LoadNumPosts($userid)
 {
     global $conn;
-    $query = $conn->query("SELECT post.content FROM post WHERE user_id = '$userid';");
-    $num = $query->num_rows;
-    if ($num > 0) {
-        return $num;
+
+    //Prepare the query
+    $stmt = $conn->prepare("SELECT post.content FROM post WHERE user_id = ?");
+    $stmt->bind_param("s", $userid);
+
+    if ($stmt->execute()) {
+
+        //Store the results
+        $stmt->store_result();
+
+        //Get rows
+        $rows = $stmt->num_rows;
+
+        if ($rows > 0) {
+            return $rows;
+        }
+
+        return 0;
+
+    } else {
+        return 0;
+
     }
-    return 0;
+
 }
 
 //This function will change the intro
@@ -633,26 +649,41 @@ function ChangeIntro($userid, $newintro)
 {
     global $conn;
     $newintro = htmlspecialchars($conn->real_escape_string($newintro));
-    $query = $conn->query("UPDATE profiles SET intro = '$newintro' WHERE user_id = '$userid';");
 
-    if ($query) {
+    //Prepare the query
+    $stmt = $conn->prepare("UPDATE profiles SET intro = ? WHERE user_id = ?");
+    $stmt->bind_param("ss", $newintro, $userid);
+
+    if ($stmt->execute()) {
         return true;
     } else {
         return false;
     }
+
 }
 
 //This function will return the path to the users profile picture
 function GetPathProfilePicture($userid)
 {
     global $conn;
-    $sql = "SELECT profiles.profile_picture FROM profiles WHERE profiles.user_id = '$userid';";
-    $query = $conn->query($sql);
 
-    if ($query) {
-        $row = $query->fetch_array();
+    //Prepare the query
+    $stmt = $conn->prepare("SELECT profile_picture FROM profiles WHERE user_id = ?");
+    $stmt->bind_param("s", $userid);
+
+    //Execute the query
+    if ($stmt->execute()) {
+
+        //Get the results
+        $result = $stmt->get_result();
+
+        //Fetch the data
+        $row = $result->fetch_assoc();
+
         $path = $row['profile_picture'];
+
         return $path;
+
     } else {
         return false;
     }
