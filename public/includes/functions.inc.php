@@ -436,26 +436,38 @@ function LevelUserAdd($userid)
 
     if (isset($userid) && !empty($userid)) {
 
-        // Get the current level of the user.
-        $sql = $conn->query("SELECT current_level FROM level WHERE user_id = '$userid';");
-        $result = $sql->fetch_array();
-        $levelOld = $result['current_level'];
+        //Prepare the query
+        $stmt = $conn->prepare("SELECT current_level FROM level WHERE user_id = ?");
+        $stmt->bind_param("s", $userid);
 
-        // + 1 new level
-        $levelNew = $levelOld + 1;
+        if ($stmt->execute()) {
 
-        // Update the current level of the user with +1.
-        $sqlCurrentLevel = "UPDATE `level` SET `current_level` = '" . $levelNew . "' WHERE `level`.`user_id` = '$userid';";
-        $conn->query($sqlCurrentLevel);
+            //Get the results
+            $result = $stmt->get_result();
 
-        if ($conn->query($sqlCurrentLevel) === TRUE) {
+            //Fetch the data
+            $row = $result->fetch_assoc();
 
-            if (LevelXPAdd($userid, 0) === TRUE) {
+            $levelOld = $row['current_level'];
 
-                if (LevelXPRankUp($userid) === TRUE) {
+            $levelNew = $levelOld + 1;
 
-                    if (AmountToLevelUp($userid, 100) === TRUE) {
-                        return true;
+            //Prepare the query
+            $stmt = $conn->prepare("UPDATE level SET current_level = ? WHERE user_id = ?");
+            $stmt->bind_param("ss", $levelNew, $userid);
+
+            if ($stmt->execute()) {
+
+                if (LevelXPAdd($userid, 0) === TRUE) {
+
+                    if (LevelXPRankUp($userid) === TRUE) {
+
+                        if (AmountToLevelUp($userid, 100) === TRUE) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+
                     } else {
                         return false;
                     }
@@ -464,13 +476,10 @@ function LevelUserAdd($userid)
                     return false;
                 }
 
-            } else {
-                return false;
             }
 
-        } else {
-            return false;
         }
+
     }
 }
 
