@@ -12,7 +12,7 @@ function CheckIfEmailUsed($email)
 
     //Prepare the query
     $stmt = $conn->prepare("SELECT email FROM user WHERE email = ?");
-    $stmt->bind_param("s",$email);
+    $stmt->bind_param("s", $email);
 
     //Execute the query
     $stmt->execute();
@@ -86,11 +86,19 @@ function CheckIfPasswordLongEnough($password)
 function CheckIfAdmin($email)
 {
     global $conn;
-    $sql = "SELECT admin FROM user WHERE email = '$email';";
-    $query = $conn->query($sql);
 
-    if ($query) {
-        $row = $query->fetch_array();
+    //Prepare the query
+    $stmt = $conn->prepare("SELECT admin FROM user WHERE email = ?");
+    $stmt->bind_param("s", $email);
+
+    if ($stmt->execute()) {
+
+        //Get the results
+        $result = $stmt->get_result();
+
+        //Fetch the data
+        $row = $result->fetch_assoc();
+
         $rank = $row['admin'];
 
         if ($rank == 1) {
@@ -205,52 +213,87 @@ function GenerateToken()
 function CheckBeforeActivation($email, $token)
 {
     global $conn;
-    $sql = "SELECT * FROM activationtoken WHERE activationtoken.email = '$email' AND activationtoken.value = '$token';";
-    $result = $conn->query($sql);
-    $resultCheck = $result->num_rows;
 
-    //Everything is good proceed further
-    if ($resultCheck > 0) {
-        return true;
+    //Prepare the query
+    $stmt = $conn->prepare("SELECT * FROM activationtoken WHERE activationtoken.email = ? AND activationtoken.value = ?");
+    $stmt->bind_param("ss", $email, $token);
 
-        //If the token is not the same as in db.
+    //Execute the query
+    if ($stmt->execute()) {
+
+        //Store the results
+        $stmt->store_result();
+
+        //Get rows
+        $rows = $stmt->num_rows;
+
+        if ($rows > 0) {
+            return true;
+
+        } else {
+            return false;
+        }
+
     } else {
         return false;
     }
+
 }
 
 //This function will check if the reset token and email are the same as in the db table
 function CheckBeforeReset($email, $token)
 {
     global $conn;
-    $sql = "SELECT * FROM resettoken WHERE resettoken.email = '$email' AND resettoken.value = '$token';";
-    $result = $conn->query($sql);
-    $resultCheck = $result->num_rows;
 
-    //Everything is good proceed further
-    if ($resultCheck > 0) {
-        return true;
+    //Prepare the query
+    $stmt = $conn->prepare("SELECT * FROM resettoken WHERE resettoken.email = ? AND resettoken.value = ?");
+    $stmt->bind_param("ss", $email, $token);
 
-        //If the token is not the same as in db.
+    //Execute the query
+    if ($stmt->execute()) {
+
+        //Store the results
+        $stmt->store_result();
+
+        //Get rows
+        $rows = $stmt->num_rows;
+
+        if ($rows > 0) {
+            return true;
+
+        } else {
+            return false;
+        }
+
     } else {
         return false;
     }
+
 }
 
 //This function will activate the account.
 function ActivateAccount($email)
 {
     global $conn;
-    // Update token used to 1 (true)
-    $sql = "UPDATE `activationtoken` SET `used` = 1 WHERE `activationtoken`.`email` = '$email';";
 
-    $conn->query($sql);
+    //Prepare the query
+    $stmt = $conn->prepare("UPDATE activationtoken SET used = 1 WHERE email = ?");
+    $stmt->bind_param("s", $email);
 
-    $sql2 = "UPDATE `user` SET `activated` = 1 WHERE `user`.`email` = '$email';";
-    $conn->query($sql2);
+    //Execute the query
+    if ($stmt->execute()) {
 
-    if ($conn->query($sql2) === TRUE) {
-        return true;
+        //Prepare the query
+        $stmt = $conn->prepare("UPDATE user SET activated = 1 WHERE email = ?");
+        $stmt->bind_param("s", $email);
+
+        //Execute the query
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+
     } else {
         return false;
     }
@@ -262,12 +305,26 @@ function ActivateAccount($email)
 function CheckIfActivated($email)
 {
     global $conn;
-    $sql = "SELECT * FROM user WHERE user.email = '$email' AND user.activated = 1;";
-    $result = $conn->query($sql);
-    $rows = $result->num_rows;
 
-    if ($rows > 0) {
-        return true;
+    //Prepare the query
+    $stmt = $conn->prepare("SELECT * FROM user WHERE user.email = ? AND user.activated = 1");
+    $stmt->bind_param("s", $email);
+
+    //Execute the query
+    if ($stmt->execute()) {
+
+        //Store the results
+        $stmt->store_result();
+
+        //Get rows
+        $rows = $stmt->num_rows;
+
+        if ($rows > 0) {
+            return true;
+        } else {
+            return false;
+        }
+
     } else {
         return false;
     }
