@@ -26,71 +26,95 @@ if (isset($_POST['submit'])) {
                 if (CheckIfActivated($emailPost) == true) {
 
                     //Get all data about the user
-                    $sql = $conn->query("SELECT * FROM user WHERE email = '$emailPost';");
-                    $row = $sql->fetch_array();
+                    $stmt = $conn->prepare("SELECT * FROM user WHERE email = ?");
+                    $stmt->bind_param("s", $emailPost);
 
-                    $hashedPWD = $row['password'];
+                    //If query was successful
+                    if ($stmt->execute()) {
 
-                    // Verify if the password matches the one the user typed.
-                    if (UnHashPassword($passwordPost, $hashedPWD) == true) {
+                        //Get the results
+                        $result = $stmt->get_result();
 
-                        //ID from DB.user - example: 09221D38-D97D12BF-12BF2AFD
-                        $_SESSION['user']['id'] = $row['id'];
+                        //Fetch the data
+                        $row = $result->fetch_assoc();
 
-                        //Update the user last_login time.
-                        $UserID = $_SESSION['user']['id'];
-                        $query = $conn->query("UPDATE user SET last_login = '" . GetCurrentDate() . "' WHERE `user`.`id` = '" . $UserID . "';");
+                        $hashedPWD = $row['password'];
 
-                        //Update the user last_ip time.
-                        $query = $conn->query("UPDATE user SET last_ip = '" . GetUserIP() . "' WHERE `user`.`id` = '" . $UserID . "';");
+                        // Verify if the password matches the one the user typed.
+                        if (UnHashPassword($passwordPost, $hashedPWD) == true) {
 
-                        //Get all data about the user
-                        $sql = $conn->query("SELECT * FROM user WHERE email = '$emailPost';");
-                        $row = $sql->fetch_array();
+                            $UserID = $_SESSION['user']['id'] = $row['id'];
 
-                        //admin from DB.user - 0 = user, 1 = admin
-                        $_SESSION['user']['admin'] = $row['admin'];
+                            //Update the users last login time
+                            $stmt = $conn->prepare("UPDATE user SET last_login = ? WHERE id = ?");
+                            $stmt->bind_param("ss", GetCurrentDate(), $UserID);
+                            $stmt->execute();
 
-                        //Date from signup - DB.user
-                        $_SESSION['user']['date'] = $row['date'];
+                            //Update the users last ip
+                            $stmt = $conn->prepare("UPDATE user SET last_ip = ? WHERE id = ?");
+                            $stmt->bind_param("ss", GetUserIP(), $UserID);
+                            $stmt->execute();
 
-                        //IP from DB.user - Like 10.2.2.2
-                        $_SESSION['user']['ip'] = $row['ip'];
+                            //Get the user data
+                            $stmt = $conn->prepare("SELECT * FROM user WHERE email = ?");
+                            $stmt->bind_param("s", $emailPost);
+                            $stmt->execute();
+                            $result = $stmt->get_result();
+                            $row = $result->fetch_assoc();
 
-                        //Firstname from DB.user
-                        $_SESSION['user']['firstname'] = $row['firstname'];
+                            //Rank
+                            $_SESSION['user']['admin'] = $row['admin'];
 
-                        //Lastname from DB.user
-                        $_SESSION['user']['lastname'] = $row['lastname'];
+                            //Signup date
+                            $_SESSION['user']['date'] = $row['date'];
 
-                        //Get the full name from DB.user
-                        $_SESSION['user']['fullname'] = $row['firstname'] . " " . $row['lastname'];
+                            //IP
+                            $_SESSION['user']['ip'] = $row['ip'];
 
-                        //Email from DB.user - Like test@test.com
-                        $_SESSION['user']['email'] = $row['email'];
+                            //Firstname
+                            $_SESSION['user']['firstname'] = $row['firstname'];
 
-                        //Lastlogin from DB.user - Like 2018-06-24 12:11:23
-                        $_SESSION['user']['lastlogin'] = $row['last_login'];
+                            //Lastname
+                            $_SESSION['user']['lastname'] = $row['lastname'];
 
-                        //Last Logged in IP - Like 10.2.2.3
-                        $_SESSION['user']['lastip'] = $row['last_ip'];
+                            //Fullname
+                            $_SESSION['user']['fullname'] = $row['firstname']." ".$row['lastname'];
 
-                        //Get all profile data
-                        $query = $conn->query("SELECT * FROM profiles WHERE user_id = '$UserID';");
-                        $row = $query->fetch_array();
+                            //Email
+                            $_SESSION['user']['email'] = $row['email'];
 
-                        // Get user profile picture
-                        $_SESSION['user']['picture'] = $row['profile_picture'];
+                            //Lastlogin time
+                            $_SESSION['user']['lastlogin'] = $row['last_login'];
 
-                        // Get user intro text on profile
-                        $_SESSION['user']['introduction'] = $row['intro'];
+                            //Lastlogin ip
+                            $_SESSION['user']['lastip'] = $row['last_ip'];
 
-                        //Redirect the user to the feed page.
-                        header("Location: ../feed.php?login=successfull");
-                        exit();
+                            //Get the profile data
+                            $stmt = $conn->prepare("SELECT * FROM profiles WHERE user_id = ?");
+                            $stmt->bind_param("s", $UserID);
+                            $stmt->execute();
+                            $result = $stmt->get_result();
+                            $row = $result->fetch_assoc();
+
+                            //Profile picture path
+                            $_SESSION['user']['picture'] = $row['profile_picture'];
+
+                            //Profile intro text
+                            $_SESSION['user']['introduction'] = $row['intro'];
+
+                            //Redirect the user to the feed page.
+                            header("Location: ../feed.php?login=successfull");
+                            exit();
+
+                        } else {
+                            // If the password the user typed in DOES NOT match with the DB then redirect.
+                            $_SESSION['loginfailed'] = "";
+                            header("Location: ../login.php?login=failed");
+                            exit();
+                        }
 
                     } else {
-                        // If the password the user typed in DOES NOT match with the DB then redirect.
+                        //If the query failed
                         $_SESSION['loginfailed'] = "";
                         header("Location: ../login.php?login=failed");
                         exit();
