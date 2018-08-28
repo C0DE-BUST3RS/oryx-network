@@ -19,7 +19,7 @@ If (CheckIfLoggedIn() == true) {
     <meta name="author" content="C0DE-BUST3RS">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/bulma.css">
-    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
     <title>Request password - Oryx Network</title>
 </head>
 
@@ -59,13 +59,13 @@ If (CheckIfLoggedIn() == true) {
                             <div class="control has-icons-left">
                                 <input class="input is-primary is-info is-rounded" id="resetEmail" name="resetEmail" type="email" placeholder="Email"/>
                                 <span class="icon is-small is-left">
-                                    <i class="fa fa-envelope"></i>
+                                    <i class="fas fa-envelope"></i>
                                 </span>
                             </div>
                         </div>
 
                         <button type="submit" id="submit" name="submit" class="button is-info is-outlined is-rounded">
-                            <i class="fa fa-sign-in" aria-hidden="true"></i> &nbsp;Reset password
+                            <i class="fas fa-sign-in-alt"></i>&nbsp;Reset password
                         </button>
 
                     </form>

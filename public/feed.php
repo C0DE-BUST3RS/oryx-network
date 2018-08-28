@@ -24,7 +24,7 @@ $firstname = $_SESSION['user']['firstname'];
 	<meta name="author" content="C0DE-BUST3RS">
 	<link rel="stylesheet" href="css/main.css">
 	<link rel="stylesheet" href="css/bulma.css">
-	<link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
 
 	<title><?php echo ucwords($firstname) . "'s Feed"; ?> - Oryx Network</title>
 </head>
@@ -120,7 +120,7 @@ $firstname = $_SESSION['user']['firstname'];
 									<div class="level-left">
 										<a class="level-item" aria-label="like">
 											<span class="icon is-small">
-											  <i class="fa fa-heart" aria-hidden="true"></i>&nbsp;<?php echo $row['likes']; ?>
+											  <i class="fas fa-heart"></i>&nbsp;<?php echo $row['likes']; ?>
 											</span>
 										</a>
 									</div>
@@ -129,7 +129,7 @@ $firstname = $_SESSION['user']['firstname'];
 											<a class="level-item">
 												<form action="includes/delete.inc.php" method="POST">
 													<button class="delete-button" type="submit" name="delete">
-														<i class="fa fa-trash"></i>
+                                                        <i class="fas fa-trash-alt"></i>
 													</button>
 												</form>
 											</a>

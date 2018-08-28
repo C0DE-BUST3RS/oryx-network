@@ -21,7 +21,7 @@ if (CheckIfLoggedIn() == true) {
     <meta name="author" content="C0DE-BUST3RS">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/bulma.css">
-    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
     <title>Home - Oryx Network</title>
 </head>
 
@@ -48,7 +48,7 @@ if (CheckIfLoggedIn() == true) {
                         The best place to make new friends
                     </h2>
                     <a class="button is-info is-outlined is-rounded" href="login.php">
-                        <i class="fa fa-sign-in" aria-hidden="true"></i> &nbsp;Login
+                        <i class="fas fa-sign-in-alt"></i> &nbsp;Login
                     </a>
                 </div>
 
@@ -82,7 +82,7 @@ if (CheckIfLoggedIn() == true) {
                                        name="registerFirstname" type="text" placeholder="Firstname"
                                        value="<?php FirstnameFillIn(); ?>" required/>
                                 <span class="icon is-small is-left">
-									<i class="fa fa-address-card"></i>
+									<i class="far fa-address-card"></i>
     							</span>
                             </div>
                         </div>
@@ -93,7 +93,7 @@ if (CheckIfLoggedIn() == true) {
                                        name="registerLastname" type="text" placeholder="Lastname"
                                        value="<?php LastnameFillIn(); ?>" required/>
                                 <span class="icon is-small is-left">
-									<i class="fa fa-address-card"></i>
+									<i class="far fa-address-card"></i>
     							</span>
                             </div>
                         </div>
@@ -104,7 +104,7 @@ if (CheckIfLoggedIn() == true) {
                                        name="registerEmail" type="email" placeholder="Email"
                                        value="<?php EmailFillIn(); ?>" required/>
                                 <span class="icon is-small is-left">
-									<i class="fa fa-envelope"></i>
+									<i class="far fa-envelope"></i>
     							</span>
                             </div>
                         </div>
@@ -115,16 +115,16 @@ if (CheckIfLoggedIn() == true) {
                                        name="registerPassword" type="password" placeholder="Password"
                                        required/>
                                 <span class="icon is-small is-left">
-									<i class="fa fa-lock"></i>
-    							</span>
+                                    <i class="fas fa-lock"></i>
+                                </span>
                             </div>
                         </div>
 
                         <button type="submit" id="submit" name="submit" class="button is-info is-outlined is-rounded">
-                            <i class="fa fa-user-plus" aria-hidden="true"></i> &nbsp;Register
+                            <i class="fas fa-user-plus"></i> &nbsp;Register
                         </button>
                         <a class="button is-info is-outlined is-rounded is-hidden-desktop" href="login.php">
-                            <i class="fa fa-sign-in" aria-hidden="true"></i> &nbsp;Login
+                            <i class="fas fa-sign-in-alt"></i> &nbsp;Login
                         </a>
                     </form>
 

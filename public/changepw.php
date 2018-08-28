@@ -57,7 +57,7 @@ if (isset($_POST['submit'])) {
     <meta name="author" content="C0DE-BUST3RS">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/bulma.css">
-    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
     <title>Reset password - Oryx Network</title>
 </head>
 
@@ -88,7 +88,7 @@ if (isset($_POST['submit'])) {
                                 <input class="input is-primary is-info is-rounded" id="resetToken" name="resetToken"
                                        type="text" value="<?php PWResetTokenFillIn(); ?>" placeholder="Your token"/>
                                 <span class="icon is-small is-left">
-                                    <i class="fa fa-key" aria-hidden="true"></i>
+                                    <i class="fas fa-key"></i>
                                 </span>
                             </div>
                         </div>
@@ -98,7 +98,7 @@ if (isset($_POST['submit'])) {
                                 <input class="input is-primary is-info is-rounded" id="resetEmail" name="resetEmail"
                                        type="email" value="<?php PWResetEmailFillIn(); ?>" placeholder="Your email"/>
                                 <span class="icon is-small is-left">
-									<i class="fa fa-envelope"></i>
+                                    <i class="fas fa-envelope"></i>
     							</span>
                             </div>
                         </div>
@@ -108,13 +108,13 @@ if (isset($_POST['submit'])) {
                                 <input class="input is-primary is-info is-rounded" id="resetNewPassword"
                                        name="resetNewPassword" type="password" placeholder="Your new password"/>
                                 <span class="icon is-small is-left">
-                                    <i class="fa fa-key" aria-hidden="true"></i>
+                                    <i class="fas fa-key"></i>
                                 </span>
                             </div>
                         </div>
 
                         <button type="submit" id="submit" name="submit" class="button is-info is-outlined is-rounded">
-                            <i class="fa fa-sign-in" aria-hidden="true"></i> &nbsp;Change password
+                            <i class="fas fa-sign-in-alt">&nbsp;Change password
                         </button>
 
                     </form>

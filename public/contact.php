@@ -22,7 +22,7 @@ if (CheckIfLoggedIn() == true) {
     <meta name="author" content="C0DE-BUST3RS">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/bulma.css">
-    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
     <title>Contact - Oryx Network</title>
 </head>
 
@@ -53,7 +53,7 @@ if (CheckIfLoggedIn() == true) {
                                 <input class="input is-primary is-info is-rounded" id="contactFirstname"
                                        name="contactFirstname" type="text" placeholder="Firstname" value="<?php if (isset($firstname)) {echo $firstname;}?>" required/>
                                 <span class="icon is-small is-left">
-									<i class="fa fa-address-card"></i>
+									<i class="fas fa-address-card"></i>
     							</span>
                             </div>
                         </div>
@@ -63,7 +63,7 @@ if (CheckIfLoggedIn() == true) {
                                 <input class="input is-primary is-info is-rounded" id="contactLastname"
                                        name="contactLastname" type="text" placeholder="Lastname" value="<?php if (isset($lastname)) {echo $lastname;}?>" required/>
                                 <span class="icon is-small is-left">
-									<i class="fa fa-address-card"></i>
+									<i class="fas fa-address-card"></i>
     							</span>
                             </div>
                         </div>
@@ -73,7 +73,7 @@ if (CheckIfLoggedIn() == true) {
                                 <input class="input is-primary is-info is-rounded" id="contactEmail"
                                        name="contactEmail" type="email" placeholder="Email" value="<?php if (isset($email)) {echo $email;}?>" required/>
                                 <span class="icon is-small is-left">
-									<i class="fa fa-envelope"></i>
+									<i class="fas fa-address-card"></i>
     							</span>
                             </div>
                         </div>
@@ -85,7 +85,7 @@ if (CheckIfLoggedIn() == true) {
                         </div>
 
                         <button type="submit" id="submit" name="submit" class="button is-info is-outlined is-rounded">
-                            <i class="fa fa-envelope"></i> &nbsp;Send email
+                            <i class="fas fa-envelope"></i>&nbsp;Send email
                         </button>
 
                     </form>

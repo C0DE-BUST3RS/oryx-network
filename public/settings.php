@@ -85,7 +85,7 @@ LoadProfileData($_SESSION['user']['id']);
     <meta name="author" content="C0DE-BUST3RS">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/bulma.css">
-    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
     <title>My settings - Oryx Network</title>
 </head>
 
@@ -168,7 +168,7 @@ LoadProfileData($_SESSION['user']['id']);
                                                value="attachment">
                                         <span class="file-cta">
                                             <span class="file-icon">
-                                                <i class="fa fa-upload"></i>
+                                                <i class="fas fa-upload"></i>
                                             </span>
                                             <span class="file-label">
                                                 Choose a file…
