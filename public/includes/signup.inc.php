@@ -17,8 +17,7 @@ if (isset($_POST['submit'])) {
     $lastname = strtolower($lastname);
     $email = strtolower($email);
 
-    //Define variable from POST for Recaptcha
-    $responseKey = $_POST['g-recaptcha-response'];
+    //Get the users ip
     $ip = GetUserIP();
 
     //Check if the values are not empty
@@ -42,14 +41,35 @@ if (isset($_POST['submit'])) {
                         //Generate a activation token
                         $token = GenerateToken();
 
-                        //Everything is good, proceed to querys.
-                        $account = $conn->query("INSERT INTO `user` (`id`, `admin`, `ip`, `date`, `firstname`, `lastname`, `email`, `password`, `last_login`, `last_ip`) VALUES ('" . $uid . "', '0','" . GetUserIP() . "', '" . GetCurrentDate() . "', '" . htmlspecialchars($firstname) . "', '" . htmlspecialchars($lastname) . "', '" . htmlspecialchars($email) . "', '" . HashPassword($password) . "', '" . GetCurrentDate() . "', '" . GetUserIP() . "')");
-                        $activation = $conn->query("INSERT INTO activationtoken (id, date, user_id, email, used, value) VALUES ('','" . GetCurrentDate() . "','" . $uid . "','" . htmlspecialchars($email) . "',0,'" . $token . "')");
-                        $level = $conn->query("INSERT INTO `level` (`id`, `user_id`, `current_level`, `current_xp`, `amount_to_level_up`, `last_level_up`, `level_icon`) VALUES ('', ' . $uid . ', 0, 0, 0, '0000-00-00 00:00:00', 'img/levels/rank000.png')");
-                        $profile = $conn->query("INSERT INTO `profiles` (`id`, `user_id`, `profile_picture`, `intro`) VALUES ('', ' . $uid . ', '' , '')");
+                        //Convert the values
+                        $firstname = htmlspecialchars($firstname);
+                        $lastname = htmlspecialchars($lastname);
+                        $email = htmlspecialchars($email);
+
+                        //Place all the data in the DB rows
+
+                        //USER DATA
+                        $stmt = $conn->prepare("INSERT INTO user (id, activated, admin, date, ip, firstname, lastname, email, password, last_login, last_ip) VALUES (?,0,?,?,?,?,?,?,?,?,?)");
+                        $stmt->bind_param("sssssssss", $uid, GetUserIP(), GetCurrentDate(), $firstname, $lastname, $email, HashPassword($password), GetCurrentDate(), GetUserIP());
+                        $stmt->execute();
+
+                        //ACTIVATION DATA
+                        $stmt = $conn->prepare("INSERT INTO activationtoken (id, date, user_id, email, used, value) VALUES ('',?,?,?,0,?)");
+                        $stmt->bind_param("ssss", GetCurrentDate(),$uid, $email, $token);
+                        $stmt->execute();
+
+                        //LEVEL DATA
+                        $stmt = $conn->prepare("INSERT INTO level (id, user_id, current_level, current_xp, amount_to_level_up, last_level_up, level_icon) VALUES ('',?,0,0,0,'0000-00-00 00:00:00','img/levels/rank000.png')");
+                        $stmt->bind_param("s",$uid);
+                        $stmt->execute();
+
+                        //PROFILE DATA
+                        $stmt = $conn->prepare("INSERT INTO profiles (id, user_id, profile_picture, intro) VALUES ('',?,'','') ");
+                        $stmt->bind_param("s",$uid);
+                        $stmt->execute();
 
                         //Send the activation token to the user
-                        SendToken(htmlspecialchars($email), htmlspecialchars($firstname) . " " . htmlspecialchars($lastname), $token,false,true);
+                        SendToken(htmlspecialchars($email), $firstname . " " . $lastname, $token, false, true);
 
                         //Set the success status
                         $_SESSION['success'] = "Signup was successful! <br> Please check your email!";

@@ -12,23 +12,22 @@ function CheckIfEmailUsed($email)
 
     //Prepare the query
     $stmt = $conn->prepare("SELECT email FROM user WHERE email = ?");
-    $stmt->bind_param("s",$email);
+    $stmt->bind_param("s", $email);
 
     //Execute the query
-    $stmt->execute();
+    if ($stmt->execute()) {
 
-    //Store the results
-    $stmt->store_result();
+        //Store the results
+        $stmt->store_result();
 
-    //Get rows
-    $rows = $stmt->num_rows;
+        //Get rows
+        $rows = $stmt->num_rows;
 
-    //If the email has been used
-    if ($rows > 0) {
-        return true;
-    } else {
-        //If the email does not exist
-        return false;
+        if ($rows > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
 
@@ -86,11 +85,19 @@ function CheckIfPasswordLongEnough($password)
 function CheckIfAdmin($email)
 {
     global $conn;
-    $sql = "SELECT admin FROM user WHERE email = '$email';";
-    $query = $conn->query($sql);
 
-    if ($query) {
-        $row = $query->fetch_array();
+    //Prepare the query
+    $stmt = $conn->prepare("SELECT admin FROM user WHERE email = ?");
+    $stmt->bind_param("s", $email);
+
+    if ($stmt->execute()) {
+
+        //Get the results
+        $result = $stmt->get_result();
+
+        //Fetch the data
+        $row = $result->fetch_assoc();
+
         $rank = $row['admin'];
 
         if ($rank == 1) {
@@ -133,7 +140,6 @@ function UnHashPassword($UserTypedPassword, $hashedPassword)
 function CheckIfLoggedIn()
 {
     if (isset($_SESSION['user']['id']) && !empty($_SESSION['user']['id'])) {
-
         return true;
     } else {
         return false;
@@ -156,17 +162,11 @@ function Greetings($firstname)
     date_default_timezone_set('Europe/Amsterdam');
 
     if (date("H") < 12) {
-
         return "Good morning " . $firstname;
-
     } elseif (date("H") > 11 && date("H") < 18) {
-
         return "Good afternoon " . $firstname;
-
     } elseif (date("H") > 17) {
-
         return "Good evening " . $firstname;
-
     }
 }
 
@@ -205,15 +205,26 @@ function GenerateToken()
 function CheckBeforeActivation($email, $token)
 {
     global $conn;
-    $sql = "SELECT * FROM activationtoken WHERE activationtoken.email = '$email' AND activationtoken.value = '$token';";
-    $result = $conn->query($sql);
-    $resultCheck = $result->num_rows;
 
-    //Everything is good proceed further
-    if ($resultCheck > 0) {
-        return true;
+    //Prepare the query
+    $stmt = $conn->prepare("SELECT * FROM activationtoken WHERE activationtoken.email = ? AND activationtoken.value = ?");
+    $stmt->bind_param("ss", $email, $token);
 
-        //If the token is not the same as in db.
+    //Execute the query
+    if ($stmt->execute()) {
+
+        //Store the results
+        $stmt->store_result();
+
+        //Get rows
+        $rows = $stmt->num_rows;
+
+        if ($rows > 0) {
+            return true;
+        } else {
+            return false;
+        }
+
     } else {
         return false;
     }
@@ -223,15 +234,26 @@ function CheckBeforeActivation($email, $token)
 function CheckBeforeReset($email, $token)
 {
     global $conn;
-    $sql = "SELECT * FROM resettoken WHERE resettoken.email = '$email' AND resettoken.value = '$token';";
-    $result = $conn->query($sql);
-    $resultCheck = $result->num_rows;
 
-    //Everything is good proceed further
-    if ($resultCheck > 0) {
-        return true;
+    //Prepare the query
+    $stmt = $conn->prepare("SELECT * FROM resettoken WHERE resettoken.email = ? AND resettoken.value = ?");
+    $stmt->bind_param("ss", $email, $token);
 
-        //If the token is not the same as in db.
+    //Execute the query
+    if ($stmt->execute()) {
+
+        //Store the results
+        $stmt->store_result();
+
+        //Get rows
+        $rows = $stmt->num_rows;
+
+        if ($rows > 0) {
+            return true;
+        } else {
+            return false;
+        }
+
     } else {
         return false;
     }
@@ -241,20 +263,28 @@ function CheckBeforeReset($email, $token)
 function ActivateAccount($email)
 {
     global $conn;
-    // Update token used to 1 (true)
-    $sql = "UPDATE `activationtoken` SET `used` = 1 WHERE `activationtoken`.`email` = '$email';";
 
-    $conn->query($sql);
+    //Prepare the query
+    $stmt = $conn->prepare("UPDATE activationtoken SET used = 1 WHERE email = ?");
+    $stmt->bind_param("s", $email);
 
-    $sql2 = "UPDATE `user` SET `activated` = 1 WHERE `user`.`email` = '$email';";
-    $conn->query($sql2);
+    //Execute the query
+    if ($stmt->execute()) {
 
-    if ($conn->query($sql2) === TRUE) {
-        return true;
+        //Prepare the query
+        $stmt = $conn->prepare("UPDATE user SET activated = 1 WHERE email = ?");
+        $stmt->bind_param("s", $email);
+
+        //Execute the query
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+
     } else {
         return false;
     }
-
 }
 
 //This function checks if the account has been activated
@@ -262,12 +292,26 @@ function ActivateAccount($email)
 function CheckIfActivated($email)
 {
     global $conn;
-    $sql = "SELECT * FROM user WHERE user.email = '$email' AND user.activated = 1;";
-    $result = $conn->query($sql);
-    $rows = $result->num_rows;
 
-    if ($rows > 0) {
-        return true;
+    //Prepare the query
+    $stmt = $conn->prepare("SELECT * FROM user WHERE user.email = ? AND user.activated = 1");
+    $stmt->bind_param("s", $email);
+
+    //Execute the query
+    if ($stmt->execute()) {
+
+        //Store the results
+        $stmt->store_result();
+
+        //Get rows
+        $rows = $stmt->num_rows;
+
+        if ($rows > 0) {
+            return true;
+        } else {
+            return false;
+        }
+
     } else {
         return false;
     }
@@ -392,26 +436,38 @@ function LevelUserAdd($userid)
 
     if (isset($userid) && !empty($userid)) {
 
-        // Get the current level of the user.
-        $sql = $conn->query("SELECT current_level FROM level WHERE user_id = '$userid';");
-        $result = $sql->fetch_array();
-        $levelOld = $result['current_level'];
+        //Prepare the query
+        $stmt = $conn->prepare("SELECT current_level FROM level WHERE user_id = ?");
+        $stmt->bind_param("s", $userid);
 
-        // + 1 new level
-        $levelNew = $levelOld + 1;
+        if ($stmt->execute()) {
 
-        // Update the current level of the user with +1.
-        $sqlCurrentLevel = "UPDATE `level` SET `current_level` = '" . $levelNew . "' WHERE `level`.`user_id` = '$userid';";
-        $conn->query($sqlCurrentLevel);
+            //Get the results
+            $result = $stmt->get_result();
 
-        if ($conn->query($sqlCurrentLevel) === TRUE) {
+            //Fetch the data
+            $row = $result->fetch_assoc();
 
-            if (LevelXPAdd($userid, 0) === TRUE) {
+            $levelOld = $row['current_level'];
 
-                if (LevelXPRankUp($userid) === TRUE) {
+            $levelNew = $levelOld + 1;
 
-                    if (AmountToLevelUp($userid, 100) === TRUE) {
-                        return true;
+            //Prepare the query
+            $stmt = $conn->prepare("UPDATE level SET current_level = ? WHERE user_id = ?");
+            $stmt->bind_param("ss", $levelNew, $userid);
+
+            if ($stmt->execute()) {
+
+                if (LevelXPAdd($userid, 0) === TRUE) {
+
+                    if (LevelXPRankUp($userid) === TRUE) {
+
+                        if (AmountToLevelUp($userid, 100) === TRUE) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+
                     } else {
                         return false;
                     }
@@ -420,31 +476,32 @@ function LevelUserAdd($userid)
                     return false;
                 }
 
-            } else {
-                return false;
             }
 
-        } else {
-            return false;
         }
+
     }
 }
 
 // This function will -1 level to the user.
 function LevelUserMinus($userid)
 {
-    global $conn;
-
     if (isset($userid) && !empty($userid)) {
 
-        $sql = "UPDATE `level` SET `current_level` = -1 WHERE `level`.`user_id` = '$userid';";
-        $conn->query($sql);
+        global $conn;
 
-        if ($conn->query($sql) === TRUE) {
+        //Prepare the query
+        $stmt = $conn->prepare("UPDATE level SET current_level = -1 WHERE user_id = ?");
+        $stmt->bind_param("s", $userid);
+
+        if ($stmt->execute()) {
             return true;
         } else {
             return false;
         }
+
+    } else {
+        return false;
     }
 }
 
@@ -455,22 +512,39 @@ function LevelXPAdd($userid, $xp = 0)
 
     if (isset($userid) && !empty($userid)) {
 
-        // Get the current xp of the user.
-        $sql = $conn->query("SELECT current_xp FROM level WHERE user_id = '$userid';");
-        $result = $sql->fetch_array();
-        $currentXP = $result['current_xp'];
+        //Prepare the query
+        $stmt = $conn->prepare("SELECT current_xp FROM level WHERE user_id = ?");
+        $stmt->bind_param("s", $userid);
 
-        // CurrentXP + new XP
-        $newXP = $currentXP + $xp;
+        if ($stmt->execute()) {
 
-        $sql = "UPDATE `level` SET `current_xp` = '$newXP' WHERE `level`.`user_id` = '$userid';";
-        $conn->query($sql);
+            //Get the results
+            $result = $stmt->get_result();
 
-        if ($conn->query($sql) === TRUE) {
-            return true;
+            //Fetch the data
+            $row = $result->fetch_assoc();
+
+            $currentXP = $row['current_xp'];
+
+            //Calculate new XP
+            $newXP = $currentXP + $xp;
+
+            //Prepare the query
+            $stmt = $conn->prepare("UPDATE level SET current_xp = ? WHERE user_id = ?");
+            $stmt->bind_param("is", $currentXP, $userid);
+
+            if ($stmt->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+
         } else {
             return false;
         }
+
+    } else {
+        return false;
     }
 }
 
@@ -480,14 +554,19 @@ function LevelXPRankUp($userid)
     global $conn;
 
     if (isset($userid) && !empty($userid)) {
-        $sql = "UPDATE `level` SET `current_xp` = 0 WHERE `level`.`user_id` = '$userid';";
-        $conn->query($sql);
 
-        if ($conn->query($sql) === TRUE) {
+        //Prepare the query
+        $stmt = $conn->prepare("UPDATE level SET current_xp = 0 WHERE user_id = ?");
+        $stmt->bind_param("s", $userid);
+
+        if ($stmt->execute()) {
             return true;
         } else {
             return false;
         }
+
+    } else {
+        return false;
     }
 }
 
@@ -497,14 +576,19 @@ function LevelXPMinus($userid, $xp = 0)
     global $conn;
 
     if (isset($userid) && !empty($userid)) {
-        $sql = "UPDATE `level` SET `current_xp` = $xp WHERE `level`.`user_id` = '$userid';";
-        $conn->query($sql);
 
-        if ($conn->query($sql) === TRUE) {
+        //Prepare the query
+        $stmt = $conn->prepare("UPDATE level SET current_xp = ? WHERE user_id = ?");
+        $stmt->bind_param("ss", $xp, $userid);
+
+        if ($stmt->execute()) {
             return true;
         } else {
             return false;
         }
+
+    } else {
+        return false;
     }
 }
 
@@ -515,34 +599,52 @@ function AmountToLevelUp($userid, $amountToLevelUp = 0)
 
     if (isset($userid) && !empty($userid)) {
 
-        $sql = "UPDATE `level` SET `amount_to_level_up` = $amountToLevelUp WHERE `level`.`user_id` = '$userid';";
-        $conn->query($sql);
+        //Prepare the query
+        $stmt = $conn->prepare("UPDATE level SET amount_to_level_up = ? WHERE user_id = ?");
+        $stmt->bind_param("ss", $amountToLevelUp, $userid);
 
-        if ($conn->query($sql) === TRUE) {
+        if ($stmt->execute()) {
             return true;
         } else {
             return false;
         }
+
+    } else {
+        return false;
     }
 }
 
 // This function will check of the user has passed the amount to level up limit if so it will add +1 to level.
 function CheckAmountToLevelUp($userid)
 {
+    global $conn;
+
     if (isset($userid) && !empty($userid)) {
 
-        global $conn;
-        $sql = "SELECT * FROM level WHERE level.user_id = '$userid' AND current_xp >= amount_to_level_up;";
-        $result = $conn->query($sql);
-        $rows = $result->num_rows;
+        //Prepare the query
+        $stmt = $conn->prepare("SELECT * FROM level WHERE user_id = ? AND current_xp >= amount_to_level_up");
+        $stmt->bind_param("s", $userid);
 
-        if ($rows > 0) {
-            // If the query is true then add +1 level to user.
-            LevelUserAdd($userid);
-            return true;
+        if ($stmt->execute()) {
+
+            //Store the results
+            $stmt->store_result();
+
+            //Get rows
+            $rows = $stmt->num_rows;
+
+            if ($rows > 0) {
+                return true;
+            } else {
+                return false;
+            }
+
         } else {
             return false;
         }
+
+    } else {
+        return false;
     }
 }
 
@@ -550,12 +652,23 @@ function CheckAmountToLevelUp($userid)
 function LoadProfileData($userid)
 {
     global $conn;
-    $query = $conn->query("SELECT profiles.intro, profiles.profile_picture FROM profiles WHERE user_id = '$userid';");
 
-    if ($query) {
-        $row = $query->fetch_array();
+    //Prepare the query
+    $stmt = $conn->prepare("SELECT profiles.intro, profiles.profile_picture FROM profiles WHERE user_id = ?");
+    $stmt->bind_param("s", $userid);
+
+    if ($stmt->execute()) {
+
+        //Store the results
+        $result = $stmt->get_result();
+
+        //Fetch the data
+        $row = $result->fetch_assoc();
+
         $_SESSION['user']['introduction'] = $row['intro'];
         $_SESSION['user']['picture'] = $row['profile_picture'];
+    } else {
+        return false;
     }
 }
 
@@ -563,12 +676,30 @@ function LoadProfileData($userid)
 function LoadNumPosts($userid)
 {
     global $conn;
-    $query = $conn->query("SELECT post.content FROM post WHERE user_id = '$userid';");
-    $num = $query->num_rows;
-    if ($num > 0) {
-        return $num;
+
+    //Prepare the query
+    $stmt = $conn->prepare("SELECT post.content FROM post WHERE user_id = ?");
+    $stmt->bind_param("s", $userid);
+
+    if ($stmt->execute()) {
+
+        //Store the results
+        $stmt->store_result();
+
+        //Get rows
+        $rows = $stmt->num_rows;
+
+        if ($rows > 0) {
+            return $rows;
+        }
+
+        return 0;
+
+    } else {
+        return 0;
+
     }
-    return 0;
+
 }
 
 //This function will change the intro
@@ -576,26 +707,41 @@ function ChangeIntro($userid, $newintro)
 {
     global $conn;
     $newintro = htmlspecialchars($conn->real_escape_string($newintro));
-    $query = $conn->query("UPDATE profiles SET intro = '$newintro' WHERE user_id = '$userid';");
 
-    if ($query) {
+    //Prepare the query
+    $stmt = $conn->prepare("UPDATE profiles SET intro = ? WHERE user_id = ?");
+    $stmt->bind_param("ss", $newintro, $userid);
+
+    if ($stmt->execute()) {
         return true;
     } else {
         return false;
     }
+
 }
 
 //This function will return the path to the users profile picture
 function GetPathProfilePicture($userid)
 {
     global $conn;
-    $sql = "SELECT profiles.profile_picture FROM profiles WHERE profiles.user_id = '$userid';";
-    $query = $conn->query($sql);
 
-    if ($query) {
-        $row = $query->fetch_array();
+    //Prepare the query
+    $stmt = $conn->prepare("SELECT profile_picture FROM profiles WHERE user_id = ?");
+    $stmt->bind_param("s", $userid);
+
+    //Execute the query
+    if ($stmt->execute()) {
+
+        //Get the results
+        $result = $stmt->get_result();
+
+        //Fetch the data
+        $row = $result->fetch_assoc();
+
         $path = $row['profile_picture'];
+
         return $path;
+
     } else {
         return false;
     }
