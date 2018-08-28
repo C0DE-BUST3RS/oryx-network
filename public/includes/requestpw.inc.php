@@ -26,24 +26,33 @@ if (isset($_POST['submit'])) {
 
     if (CheckIfEmailUsed($emailPost) == true) {
 
-        //Get the user id from the DB that belongs to the email
-        $result = $conn->query("SELECT * FROM user WHERE email = '$emailPost';");
-        $row = $result->fetch_array();
-        $id = $row['id'];
+        //Prepare the query
+        $stmt = $conn->prepare("SELECT * FROM user WHERE email = ?");
+        $stmt->bind_param("s", $emailPost);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+
+        //Assign the userid to a var
+        $userid = $row['id'];
 
         //Generate a activation token
         $token = GenerateToken();
         //Get the current date
         $date = GetCurrentDate();
 
-        $tokenquery = $conn->query("INSERT INTO resettoken (id, date, user_id, email, used, value) VALUES ('','$date','$id','$emailPost',0,'$token');");
+        //Place the reset token in the table
+        $stmt = $conn->prepare("INSERT INTO resettoken (id, date, user_id, email, used, value) VALUES ('',?,?,?,0,?)");
+        $stmt->bind_param("ssss", $date,$userid,$emailPost,$token);
+        $stmt->execute();
 
+        //Send the token to the user
         SendToken($emailPost,"",$token,true,false);
 
-        // Set session message.
+        //Set the session
         $_SESSION['tokensend'] = "Password reset has been send (if the email is used)";
 
-        // Redirect to login page.
+        //Redirect to the requestpw page
         header("Location: ../requestpw.php");
         exit();
 
