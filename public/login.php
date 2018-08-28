@@ -89,7 +89,7 @@ If (CheckIfLoggedIn() == true) {
                             <div class="control has-icons-left">
                                 <input class="input is-info is-rounded" id="loginEmail" name="loginEmail" type="email" placeholder="Email"/>
                                 <span class="icon is-small is-left">
-                                    <i class="fa fa-envelope"></i>
+                                    <i class="fas fa-envelope"></i>
     							</span>
                             </div>
                         </div>
@@ -98,13 +98,13 @@ If (CheckIfLoggedIn() == true) {
                             <div class="control has-icons-left">
                                 <input class="input is-info is-rounded" id="loginPassword" name="loginPassword" type="password" placeholder="Password"/>
                                 <span class="icon is-small is-left">
-									<i class="fa fa-lock"></i>
+									<i class="fas fa-lock"></i>
     							</span>
                             </div>
                         </div>
 
-                        <button type="submit" id="submit" name="submit" class="button is-info is-outlined is-rounded"><i class="fa fa-sign-in" aria-hidden="true"></i> &nbsp;Login</button>
-                        <a class="button is-info is-outlined is-rounded" href="requestpw.php"><i class="fa fa-question-circle" aria-hidden="true"></i> &nbsp;Forgot password?</a>
+                        <button type="submit" id="submit" name="submit" class="button is-info is-outlined is-rounded"><i class="fas fa-sign-in-alt"></i>&nbsp;Login</button>
+                        <a class="button is-info is-outlined is-rounded" href="requestpw.php"><i class="fas fa-question"></i>&nbsp;Forgot password?</a>
 
                     </form>
 

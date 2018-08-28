@@ -168,7 +168,7 @@ LoadProfileData($_SESSION['user']['id']);
                                                value="attachment">
                                         <span class="file-cta">
                                             <span class="file-icon">
-                                                <i class="fa fa-upload"></i>
+                                                <i class="fas fa-upload"></i>
                                             </span>
                                             <span class="file-label">
                                                 Choose a file…
