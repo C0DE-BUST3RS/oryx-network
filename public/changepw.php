@@ -57,7 +57,7 @@ if (isset($_POST['submit'])) {
     <meta name="author" content="C0DE-BUST3RS">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/bulma.css">
-    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
     <title>Reset password - Oryx Network</title>
 </head>
 
