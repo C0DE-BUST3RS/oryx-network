@@ -38,13 +38,14 @@ if (isset($_POST['submit'])) {
                         //Fetch the data
                         $row = $result->fetch_assoc();
 
+                        //Get the password
                         $hashedPWD = $row['password'];
 
                         // Verify if the password matches the one the user typed.
                         if (UnHashPassword($passwordPost, $hashedPWD)) {
 
+                            //Get some data about the user
                             $UserID = $_SESSION['user']['id'] = $row['id'];
-
                             $date = GetCurrentDate();
                             $ip = GetUserIP();
 

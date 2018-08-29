@@ -35,17 +35,13 @@ if (isset($_POST['submit'])) {
                     //Check if the password is long enough
                     if (CheckIfPasswordLongEnough($password)) {
 
-                        //Generate a user ID
-                        $uid = GenerateUID();
-
-                        //Generate a activation token
-                        $token = GenerateToken();
-
-                        //Convert the values
+                        //Get some data from the user
                         $firstname = htmlspecialchars($firstname);
                         $lastname = htmlspecialchars($lastname);
                         $email = htmlspecialchars($email);
 
+                        $uid = GenerateUID();
+                        $token = GenerateToken();
                         $ip = GetUserIP();
                         $date = GetCurrentDate();
                         $hashedPW = HashPassword($password);
