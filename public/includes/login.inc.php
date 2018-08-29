@@ -13,7 +13,7 @@ if (isset($_POST['submit'])) {
     //Make the value lower case
     $emailPost = strtolower($emailPost);
 
-    //Check if the user is loggedin
+    //Check if the user is logged in
     if (!CheckIfLoggedIn()) {
 
         //Check if the email has been used
@@ -38,21 +38,25 @@ if (isset($_POST['submit'])) {
                         //Fetch the data
                         $row = $result->fetch_assoc();
 
+                        //Get the password
                         $hashedPWD = $row['password'];
 
                         // Verify if the password matches the one the user typed.
                         if (UnHashPassword($passwordPost, $hashedPWD)) {
 
+                            //Get some data about the user
                             $UserID = $_SESSION['user']['id'] = $row['id'];
+                            $date = GetCurrentDate();
+                            $ip = GetUserIP();
 
                             //Update the users last login time
                             $stmt = $conn->prepare("UPDATE user SET last_login = ? WHERE id = ?");
-                            $stmt->bind_param("ss", GetCurrentDate(), $UserID);
+                            $stmt->bind_param("ss", $date, $UserID);
                             $stmt->execute();
 
                             //Update the users last ip
                             $stmt = $conn->prepare("UPDATE user SET last_ip = ? WHERE id = ?");
-                            $stmt->bind_param("ss", GetUserIP(), $UserID);
+                            $stmt->bind_param("ss", $ip, $UserID);
                             $stmt->execute();
 
                             //Get the user data

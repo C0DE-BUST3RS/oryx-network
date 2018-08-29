@@ -236,7 +236,7 @@ function CheckBeforeReset($email, $token)
     global $conn;
 
     //Prepare the query
-    $stmt = $conn->prepare("SELECT * FROM resettoken WHERE resettoken.email = ? AND resettoken.value = ?");
+    $stmt = $conn->prepare("SELECT * FROM resettoken WHERE resettoken.email = ? AND resettoken.value = ? AND resettoken.used = 0");
     $stmt->bind_param("ss", $email, $token);
 
     //Execute the query

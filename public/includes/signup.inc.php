@@ -35,37 +35,37 @@ if (isset($_POST['submit'])) {
                     //Check if the password is long enough
                     if (CheckIfPasswordLongEnough($password)) {
 
-                        //Generate a user ID
-                        $uid = GenerateUID();
-
-                        //Generate a activation token
-                        $token = GenerateToken();
-
-                        //Convert the values
+                        //Get some data from the user
                         $firstname = htmlspecialchars($firstname);
                         $lastname = htmlspecialchars($lastname);
                         $email = htmlspecialchars($email);
 
+                        $uid = GenerateUID();
+                        $token = GenerateToken();
+                        $ip = GetUserIP();
+                        $date = GetCurrentDate();
+                        $hashedPW = HashPassword($password);
+
                         //Place all the data in the DB rows
 
                         //USER DATA
-                        $stmt = $conn->prepare("INSERT INTO user (id, activated, admin, date, ip, firstname, lastname, email, password, last_login, last_ip) VALUES (?,0,?,?,?,?,?,?,?,?,?)");
-                        $stmt->bind_param("sssssssss", $uid, GetUserIP(), GetCurrentDate(), $firstname, $lastname, $email, HashPassword($password), GetCurrentDate(), GetUserIP());
+                        $stmt = $conn->prepare("INSERT INTO user (id, activated, admin, date, ip, firstname, lastname, email, password, last_login, last_ip) VALUES (?,0,0,?,?,?,?,?,?,?,?)");
+                        $stmt->bind_param("sssssssss", $uid, $date, $ip, $firstname, $lastname, $email, $hashedPW, $date, $ip);
                         $stmt->execute();
 
                         //ACTIVATION DATA
                         $stmt = $conn->prepare("INSERT INTO activationtoken (id, date, user_id, email, used, value) VALUES ('',?,?,?,0,?)");
-                        $stmt->bind_param("ssss", GetCurrentDate(),$uid, $email, $token);
+                        $stmt->bind_param("ssss", $date, $uid, $email, $token);
                         $stmt->execute();
 
                         //LEVEL DATA
                         $stmt = $conn->prepare("INSERT INTO level (id, user_id, current_level, current_xp, amount_to_level_up, last_level_up, level_icon) VALUES ('',?,0,0,0,'0000-00-00 00:00:00','img/levels/rank000.png')");
-                        $stmt->bind_param("s",$uid);
+                        $stmt->bind_param("s", $uid);
                         $stmt->execute();
 
                         //PROFILE DATA
                         $stmt = $conn->prepare("INSERT INTO profiles (id, user_id, profile_picture, intro) VALUES ('',?,'','') ");
-                        $stmt->bind_param("s",$uid);
+                        $stmt->bind_param("s", $uid);
                         $stmt->execute();
 
                         //Send the activation token to the user
