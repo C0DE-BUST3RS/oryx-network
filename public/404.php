@@ -33,10 +33,10 @@ header('Status: 404 Not Found');
 
                 <div class="column is-one-third">
                     <h1 class="title is-1">404 error</h1>
-                    <h1 class="subtitle is-4">The page you are looking for doesn't exist or another error occured.</h1>
+                    <h1 class="subtitle is-4">The page you are looking for doesn't exist or another error occurred.</h1>
                     <?php
 
-                    if (CheckIfLoggedIn() == true) { ?>
+                    if (CheckIfLoggedIn()) { ?>
                         <a class="button is-info is-outlined is-rounded" href="feed.php">Feed page</a>
                     <?php } else { ?>
                         <a class="button is-info is-outlined is-rounded" href="index.php">Home page</a>

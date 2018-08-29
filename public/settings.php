@@ -3,7 +3,7 @@
 require 'includes/functions.inc.php';
 
 //Check if the user is logged in
-If (CheckIfLoggedIn() == false) {
+If (!CheckIfLoggedIn()) {
     header("Location: ../index.php");
 }
 

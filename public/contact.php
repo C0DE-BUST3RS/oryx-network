@@ -2,13 +2,6 @@
 //Require the functions and start the session
 require 'includes/functions.inc.php';
 
-//Check if the user is logged in
-if (CheckIfLoggedIn() == true) {
-    $firstname = ucwords($_SESSION['user']['firstname']);
-    $lastname = ucwords($_SESSION['user']['lastname']);
-    $email = $_SESSION['user']['email'];
-}
-
 ?>
 <!doctype html>
 <html lang="en">
@@ -47,7 +40,7 @@ if (CheckIfLoggedIn() == true) {
                         <div class="field">
                             <div class="control has-icons-left">
                                 <input class="input is-primary is-info is-rounded" id="contactFirstname"
-                                       name="contactFirstname" type="text" placeholder="Firstname" value="<?php if (isset($firstname)) {echo $firstname;}?>" required/>
+                                       name="contactFirstname" type="text" placeholder="Firstname" value="<?php FirstnameFillIn(); ?>" required/>
                                 <span class="icon is-small is-left">
 									<i class="fas fa-address-card"></i>
     							</span>
@@ -57,7 +50,7 @@ if (CheckIfLoggedIn() == true) {
                         <div class="field">
                             <div class="control has-icons-left">
                                 <input class="input is-primary is-info is-rounded" id="contactLastname"
-                                       name="contactLastname" type="text" placeholder="Lastname" value="<?php if (isset($lastname)) {echo $lastname;}?>" required/>
+                                       name="contactLastname" type="text" placeholder="Lastname" value="<?php LastnameFillIn(); ?>" required/>
                                 <span class="icon is-small is-left">
 									<i class="fas fa-address-card"></i>
     							</span>
@@ -67,7 +60,7 @@ if (CheckIfLoggedIn() == true) {
                         <div class="field">
                             <div class="control has-icons-left">
                                 <input class="input is-primary is-info is-rounded" id="contactEmail"
-                                       name="contactEmail" type="email" placeholder="Email" value="<?php if (isset($email)) {echo $email;}?>" required/>
+                                       name="contactEmail" type="email" placeholder="Email" value="<?php EmailFillIn(); ?>" required/>
                                 <span class="icon is-small is-left">
 									<i class="fas fa-address-card"></i>
     							</span>

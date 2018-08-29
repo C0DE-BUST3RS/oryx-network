@@ -14,16 +14,16 @@ if (isset($_POST['submit'])) {
     $emailPost = strtolower($emailPost);
 
     //Check if the user is loggedin
-    if (CheckIfLoggedIn() == false) {
+    if (!CheckIfLoggedIn()) {
 
         //Check if the email has been used
-        if (CheckIfEmailUsed($emailPost) == true) {
+        if (CheckIfEmailUsed($emailPost)) {
 
             //Check if the login fields are not empty
-            if (CheckIfEmptyLogin($emailPost, $passwordPost) == false) {
+            if (!CheckIfEmptyLogin($emailPost, $passwordPost)) {
 
                 //Check if the account has been activated
-                if (CheckIfActivated($emailPost) == true) {
+                if (CheckIfActivated($emailPost)) {
 
                     //Get all data about the user
                     $stmt = $conn->prepare("SELECT * FROM user WHERE email = ?");
@@ -41,7 +41,7 @@ if (isset($_POST['submit'])) {
                         $hashedPWD = $row['password'];
 
                         // Verify if the password matches the one the user typed.
-                        if (UnHashPassword($passwordPost, $hashedPWD) == true) {
+                        if (UnHashPassword($passwordPost, $hashedPWD)) {
 
                             $UserID = $_SESSION['user']['id'] = $row['id'];
 

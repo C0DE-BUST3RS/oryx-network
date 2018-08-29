@@ -24,7 +24,7 @@ if (isset($_POST['submit'])) {
     //Make the value lower case
     $emailPost = strtolower($emailPost);
 
-    if (CheckIfEmailUsed($emailPost) == true) {
+    if (CheckIfEmailUsed($emailPost)) {
 
         //Prepare the query
         $stmt = $conn->prepare("SELECT * FROM user WHERE email = ?");
