@@ -24,7 +24,7 @@ function SendToken($receiveremail, $receivername, $token, $reset, $activate)
     global $secretEmail;
 
     //Account activation part:
-    if ($activate == true && $reset == false) {
+    if ($activate && !$reset) {
         // URL for activating user account.
         $url = "localhost:8080/includes/activate.php?email=" . $receiveremail . "&token=" . $token . "";
 
@@ -36,7 +36,7 @@ function SendToken($receiveremail, $receivername, $token, $reset, $activate)
     }
 
     //Password reset part
-    if ($reset == true && $activate == false) {
+    if ($reset && !$activate) {
         // URL for resetting the users password.
         $url = "localhost:8080/changepw.php?email=" . $receiveremail . "&token=" . $token . "";
 

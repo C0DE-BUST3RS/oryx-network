@@ -16,13 +16,13 @@ if (isset($_GET['email']) && isset($_GET['token'])) {
     if (!empty($getEmail) && !empty($getToken)) {
 
         //Check if the account is not already activated
-        if (CheckIfActivated($getEmail) == false) {
+        if (!CheckIfActivated($getEmail)) {
 
             // Check if activation token is same as in DB.
-            if (CheckBeforeActivation($getEmail, $getToken) == true) {
+            if (CheckBeforeActivation($getEmail, $getToken)) {
 
                 //Activate the final account
-                if (ActivateAccount($getEmail) == true) {
+                if (ActivateAccount($getEmail)) {
                     // Set session message.
                     $_SESSION['activated'] = "Account was successfully activated! <br> You can now login.";
                     // Redirect to login page.

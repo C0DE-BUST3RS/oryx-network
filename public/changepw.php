@@ -3,7 +3,7 @@
 require 'includes/functions.inc.php';
 
 //Check if the user is logged in
-if (CheckIfLoggedIn() == true) {
+if (CheckIfLoggedIn()) {
     header("Location: feed.php");
     exit();
 }
@@ -23,7 +23,7 @@ if (isset($_POST['submit'])) {
 
     if (!empty($resetToken) && !empty($resetEmail) && !empty($resetNewPasswordUnhashed)) {
 
-        if (CheckBeforeReset($resetEmail, $resetToken) == true) {
+        if (CheckBeforeReset($resetEmail, $resetToken)) {
 
             $newPassword = HashPassword($resetNewPasswordUnhashed);
             $query = $conn->query("UPDATE user SET password = '$newPassword' WHERE email = '$resetEmail';");

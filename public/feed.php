@@ -3,7 +3,7 @@
 require 'includes/functions.inc.php';
 
 //Check if the user has been logged in
-If (CheckIfLoggedIn() == false) {
+If (!CheckIfLoggedIn()) {
 	header("Location: ../index.php");
 }
 
@@ -107,8 +107,8 @@ $firstname = $_SESSION['user']['firstname'];
 									<p>
 										<strong><span class="tag is-warning"><?php echo ucwords($row['firstname'])." ".ucwords($row['lastname']); ?></span></strong>
 										<small>
-											<?php if(CheckIfAdmin($row['email']) == TRUE){ ?>
-														<span class="tag is-danger">Admin</span>
+											<?php if(CheckIfAdmin($row['email'])){ ?>
+                                                <span class="tag is-danger">Admin</span>
 											<?php }?>
 										</small>
 										<small><?php echo time_elapsed_string($row['date'], false); ?></small>

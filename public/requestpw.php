@@ -3,7 +3,7 @@
 require 'includes/functions.inc.php';
 
 //Check if the user is logged in
-If (CheckIfLoggedIn() == true) {
+If (CheckIfLoggedIn()) {
     header("Location: feed.php");
 }
 ?>

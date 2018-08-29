@@ -380,8 +380,7 @@ function RefillAtErrorSignup($firstname, $lastname, $email)
 function FirstnameFillIn()
 {
     if (isset($_SESSION['user']['firstname'])) {
-        echo $_SESSION['user']['firstname'];
-        unset($_SESSION['user']['firstname']);
+        echo ucwords($_SESSION['user']['firstname']);
     }
 }
 
@@ -389,8 +388,7 @@ function FirstnameFillIn()
 function LastnameFillIn()
 {
     if (isset($_SESSION['user']['lastname'])) {
-        echo $_SESSION['user']['lastname'];
-        unset($_SESSION['user']['lastname']);
+        echo ucwords($_SESSION['user']['lastname']);
     }
 }
 
@@ -399,7 +397,6 @@ function EmailFillIn()
 {
     if (isset($_SESSION['user']['email'])) {
         echo $_SESSION['user']['email'];
-        unset($_SESSION['user']['email']);
     }
 }
 

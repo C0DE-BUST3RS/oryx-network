@@ -21,19 +21,19 @@ if (isset($_POST['submit'])) {
     $ip = GetUserIP();
 
     //Check if the values are not empty
-    if (CheckIfEmptySignup($firstname, $lastname, $email, $password) == true) {
+    if (CheckIfEmptySignup($firstname, $lastname, $email, $password)) {
 
         //Check if the name is a real name
-        if (CheckIfRealName($firstname, $lastname) == true) {
+        if (CheckIfRealName($firstname, $lastname)) {
 
             //Check if its a real email
-            if (CheckIfRealEmail($email) == true) {
+            if (CheckIfRealEmail($email)) {
 
                 //Check if the email is already present in the database. if not (false) proceed further.
-                if (CheckIfEmailUsed($email) == false) {
+                if (!CheckIfEmailUsed($email)) {
 
                     //Check if the password is long enough
-                    if (CheckIfPasswordLongEnough($password) == true) {
+                    if (CheckIfPasswordLongEnough($password)) {
 
                         //Generate a user ID
                         $uid = GenerateUID();

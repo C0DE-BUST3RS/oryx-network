@@ -3,7 +3,7 @@
 require 'functions.inc.php';
 
 // Check if the user is logged in, ifso proceed further.
-If (CheckIfLoggedIn() == true) {
+If (CheckIfLoggedIn()) {
     // Calling a function to destory all sessions.
     LogoutUser();
     // Redirect user to the homepage.
