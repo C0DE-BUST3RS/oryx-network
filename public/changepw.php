@@ -114,7 +114,7 @@ if (isset($_POST['submit'])) {
                         </div>
 
                         <button type="submit" id="submit" name="submit" class="button is-info is-outlined is-rounded">
-                            <i class="fas fa-sign-in-alt">&nbsp;Change password
+                            <i class="fas fa-sign-in-alt"></i> &nbsp; Change password
                         </button>
 
                     </form>

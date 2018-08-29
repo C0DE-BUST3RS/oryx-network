@@ -13,7 +13,7 @@ if (isset($_POST['submit'])) {
     //Make the value lower case
     $emailPost = strtolower($emailPost);
 
-    //Check if the user is loggedin
+    //Check if the user is logged in
     if (!CheckIfLoggedIn()) {
 
         //Check if the email has been used
@@ -45,14 +45,17 @@ if (isset($_POST['submit'])) {
 
                             $UserID = $_SESSION['user']['id'] = $row['id'];
 
+                            $date = GetCurrentDate();
+                            $ip = GetUserIP();
+
                             //Update the users last login time
                             $stmt = $conn->prepare("UPDATE user SET last_login = ? WHERE id = ?");
-                            $stmt->bind_param("ss", GetCurrentDate(), $UserID);
+                            $stmt->bind_param("ss", $date, $UserID);
                             $stmt->execute();
 
                             //Update the users last ip
                             $stmt = $conn->prepare("UPDATE user SET last_ip = ? WHERE id = ?");
-                            $stmt->bind_param("ss", GetUserIP(), $UserID);
+                            $stmt->bind_param("ss", $ip, $UserID);
                             $stmt->execute();
 
                             //Get the user data
