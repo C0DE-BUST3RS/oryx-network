@@ -21,11 +21,7 @@ require 'includes/functions.inc.php';
 <body>
 <section class="hero is-fullheight is-default is-bold">
     <?php
-    if (CheckIfLoggedIn() == true) {
-        require 'includes/nav-login.php';
-    } else {
-        require 'includes/nav-nologin.php';
-    }
+    CheckIfLoggedIn() ? require 'includes/nav-login.php' : require 'includes/nav-nologin.php';
     ?>
     <?php
     require 'includes/footer.php';
