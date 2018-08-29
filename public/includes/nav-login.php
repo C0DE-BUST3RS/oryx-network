@@ -19,7 +19,7 @@
 					<a href="api.php" class="navbar-item <?php if (basename($_SERVER['PHP_SELF']) == 'api.php') { echo 'is-active'; } ?>"><i class="fas fa-cogs"></i>&nbsp;API</a>
 					<a href="contact.php" class="navbar-item <?php if (basename($_SERVER['PHP_SELF']) == 'contact.php') { echo 'is-active'; } ?>"><i class="fas fa-envelope"></i>&nbsp;Contact</a>
                     <a href="settings.php" class="navbar-item <?php if (basename($_SERVER['PHP_SELF']) == 'settings.php') { echo 'is-active'; } ?>"><i class="fas fa-sliders-h"></i>&nbsp;Settings</a>
-                    <a href="includes/logout.inc.php" class="navbar-item"><i class="fa fa-sign-out" aria-hidden="true"></i> &nbsp;Logout</a>
+                    <a href="includes/logout.inc.php" class="navbar-item"><i class="fas fa-sign-out-alt"></i>&nbsp;Logout</a>
                 </div>
 			</div>
         </div>
