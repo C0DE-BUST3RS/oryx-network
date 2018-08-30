@@ -2,6 +2,9 @@
 //Require the functions and start the session
 require 'includes/functions.inc.php';
 
+//Require the send email functions
+require 'includes/sendemail.inc.php';
+
 //Check if the user is logged in
 if (CheckIfLoggedIn()) {
     header("Location: feed.php");
@@ -29,6 +32,18 @@ if (isset($_POST['submit'])) {
             $query = $conn->query("UPDATE user SET password = '$newPassword' WHERE email = '$resetEmail';");
             $query = $conn->query("UPDATE resettoken SET used = 1 WHERE email = '$resetEmail' AND value = '$resetToken';");
 
+            //Get the users fullname
+            $stmt = $conn->prepare("SELECT firstname, lastname FROM user WHERE email = ?");
+            $stmt->bind_param("s", $resetEmail);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $row = $result->fetch_assoc();
+            $fullname = $row['firstname'] . ' ' . $row['lastname'];
+
+            //Send an email to the user that his password has been changed
+            SendEmail($resetEmail, $fullname,'',false, false, true);
+
+            //Redirect the user to
             $_SESSION['reset'] = "The password has been changed!";
             header("Location: login.php?reset=successful");
 

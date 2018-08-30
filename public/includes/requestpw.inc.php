@@ -10,7 +10,7 @@ require 'functions.inc.php';
 //Require var $conn
 require 'dbh.inc.php';
 //Require send token function
-require 'sendtoken.inc.php';
+require 'sendemail.inc.php';
 
 if (CheckIfLoggedIn() == true) {
     header("Location: feed.php");
@@ -47,7 +47,7 @@ if (isset($_POST['submit'])) {
         $stmt->execute();
 
         //Send the token to the user
-        SendToken($emailPost,"",$token,true,false);
+        SendEmail($emailPost,"",$token,true,false, false);
 
         //Set the session
         $_SESSION['tokensend'] = "Password reset has been send (if the email is used)";
