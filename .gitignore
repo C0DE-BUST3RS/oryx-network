@@ -198,3 +198,4 @@ vagrant-commands\.txt
 hosting\.txt
 .idea/
 public/includes/credentials\.inc\.php
+\.DS_Store
