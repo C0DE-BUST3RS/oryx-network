@@ -47,7 +47,7 @@ if (isset($_POST['submit'])) {
         $stmt->execute();
 
         //Send the token to the user
-        SendToken($emailPost,"",$token,true,false);
+        SendEmail($emailPost,"",$token,true,false);
 
         //Set the session
         $_SESSION['tokensend'] = "Password reset has been send (if the email is used)";

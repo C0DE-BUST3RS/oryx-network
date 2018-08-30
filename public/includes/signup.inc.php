@@ -1,7 +1,7 @@
 <?php
 //Require the functions
 require_once 'functions.inc.php';
-require_once 'sendtoken.inc.php';
+require_once 'sendemail.inc.php';
 //Require var $conn
 require 'dbh.inc.php';
 
@@ -69,7 +69,7 @@ if (isset($_POST['submit'])) {
                         $stmt->execute();
 
                         //Send the activation token to the user
-                        SendToken(htmlspecialchars($email), $firstname . " " . $lastname, $token, false, true);
+                        SendEmail(htmlspecialchars($email), $firstname . " " . $lastname, $token, false, true);
 
                         //Set the success status
                         $_SESSION['success'] = "Signup was successful! <br> Please check your email!";
