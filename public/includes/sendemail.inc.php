@@ -55,7 +55,6 @@ function SendEmail($receiveremail, $receivername, $token, $reset, $activate,$pwc
 
         //Email body message (html supported).
         $body = passwordChangedEmailTemplate();
-
     }
 
     // Initialize PHPMailer instance.
