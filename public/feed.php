@@ -131,8 +131,12 @@ LoadProfileData($_SESSION['user']['id']);
 										<?php if ($row['user_id'] == $_SESSION['user']['id']) { ?>
 											<div class="level-right">
 												<a class="level-item">
-													<form action="includes/delete.inc.php" method="POST">
-														<button class="delete-button" type="submit" name="delete">
+													<form action="includes/deletepost.inc.php" method="POST">
+														<input type="text" name="messageID"
+															   value="<?php echo $row['id']; ?>" hidden/>
+														<input type="text" name="userID"
+															   value="<?php echo $row['user_id']; ?>" hidden/>
+														<button class="delete-button" type="submit" name="deletePost">
 															<i class="fas fa-trash-alt"></i>
 														</button>
 													</form>
