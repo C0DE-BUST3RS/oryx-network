@@ -24,13 +24,24 @@ if (isset($_POST['submit'])) {
     $resetEmail = strtolower($_POST['resetEmail']);
     $resetNewPasswordUnhashed = $conn->real_escape_string($_POST['resetNewPassword']);
 
+    //Check if the value's are not empty
     if (!empty($resetToken) && !empty($resetEmail) && !empty($resetNewPasswordUnhashed)) {
 
+        //Check if the token is correct and if it belongs to the filled in email
         if (CheckBeforeReset($resetEmail, $resetToken)) {
 
+            //Hash the new password
             $newPassword = HashPassword($resetNewPasswordUnhashed);
-            $query = $conn->query("UPDATE user SET password = '$newPassword' WHERE email = '$resetEmail';");
-            $query = $conn->query("UPDATE resettoken SET used = 1 WHERE email = '$resetEmail' AND value = '$resetToken';");
+
+            //Set the new password in the DB
+            $stmt = $conn->prepare("UPDATE user SET password = ? WHERE email = ?");
+            $stmt->bind_param("ss", $newPassword, $resetEmail);
+            $stmt->execute();
+
+            //Set the token as being already used
+            $stmt = $conn->prepare("UPDATE resettoken SET used = 1 WHERE email = ? AND value = ?");
+            $stmt->bind_param("ss", $resetEmail, $resetToken);
+            $stmt->execute();
 
             //Get the users fullname
             $stmt = $conn->prepare("SELECT firstname, lastname FROM user WHERE email = ?");
@@ -41,7 +52,7 @@ if (isset($_POST['submit'])) {
             $fullname = $row['firstname'] . ' ' . $row['lastname'];
 
             //Send an email to the user that his password has been changed
-            SendEmail($resetEmail, $fullname,'',false, false, true);
+            SendEmail($resetEmail, $fullname, '', false, false, true);
 
             //Redirect the user to
             $_SESSION['reset'] = "The password has been changed!";
