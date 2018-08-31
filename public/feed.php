@@ -10,7 +10,6 @@ If (!CheckIfLoggedIn()) {
 //Load the latest profile data
 LoadProfileData($_SESSION['user']['id']);
 
-$firstname = $_SESSION['user']['firstname'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,7 +25,7 @@ $firstname = $_SESSION['user']['firstname'];
 	<link rel="stylesheet" href="css/bulma.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
 
-	<title><?php echo ucwords($firstname) . "'s Feed"; ?> - Oryx Network</title>
+	<title><?php echo ucwords($_SESSION['user']['firstname']) . "'s Feed"; ?> - Oryx Network</title>
 </head>
 <body>
 <section class="hero is-fullheight is-default is-bold">
@@ -42,7 +41,7 @@ $firstname = $_SESSION['user']['firstname'];
 				</div>
 
 				<div class="column is-half is-fixed-top">
-                    <?php echo "<h1 class='title is-4'>".Greetings("$firstname")."</h1>"; ?>
+                    <?php echo "<h1 class='title is-4'>".Greetings($_SESSION['user']['firstname'])."</h1>"; ?>
 
 					<div class="tile is-parent">
 						<div class="tile is-child box">
@@ -66,7 +65,8 @@ $firstname = $_SESSION['user']['firstname'];
 											<nav class="level">
 												<div class="level-left">
 													<div class="level-item">
-														<button type="submit" class="button is-success is-rounded is-outlined">Submit</button>
+														<button type="submit" name="messageSubmit" class="button is-success is-rounded is-outlined">Submit</button>
+														<input type="hidden" name="userID" id="userID" value="<?php echo $_SESSION['user']['id'];?>">
 													</div>
 												</div>
 												<div class="level-right">
