@@ -93,9 +93,11 @@ LoadProfileData($_SESSION['user']['id']);
                     <hr/>
 
                     <?php
-                    $sql = "SELECT u.id ,u.email ,u.firstname ,u.lastname ,po.id ,po.date ,po.user_id ,po.likes ,po.content ,pr.profile_picture ,pr.intro FROM user u INNER JOIN post po on u.id = po.user_id INNER JOIN profiles pr on po.user_id = pr.user_id ORDER BY po.id DESC;";
-                    $query = $conn->query($sql);
-                    while ($row = $query->fetch_assoc()) {
+                    $stmt = $conn->prepare('SELECT u.id ,u.email ,u.firstname ,u.lastname ,po.id ,po.date ,po.user_id ,po.likes ,po.content ,pr.profile_picture ,pr.intro FROM user u INNER JOIN post po on u.id = po.user_id INNER JOIN profiles pr on po.user_id = pr.user_id ORDER BY po.id DESC');
+                    $stmt->execute();
+                    $result = $stmt->get_result();
+                      while ($row = $result->fetch_assoc()) {
+
                         ?>
                         <div class="box">
                             <article class="media">
@@ -156,8 +158,6 @@ LoadProfileData($_SESSION['user']['id']);
                 </div>
             </div>
             <div class="column is-one-quarter">
-
-            </div>
 
         </div>
     </div>
