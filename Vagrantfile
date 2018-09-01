@@ -21,7 +21,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ## Apache HTTP
     config.vm.network "forwarded_port", guest: 80, host: 8080
     ## MySQL
-    config.vm.network "forwarded_port", guest: 3306, host: 3306
+    config.vm.network "forwarded_port", guest: 3306, host: 3307
     # PostgreSQL Server
     config.vm.network "forwarded_port", guest: 5432, host: 16432
 
