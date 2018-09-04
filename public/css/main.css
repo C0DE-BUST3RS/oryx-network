@@ -9,3 +9,17 @@
     padding: 0 !important;
     background: none !important;
 }
+
+/* profile.php - Post being able to scroll. */
+.scrollParent {
+    position: relative !important;
+    width: 500px !important;
+    height: 550px !important;
+    overflow: hidden !important;
+}
+
+.scrollChild {
+    height: 550px !important;
+    width: 518px !important;
+    overflow-y: scroll !important;
+}

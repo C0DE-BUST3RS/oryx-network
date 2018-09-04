@@ -106,17 +106,77 @@ LoadProfileData($_SESSION['user']['id']);
                         </article>
                     </div>
                 </div>
-                <div class="tile is-parent">
-                    <article class="tile is-child notification is-success">
-                        <div class="content">
-                            <p class="title">Posts</p>
-                            <p class="subtitle">Posts go here</p>
-                            <div class="content">
-                                <!-- Content -->
-                            </div>
-                        </div>
-                    </article>
-                </div>
+				<div class="tile is-parent">
+					<article class="tile is-child notification is-success">
+						<div class="content">
+							<p class="title">Posts</p>
+							<div class="content">
+								<div class="scrollParent">
+									<div class="scrollChild">
+										<?php
+										$userID = $_SESSION['user']['id'];
+										$stmt = $conn->prepare("SELECT u.id ,u.email ,u.firstname ,u.lastname ,po.id ,po.date ,po.user_id ,po.likes ,po.content ,pr.profile_picture ,pr.intro FROM user u INNER JOIN post po on u.id = po.user_id INNER JOIN profiles pr on po.user_id = pr.user_id WHERE u.id = '$userID' ORDER BY po.id DESC");
+										$stmt->execute();
+										$result = $stmt->get_result();
+
+										while ($row = $result->fetch_assoc()) {
+											?>
+											<div class="box">
+												<article class="media">
+													<div class="media-content">
+														<div class="content">
+															<p>
+																<strong>
+																	<span class="tag is-warning"><?php echo ucwords($row['firstname']) . " " . ucwords($row['lastname']); ?></span>
+																</strong>
+																<small>
+																	<?php if (CheckIfAdmin($row['email'])) { ?>
+																		<span class="tag is-danger">Admin</span>
+																	<?php } ?>
+																</small>
+																<small>
+																	<?php echo time_elapsed_string($row['date'], false); ?>
+																</small>
+																<br>
+																<?php echo htmlspecialchars($row['content']); ?>
+															</p>
+														</div>
+														<nav class="level is-mobile">
+															<div class="level-left">
+																<a class="level-item" aria-label="like"></a>
+															</div>
+															<?php if ($row['user_id'] == $_SESSION['user']['id']) { ?>
+																<div class="level-right">
+																	<a class="level-item">
+																		<form action="includes/deletepost.inc.php"
+																			  method="POST">
+																			<input type="text" name="messageID"
+																				   value="<?php echo $row['id']; ?>"
+																				   hidden/>
+																			<input type="text" name="userID"
+																				   value="<?php echo $row['user_id']; ?>"
+																				   hidden/>
+																			<button class="delete-button" type="submit"
+																					name="deletePost">
+																				<i class="fas fa-trash-alt"></i>
+																			</button>
+																		</form>
+																	</a>
+																</div>
+															<?php } ?>
+														</nav>
+													</div>
+												</article>
+											</div>
+											<?php
+										}
+										?>
+									</div>
+								</div>
+							</div>
+						</div>
+					</article>
+				</div>
             </div>
         </div>
     </div>
