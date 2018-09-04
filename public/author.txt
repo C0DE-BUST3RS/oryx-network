@@ -17,6 +17,7 @@
 
 /* WEBSITE */
 	Last update: 04/09/2018
+	Start date: 05/06/2018
 	Language: English
 	Language: PHP, HTML5, CSS, JS
 
