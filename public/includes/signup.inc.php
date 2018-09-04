@@ -64,7 +64,7 @@ if (isset($_POST['submit'])) {
 						$stmt->execute();
 
 						//PROFILE DATA
-						$stmt = $conn->prepare("INSERT INTO profiles (id, user_id, profile_picture, intro) VALUES ('',?,'','') ");
+						$stmt = $conn->prepare("INSERT INTO profiles (id, user_id, profile_picture, intro) VALUES ('',?,'img/default/default.jpg','') ");
 						$stmt->bind_param("s", $uid);
 						$stmt->execute();
 
