@@ -156,6 +156,8 @@ LoadProfileData($_SESSION['user']['id']);
 																			<input type="text" name="userID"
 																				   value="<?php echo $row['user_id']; ?>"
 																				   hidden/>
+																			<input type="text" name="redirectPage"
+																				   value="profile" hidden>
 																			<button class="delete-button" type="submit"
 																					name="deletePost">
 																				<i class="fas fa-trash-alt"></i>
