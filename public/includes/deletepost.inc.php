@@ -24,7 +24,7 @@ if (isset($_POST['deletePost']) && isset($_SESSION['user']['id']) && isset($_POS
 	if($postRedirect === 'feed') {
 		// Redirect user back to feed page.
 		header("Location: ../feed.php?action=delete-successfull");
-	} elseif ($postRedirect === 'profile') {
+	} else {
 		// Redirect user back to profile page.
 		header("Location: ../profile.php?action=delete-successfull");
 	}
