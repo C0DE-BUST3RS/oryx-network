@@ -76,7 +76,35 @@ LoadProfileData($_SESSION['user']['id']);
                             </article>
                             <article class="tile is-child notification is-warning">
                                 <p class="title">Friends</p>
-                                <p class="subtitle">Friends go here</p>
+
+								<div class="allFriends">
+									<?php
+									$userID = $_SESSION['user']['id'];
+									// QUERY for NAME = SELECT u.* FROM user AS u INNER JOIN follower AS f ON f.follower_id = u.id AND f.user_id = '$userID ORDER BY id DESC
+									// QUERY for IMG = SELECT p.* FROM profiles AS p INNER JOIN follower AS f ON f.follower_id = p.user_id AND f.user_id = '$userID' ORDER BY id DESC
+									$stmt = $conn->prepare("SELECT p.* FROM profiles AS p INNER JOIN follower AS f ON f.follower_id = p.user_id AND f.user_id = '$userID' ORDER BY id DESC");
+									$stmt->execute();
+									$result = $stmt->get_result();
+
+									while ($row = $result->fetch_assoc()) { ?>
+
+										<table>
+											<tbody>
+											<tr>
+												<td>
+													<p class="image is-64x64">
+														<img class="is-rounded" src="<?php echo $row['profile_picture'];?>">
+													</p>
+												</td>
+												<td>
+													<p>google</p>
+												</td>
+											</tr>
+											</tbody>
+										</table>
+									<?php } ?>
+								</div>
+
                             </article>
                         </div>
                     </div>
