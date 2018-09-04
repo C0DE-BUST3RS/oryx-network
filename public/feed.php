@@ -65,8 +65,9 @@ LoadProfileData($_SESSION['user']['id']);
                                             <nav class="level">
                                                 <div class="level-left">
                                                     <div class="level-item">
-                                                        <button type="submit" name="messageSubmit"
-                                                                class="button is-success is-rounded is-outlined">Submit
+                                                        <button type="reset"
+                                                                class="button is-warning is-rounded is-outlined">
+                                                            Clear
                                                         </button>
                                                         <input type="hidden" name="userID" id="userID"
                                                                value="<?php echo $_SESSION['user']['id']; ?>">
@@ -75,9 +76,8 @@ LoadProfileData($_SESSION['user']['id']);
                                                 <div class="level-right">
                                                     <div class="level-item">
                                                         <div class="level-item">
-                                                            <button type="reset"
-                                                                    class="button is-warning is-rounded is-outlined">
-                                                                Clear
+                                                            <button type="submit" name="messageSubmit"
+                                                                    class="button is-success is-rounded is-outlined">Submit
                                                             </button>
                                                         </div>
                                                     </div>
