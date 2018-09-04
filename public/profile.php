@@ -122,12 +122,6 @@ LoadProfileData($_SESSION['user']['id']);
 									?>
 									<div class="box">
 										<article class="media">
-											<div class="media-left">
-												<figure class="image is-64x64">
-													<img class="is-rounded" src="<?php echo $row['profile_picture']; ?>"
-														 alt="Image">
-												</figure>
-											</div>
 											<div class="media-content">
 												<div class="content">
 													<p>
@@ -148,11 +142,7 @@ LoadProfileData($_SESSION['user']['id']);
 												</div>
 												<nav class="level is-mobile">
 													<div class="level-left">
-														<a class="level-item" aria-label="like">
-                                                <span class="icon is-small">
-                                                    <i class="fas fa-heart"></i>&nbsp;<?php echo $row['likes']; ?>
-                                                </span>
-														</a>
+														<a class="level-item" aria-label="like"></a>
 													</div>
 													<?php if ($row['user_id'] == $_SESSION['user']['id']) { ?>
 														<div class="level-right">
