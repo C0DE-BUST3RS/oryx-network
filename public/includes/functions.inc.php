@@ -146,6 +146,25 @@ function CheckIfLoggedIn()
     }
 }
 
+function GetIDFromEmail($email) {
+    global $conn;
+
+    $stmt = $conn->prepare("SELECT id FROM user WHERE email = ?");
+    $stmt->bind_param("s",$email);
+
+    if ($stmt->execute()) {
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+
+        $userid = $row['id'];
+
+        return $userid;
+
+    } else {
+        return false;
+    }
+}
+
 //This function will generate the current date and put it inside a variable.
 function GetCurrentDate()
 {
