@@ -3,12 +3,14 @@
 	Contact: luuk.kenselaar[at]protonmail[dot]com
 	From: Haarlem, The Netherlands
 	OS: MacOS High Sierra
+	URL: luukkenselaar.nl
 
 /* DEVELOPER */
 	Web Developer/Designer: Umit Canbolat
 	Contact: umit[at]canbolat[dot]nl
 	From: Amsterdam, The Netherlands
 	OS: Windows 10
+	URL: ucanbolat.nl
 
 /* DEVELOPER */
 	Web Developer/Designer: Casper van Genderingen
