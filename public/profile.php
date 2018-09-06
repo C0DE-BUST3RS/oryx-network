@@ -75,8 +75,7 @@ LoadProfileData($_SESSION['user']['id']);
                                 <a href="settings.php" class="button is-info is-outlined is-inverted">Change intro</a>
                             </article>
                             <article class="tile is-child notification is-warning">
-                                <p class="title">Followers</p>
-
+                                <p class="title">Latest Followers</p>
 								<div class="allFriends">
 									<?php
 									$userID = $_SESSION['user']['id'];
@@ -176,7 +175,11 @@ LoadProfileData($_SESSION['user']['id']);
 														</div>
 														<nav class="level is-mobile">
 															<div class="level-left">
-																<a class="level-item" aria-label="like"></a>
+																<a class="level-item" aria-label="like" style="text-decoration: none; padding-left: 8px;">
+																	<span class="icon is-small">
+																		<i class="fas fa-heart"></i>&nbsp;<?php echo $row['likes']; ?>
+																	</span>
+																</a>
 															</div>
 															<?php if ($row['user_id'] == $_SESSION['user']['id']) { ?>
 																<div class="level-right">
