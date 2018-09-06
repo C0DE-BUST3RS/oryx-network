@@ -44,7 +44,7 @@ LoadProfileData($_SESSION['user']['id']);
                 <div class="level-item has-text-centered">
                     <div>
                         <p class="heading">Followers</p>
-                        <p class="title"><?php echo $_SESSION['followers']['total']; ?></p>
+                        <p class="title"><?php echo totalUserFollowers($_SESSION['user']['id']); ?></p>
                     </div>
                 </div>
                 <div class="level-item has-text-centered is-hidden-desktop">
@@ -83,7 +83,6 @@ LoadProfileData($_SESSION['user']['id']);
 									$stmt = $conn->prepare("SELECT u.id, u.firstname, u.lastname, u.email, p.profile_picture FROM user u INNER JOIN profiles p on u.id = p.user_id INNER JOIN follower f on f.follower_id = p.user_id AND f.user_id = '$userID' ORDER BY u.id LIMIT 4;");
 									$stmt->execute();
 									$result = $stmt->get_result();
-									$_SESSION['followers']['total'] = mysqli_num_rows($result);
 									while ($row = $result->fetch_assoc()) { ?>
 										<table class="table" style="background-color: #ffdd57; margin-bottom: -2%;">
 											<tbody>
