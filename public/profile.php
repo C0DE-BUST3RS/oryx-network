@@ -43,8 +43,8 @@ LoadProfileData($_SESSION['user']['id']);
                 <h1 class="title is-1"><?php echo ucwords($_SESSION['user']['firstname']). " " . ucwords($_SESSION['user']['lastname']);?></h1>
                 <div class="level-item has-text-centered">
                     <div>
-                        <p class="heading">Friends</p>
-                        <p class="title">456K</p>
+                        <p class="heading">Followers</p>
+                        <p class="title"><?php echo totalUserFollowers($_SESSION['user']['id']); ?></p>
                     </div>
                 </div>
                 <div class="level-item has-text-centered is-hidden-desktop">
@@ -75,8 +75,41 @@ LoadProfileData($_SESSION['user']['id']);
                                 <a href="settings.php" class="button is-info is-outlined is-inverted">Change intro</a>
                             </article>
                             <article class="tile is-child notification is-warning">
-                                <p class="title">Friends</p>
-                                <p class="subtitle">Friends go here</p>
+                                <p class="title">Followers</p>
+
+								<div class="allFriends">
+									<?php
+									$userID = $_SESSION['user']['id'];
+									$stmt = $conn->prepare("SELECT u.id, u.firstname, u.lastname, u.email, p.profile_picture FROM user u INNER JOIN profiles p on u.id = p.user_id INNER JOIN follower f on f.follower_id = p.user_id AND f.user_id = '$userID' ORDER BY u.id LIMIT 4;");
+									$stmt->execute();
+									$result = $stmt->get_result();
+									while ($row = $result->fetch_assoc()) { ?>
+										<table class="table" style="background-color: #ffdd57; margin-bottom: -2%;">
+											<tbody>
+											<tr>
+												<th>
+													<figure class="image is-32x32">
+														<img class="is-rounded"
+															 src="<?php echo $row['profile_picture']; ?>">
+													</figure>
+												</th>
+												<th>
+													<div class="has-addons-centered" style="margin: auto;">
+														<strong>
+															<span class="tag is-dark"><?php echo ucwords($row['firstname']) . " " . ucwords($row['lastname']); ?></span>
+														</strong>
+														<small>
+															<?php if (CheckIfAdmin($row['email'])) { ?>
+																<span class="tag is-danger">Admin</span>
+															<?php } ?>
+														</small>
+													</div>
+												</th>
+											</tr>
+											</tbody>
+										</table>
+									<?php } ?>
+								</div>
                             </article>
                         </div>
                     </div>
