@@ -84,7 +84,8 @@ require 'includes/functions.inc.php';
 
                                 <div class="field">
                                     <div class="control has-icons-left">
-                                        <input class="input is-primary is-info is-rounded" name="requestEmail" type="email"
+                                        <input class="input is-primary is-info is-rounded" name="requestEmail"
+                                               type="email"
                                                placeholder="Email" value="<?php EmailFillIn(); ?>" required/>
                                         <span class="icon is-small is-left">
                                             <i class="fas fa-address-card"></i>
@@ -105,7 +106,8 @@ require 'includes/functions.inc.php';
                                 </button>
 
                             </form>
-                    <?php }} ?>
+                        <?php }
+                    } ?>
 
                 </div>
 
