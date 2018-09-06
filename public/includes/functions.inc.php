@@ -221,6 +221,8 @@ function DaysLeftTillEligibleAPIKey($userid)
         $difference = $interval->format('%a');
 
         return $difference;
+    } else {
+        return false;
     }
 }
 
