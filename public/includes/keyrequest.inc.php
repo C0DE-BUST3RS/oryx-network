@@ -23,19 +23,23 @@ if (isset($_POST['submit']) && !empty($_POST['requestReason']) && !empty($_POST[
 
         //Execute the query
         if ($stmt->execute()) {
+            $_SESSION['success'] = "API Key requested! <br> We keep in contact!";
             header("Location: ../api.php?request=send");
             exit();
         } else {
+            $_SESSION['failed'] = "Request failed! <br> Please try again";
             header("Location: ../api.php?request=failed");
             exit();
         }
 
     } else {
+        $_SESSION['failed'] = "Request failed! <br> Please try again";
         header("Location: ../api.php?request=failed");
         exit();
     }
 
 } else {
+    $_SESSION['failed'] = "Request failed! <br> Please try again";
     header("Location: ../api.php?request=failed1");
     exit();
 }
