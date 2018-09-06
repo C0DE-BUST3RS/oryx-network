@@ -743,3 +743,19 @@ function GetPathProfilePicture($userid)
         return false;
     }
 }
+
+// This function will return the amount of followers the user current has.
+function totalUserFollowers($userid)
+{
+	global $conn;
+
+	$stmt = $conn->prepare("SELECT user.id,follower.user_id,follower.follower_id FROM follower,user WHERE user.id = follower.user_id AND follower.user_id = ?");
+	$stmt->bind_param('s', $userid);
+	$stmt->execute();
+
+	$stmt->store_result();
+	$count = $stmt->num_rows;
+
+	return $count;
+
+}
