@@ -35,9 +35,30 @@ require 'includes/functions.inc.php';
                     <h1 class="title is-1">Oryx Network API</h1>
                     <h3 class="subtitle is-4">Requirements:</h3>
                     <ul>
-                        <li>An Oryx Network account</li>
-                        <li>A valid email-address</li>
-                        <li>A minimum account age of 30 days</li>
+                        <li>
+                            <?php if (CheckIfLoggedIn()) {
+                                echo "<i class='fas fa-check'></i>";
+                            } else {
+                                echo "<i class='fas fa-times'></i>";
+                            }
+                            ?> An Oryx Network account
+                        </li>
+                        <li>
+                            <?php if (CheckIfLoggedIn()) {
+                                echo "<i class='fas fa-check'></i>";
+                            } else {
+                                echo "<i class='fas fa-times'></i>";
+                            }
+                            ?> A valid email-address
+                        </li>
+                        <li>
+                            <?php if (isset ($_SESSION['user']['id']) && CheckIfOlderThan30Days($_SESSION['user']['id'])) {
+                                echo "<i class='fas fa-check'></i>";
+                            } else {
+                                echo "<i class='fas fa-times'></i>";
+                            }
+                            ?> A minimum account age of 30 days
+                        </li>
                     </ul>
                 </div>
 
@@ -46,67 +67,75 @@ require 'includes/functions.inc.php';
                     <?php
 
                     if (!CheckIfLoggedIn()) { ?>
-                        <div class='notification is-warning is-rounded'>
+                        <div class='notification is-info is-rounded'>
                             You are not logged-in <br> Login to request a API key
                         </div>
                     <?php } else {
 
-                        if (isset($_SESSION['success'])) { ?>
-                            <div class="notification is-success is-rounded">
-                                <?php echo $_SESSION['success']; ?>
+                        if (!CheckIfOlderThan30Days($_SESSION['user']['id'])) { ?>
+                            <div class="notification is-info is-rounded">
+                                Your account age does not <br> reaches the minimum of 30 days <br> Days left until
+                                eligible: <?php echo "<b>" . DaysLeftTillEligibleAPIKey($_SESSION['user']['id']) . "</b>"; ?>
                             </div>
-                            <?php
-                            unset($_SESSION['success']);
-                            $_SESSION['hide'] = '';
-                        }
+                        <?php } else {
 
-                        if (isset($_SESSION['failed'])) { ?>
-                            <div class="notification is-warning is-rounded">
-                                <?php echo $_SESSION['failed']; ?>
-                            </div>
-                            <?php
-                            unset($_SESSION['failed']);
-                            $_SESSION['hide'] = '';
-                        }
+                            if (isset($_SESSION['success'])) { ?>
+                                <div class="notification is-success is-rounded">
+                                    <?php echo $_SESSION['success']; ?>
+                                </div>
+                                <?php
+                                unset($_SESSION['success']);
+                                $_SESSION['hide'] = '';
+                            }
 
-                        if (isset($_SESSION['age'])) { ?>
-                            <div class="notification is-danger is-rounded">
-                                <?php echo $_SESSION['age']; ?>
-                            </div>
-                            <?php
-                            unset($_SESSION['age']);
-                            $_SESSION['hide'] = '';
-                        }
+                            if (isset($_SESSION['failed'])) { ?>
+                                <div class="notification is-warning is-rounded">
+                                    <?php echo $_SESSION['failed']; ?>
+                                </div>
+                                <?php
+                                unset($_SESSION['failed']);
+                                $_SESSION['hide'] = '';
+                            }
 
-                        if (!isset($_SESSION['hide'])) { ?>
+                            if (isset($_SESSION['age'])) { ?>
+                                <div class="notification is-danger is-rounded">
+                                    <?php echo $_SESSION['age']; ?>
+                                </div>
+                                <?php
+                                unset($_SESSION['age']);
+                                $_SESSION['hide'] = '';
+                            }
 
-                            <form action="includes/keyrequest.inc.php" method="post">
+                            if (!isset($_SESSION['hide'])) { ?>
 
-                                <div class="field">
-                                    <div class="control has-icons-left">
-                                        <input class="input is-primary is-info is-rounded" name="requestEmail"
-                                               type="email"
-                                               placeholder="Email" value="<?php EmailFillIn(); ?>" required/>
-                                        <span class="icon is-small is-left">
+                                <form action="includes/keyrequest.inc.php" method="post">
+
+                                    <div class="field">
+                                        <div class="control has-icons-left">
+                                            <input class="input is-primary is-info is-rounded" name="requestEmail"
+                                                   type="email"
+                                                   placeholder="Email" value="<?php EmailFillIn(); ?>" required/>
+                                            <span class="icon is-small is-left">
                                             <i class="fas fa-address-card"></i>
                                         </span>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="field">
-                                    <div class="control">
-                                        <textarea class="textarea is-info" placeholder="Why you need access to our api?"
+                                    <div class="field">
+                                        <div class="control">
+                                        <textarea class="textarea is-info" placeholder="Why you need access to our API?"
                                                   name="requestReason" rows="2" required></textarea>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <button type="submit" id="submit" name="submit"
-                                        class="button is-info is-outlined is-rounded">
-                                    <i class="fas fa-envelope"></i>&nbsp;Request key
-                                </button>
+                                    <button type="submit" id="submit" name="submit"
+                                            class="button is-info is-outlined is-rounded">
+                                        <i class="fas fa-envelope"></i>&nbsp;Request key
+                                    </button>
 
-                            </form>
-                        <?php }
+                                </form>
+                            <?php }
+                        }
                     } ?>
 
                 </div>

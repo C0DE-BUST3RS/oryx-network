@@ -180,7 +180,7 @@ function CheckIfOlderThan30Days($userid)
         $result = $stmt->get_result();
         $row = $result->fetch_assoc();
 
-        $dateUser = new DateTime(substr($row['date'],0,10));
+        $dateUser = new DateTime(substr($row['date'], 0, 10));
         $dateNow = new DateTime(date('Y-m-d'));
 
         $interval = $dateNow->diff($dateUser);
@@ -196,6 +196,31 @@ function CheckIfOlderThan30Days($userid)
 
     } else {
         return false;
+    }
+}
+
+//If a user his account is not older than 30 days, this function will return the days left till the account is old enough
+function DaysLeftTillEligibleAPIKey($userid)
+{
+    global $conn;
+    date_default_timezone_set('Europe/Amsterdam');
+
+    $stmt = $conn->prepare("SELECT date FROM user WHERE id = ?");
+    $stmt->bind_param("s", $userid);
+
+    if ($stmt->execute()) {
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+
+        $dateUserDB = substr($row['date'], 0, 10);
+
+        $dateWhenEligible = new DateTime(date('Y-m-d', strtotime($dateUserDB . '+1 month')));
+        $dateNow = new DateTime(date('Y-m-d'));
+
+        $interval = $dateNow->diff($dateWhenEligible);
+        $difference = $interval->format('%a');
+
+        return $difference;
     }
 }
 
@@ -800,15 +825,15 @@ function GetPathProfilePicture($userid)
 // This function will return the amount of followers the user current has.
 function totalUserFollowers($userid)
 {
-	global $conn;
+    global $conn;
 
-	$stmt = $conn->prepare("SELECT user.id,follower.user_id,follower.follower_id FROM follower,user WHERE user.id = follower.user_id AND follower.user_id = ?");
-	$stmt->bind_param('s', $userid);
-	$stmt->execute();
+    $stmt = $conn->prepare("SELECT user.id,follower.user_id,follower.follower_id FROM follower,user WHERE user.id = follower.user_id AND follower.user_id = ?");
+    $stmt->bind_param('s', $userid);
+    $stmt->execute();
 
-	$stmt->store_result();
-	$count = $stmt->num_rows;
+    $stmt->store_result();
+    $count = $stmt->num_rows;
 
-	return $count;
+    return $count;
 
 }

@@ -17,25 +17,18 @@ if (isset($_POST['submit']) && !empty($_POST['requestReason']) && !empty($_POST[
     //Check if the email is real
     if (CheckIfRealEmail($email)) {
 
-        if (CheckIfOlderThan30Days($userid)) {
-            //Put all form fields into the DB
-            $stmt = $conn->prepare("INSERT INTO `api-key-request` (date, ip, user_id, email, reason, accepted) VALUES (?,?,?,?,?,?)");
-            $stmt->bind_param("ssssss", $date, $ip, $userid, $email, $reason, $accepted);
+        //Put all form fields into the DB
+        $stmt = $conn->prepare("INSERT INTO `api-key-request` (date, ip, user_id, email, reason, accepted) VALUES (?,?,?,?,?,?)");
+        $stmt->bind_param("ssssss", $date, $ip, $userid, $email, $reason, $accepted);
 
-            //Execute the query
-            if ($stmt->execute()) {
-                $_SESSION['success'] = "API Key requested! <br> We keep in touch!";
-                header("Location: ../api.php?request=send");
-                exit();
-            } else {
-                $_SESSION['failed'] = "Request failed! <br> Please try again";
-                header("Location: ../api.php?request=failed");
-                exit();
-            }
-
+        //Execute the query
+        if ($stmt->execute()) {
+            $_SESSION['success'] = "API Key requested! <br> We keep in touch!";
+            header("Location: ../api.php?request=send");
+            exit();
         } else {
-            $_SESSION['age'] = "Your account age does not <br> reaches the minimum of 30 days";
-            header("Location: ../api.php?request=failed-age");
+            $_SESSION['failed'] = "Request failed! <br> Please try again";
+            header("Location: ../api.php?request=failed");
             exit();
         }
 
