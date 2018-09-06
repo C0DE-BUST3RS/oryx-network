@@ -212,7 +212,7 @@ function DaysLeftTillEligibleAPIKey($userid)
         $result = $stmt->get_result();
         $row = $result->fetch_assoc();
 
-        $dateUserDB = substr($row['date'],0,10);
+        $dateUserDB = substr($row['date'], 0, 10);
 
         $dateWhenEligible = new DateTime(date('Y-m-d', strtotime($dateUserDB . '+1 month')));
         $dateNow = new DateTime(date('Y-m-d'));

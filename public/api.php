@@ -35,9 +35,30 @@ require 'includes/functions.inc.php';
                     <h1 class="title is-1">Oryx Network API</h1>
                     <h3 class="subtitle is-4">Requirements:</h3>
                     <ul>
-                        <li><?php if (CheckIfLoggedIn()) { echo "<i class='fas fa-check'></i>"; } else { echo "<i class='fas fa-times'></i>";}?> An Oryx Network account</li>
-                        <li><?php if (CheckIfLoggedIn()) { echo "<i class='fas fa-check'></i>"; } else { echo "<i class='fas fa-times'></i>";}?> A valid email-address</li>
-                        <li><?php if (isset ($_SESSION['user']['id']) && CheckIfOlderThan30Days($_SESSION['user']['id'])) { echo "<i class='fas fa-check'></i>"; } else { echo "<i class='fas fa-times'></i>";}?> A minimum account age of 30 days</li>
+                        <li>
+                            <?php if (CheckIfLoggedIn()) {
+                                echo "<i class='fas fa-check'></i>";
+                            } else {
+                                echo "<i class='fas fa-times'></i>";
+                            }
+                            ?> An Oryx Network account
+                        </li>
+                        <li>
+                            <?php if (CheckIfLoggedIn()) {
+                                echo "<i class='fas fa-check'></i>";
+                            } else {
+                                echo "<i class='fas fa-times'></i>";
+                            }
+                            ?> A valid email-address
+                        </li>
+                        <li>
+                            <?php if (isset ($_SESSION['user']['id']) && CheckIfOlderThan30Days($_SESSION['user']['id'])) {
+                                echo "<i class='fas fa-check'></i>";
+                            } else {
+                                echo "<i class='fas fa-times'></i>";
+                            }
+                            ?> A minimum account age of 30 days
+                        </li>
                     </ul>
                 </div>
 
@@ -53,7 +74,8 @@ require 'includes/functions.inc.php';
 
                         if (!CheckIfOlderThan30Days($_SESSION['user']['id'])) { ?>
                             <div class="notification is-info is-rounded">
-                                Your account age does not <br> reaches the minimum of 30 days <br> Days left until eligible: <?php echo "<b>" . DaysLeftTillEligibleAPIKey($_SESSION['user']['id']) . "</b>"; ?>
+                                Your account age does not <br> reaches the minimum of 30 days <br> Days left until
+                                eligible: <?php echo "<b>" . DaysLeftTillEligibleAPIKey($_SESSION['user']['id']) . "</b>"; ?>
                             </div>
                         <?php } else {
 
@@ -113,7 +135,8 @@ require 'includes/functions.inc.php';
 
                                 </form>
                             <?php }
-                        } }?>
+                        }
+                    } ?>
 
                 </div>
 
