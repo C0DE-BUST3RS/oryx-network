@@ -146,11 +146,12 @@ function CheckIfLoggedIn()
     }
 }
 
-function GetIDFromEmail($email) {
+function GetIDFromEmail($email)
+{
     global $conn;
 
     $stmt = $conn->prepare("SELECT id FROM user WHERE email = ?");
-    $stmt->bind_param("s",$email);
+    $stmt->bind_param("s", $email);
 
     if ($stmt->execute()) {
         $result = $stmt->get_result();
@@ -159,6 +160,39 @@ function GetIDFromEmail($email) {
         $userid = $row['id'];
 
         return $userid;
+
+    } else {
+        return false;
+    }
+}
+
+//This function will return true if the account is older than 30 days, if not return false
+function CheckIfOlderThan30Days($userid)
+{
+    global $conn;
+    date_default_timezone_set('Europe/Amsterdam');
+
+    $stmt = $conn->prepare("SELECT date FROM user WHERE id = ?");
+    $stmt->bind_param("s", $userid);
+
+    if ($stmt->execute()) {
+
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+
+        $dateUser = new DateTime(substr($row['date'],0,10));
+        $dateNow = new DateTime(date('Y-m-d'));
+
+        $interval = $dateNow->diff($dateUser);
+
+        $difference = $interval->format('%a');
+
+        //Check if the amount of days in difference is bigger than 30
+        if ($difference >= 30) {
+            return true;
+        } else {
+            return false;
+        }
 
     } else {
         return false;
