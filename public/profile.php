@@ -71,8 +71,14 @@ LoadProfileData($_SESSION['user']['id']);
                         <div class="tile is-parent is-vertical">
                             <article class="tile is-child notification is-primary">
                                 <p class="title">Introduction</p>
-                                <p class="subtitle"><?php echo $_SESSION['user']['introduction'];?></p>
-                                <a href="settings.php" class="button is-info is-outlined is-inverted">Change intro</a>
+                                <form action="includes/change-intro.inc.php" method="post">
+                                    <div class="field">
+                                        <div class="control">
+                                            <textarea class="textarea is-info" placeholder="Your intro" name="intro" rows="4"><?php if (isset($_SESSION['user']['introduction'])) {echo $_SESSION['user']['introduction'];}?></textarea>
+                                        </div>
+                                    </div>
+                                    <button class="button is-info is-outlined is-inverted" type="submit">Change intro</button>
+                                </form>
                             </article>
                             <article class="tile is-child notification is-warning">
                                 <p class="title">Latest Followers</p>
