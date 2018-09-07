@@ -59,7 +59,7 @@ LoadProfileData($_SESSION['user']['id']);
                                             <div class="field">
                                                 <p class="control">
                                                     <textarea name="textarea" class="textarea"
-                                                              placeholder="What are you up to today?"></textarea>
+                                                              placeholder="What are you up to today? (max 140 chars)" maxlength="140"></textarea>
                                                 </p>
                                             </div>
                                             <nav class="level">
@@ -77,7 +77,7 @@ LoadProfileData($_SESSION['user']['id']);
                                                     <div class="level-item">
                                                         <div class="level-item">
                                                             <button type="submit" name="messageSubmit"
-                                                                    class="button is-success is-rounded is-outlined">Submit
+                                                                    class="button is-success is-rounded is-outlined">Post
                                                             </button>
                                                         </div>
                                                     </div>
