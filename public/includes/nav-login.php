@@ -9,7 +9,7 @@
 					<span></span>
 					<span></span>
 					<span></span>
-				  </span>
+				</span>
             </div>
 			<div id="navMenu" class="navbar-menu">
 				<div class="navbar-end">
@@ -19,7 +19,10 @@
 					<a href="api.php" class="navbar-item <?php if (basename($_SERVER['PHP_SELF']) == 'api.php') { echo 'is-active'; } ?>"><i class="fas fa-cogs"></i>&nbsp;API</a>
 					<a href="contact.php" class="navbar-item <?php if (basename($_SERVER['PHP_SELF']) == 'contact.php') { echo 'is-active'; } ?>"><i class="fas fa-envelope"></i>&nbsp;Contact</a>
                     <a href="settings.php" class="navbar-item <?php if (basename($_SERVER['PHP_SELF']) == 'settings.php') { echo 'is-active'; } ?>"><i class="fas fa-sliders-h"></i>&nbsp;Settings</a>
-                    <a href="includes/logout.inc.php" class="navbar-item"><i class="fas fa-sign-out-alt"></i>&nbsp;Logout</a>
+					<?php if($_SESSION['user']['admin'] === 1) { ?>
+						<a href="/admin/" class="navbar-item"><i class="fas fa-users"></i>&nbsp;Dashboard</a>
+					<?php } ?>
+					<a href="includes/logout.inc.php" class="navbar-item"><i class="fas fa-sign-out-alt"></i>&nbsp;Logout</a>
                 </div>
 			</div>
         </div>
