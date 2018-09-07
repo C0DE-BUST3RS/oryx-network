@@ -64,7 +64,7 @@ LoadProfileData($_SESSION['user']['id']);
 					<div class="hero-body">
 						<div class="container">
 							<h1 class="title">
-								Welcome, <?php echo ucfirst($_SESSION['user']['firstname']); ?>
+								Welcome, <?php echo ucfirst($_SESSION['user']['firstname'])." ".ucfirst($_SESSION['user']['lastname']); ?>
 							</h1>
 							<h2 class="subtitle">
 								I hope you are having a great day!
@@ -151,7 +151,7 @@ LoadProfileData($_SESSION['user']['id']);
 																		   value="<?php echo $row['user_id']; ?>"
 																		   hidden/>
 																	<input type="text" name="redirectPage"
-																		   value="feed" hidden>
+																		   value="admin" hidden>
 																	<button class="delete-button" type="submit"
 																			name="deletePost">
 																		<i class="fas fa-trash-alt"></i>
