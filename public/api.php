@@ -122,6 +122,18 @@ require 'includes/functions.inc.php';
                                     </div>
 
                                     <div class="field">
+                                        <div class="select is-info is-rounded">
+                                            <select name="requestValue" required>
+                                                <option disabled selected>How many requests a day?</option>
+                                                <option value="10-100">10 - 250 requests a day</option>
+                                                <option value="250-750">250 - 750 requests a day</option>
+                                                <option value="750-1500">750 - 1500 requests a day</option>
+                                                <option value="1500-2500">1500 - 2000 requests a day</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="field">
                                         <div class="control">
                                         <textarea class="textarea is-info" placeholder="Why you need access to our API?"
                                                   name="requestReason" rows="2" required></textarea>

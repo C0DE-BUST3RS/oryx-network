@@ -2,10 +2,11 @@
 //Require the functions and start the session
 require 'functions.inc.php';
 
-if (isset($_POST['submit']) && !empty($_POST['requestReason']) && !empty($_POST['requestEmail']) && isset($_SESSION['user']['id'])) {
+if (isset($_POST['submit']) && !empty($_POST['requestReason']) && !empty($_POST['requestEmail']) && !empty($_POST['requestValue']) && isset($_SESSION['user']['id'])) {
     //Get the values
     $email = htmlspecialchars($conn->escape_string($_POST['requestEmail']));
     $reason = htmlspecialchars($conn->escape_string($_POST['requestReason']));
+    $requestsPerDay = htmlspecialchars($conn->escape_string($_POST['requestValue']));
 
     //Get some value's for query
     $date = GetCurrentDate();
@@ -18,8 +19,8 @@ if (isset($_POST['submit']) && !empty($_POST['requestReason']) && !empty($_POST[
     if (CheckIfRealEmail($email)) {
 
         //Put all form fields into the DB
-        $stmt = $conn->prepare("INSERT INTO `api-key-request` (date, ip, user_id, email, reason, accepted) VALUES (?,?,?,?,?,?)");
-        $stmt->bind_param("ssssss", $date, $ip, $userid, $email, $reason, $accepted);
+        $stmt = $conn->prepare("INSERT INTO `api-key-request` (date, ip, user_id, email, reason, requests, accepted) VALUES (?,?,?,?,?,?,?)");
+        $stmt->bind_param("sssssss", $date, $ip, $userid, $email, $reason, $requestsPerDay, $accepted);
 
         //Execute the query
         if ($stmt->execute()) {
