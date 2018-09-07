@@ -56,49 +56,15 @@ LoadProfileData($_SESSION['user']['id']);
 					</p>
 					<ul class="menu-list">
 						<li><a class="is-active">Dashboard</a></li>
-						<li><a>Customers</a></li>
-					</ul>
-					<p class="menu-label">
-						Administration
-					</p>
-					<ul class="menu-list">
-						<li><a>Team Settings</a></li>
-						<li>
-							<a>Manage Your Team</a>
-							<ul>
-								<li><a>Members</a></li>
-								<li><a>Plugins</a></li>
-								<li><a>Add a member</a></li>
-							</ul>
-						</li>
-						<li><a>Invitations</a></li>
-						<li><a>Cloud Storage Environment Settings</a></li>
-						<li><a>Authentication</a></li>
-					</ul>
-					<p class="menu-label">
-						Transactions
-					</p>
-					<ul class="menu-list">
-						<li><a>Payments</a></li>
-						<li><a>Transfers</a></li>
-						<li><a>Balance</a></li>
 					</ul>
 				</aside>
 			</div>
 			<div class="column is-9">
-				<nav class="breadcrumb" aria-label="breadcrumbs">
-					<ul>
-						<li><a href="../">Bulma</a></li>
-						<li><a href="../">Templates</a></li>
-						<li><a href="../">Examples</a></li>
-						<li class="is-active"><a href="#" aria-current="page">Admin</a></li>
-					</ul>
-				</nav>
 				<section class="hero is-info welcome is-small">
 					<div class="hero-body">
 						<div class="container">
 							<h1 class="title">
-								Hello, Admin.
+								Welcome, <?php echo ucfirst($_SESSION['user']['firstname']); ?>
 							</h1>
 							<h2 class="subtitle">
 								I hope you are having a great day!
@@ -139,69 +105,71 @@ LoadProfileData($_SESSION['user']['id']);
 						<div class="card events-card">
 							<header class="card-header">
 								<p class="card-header-title">
-									Events
+									Latest Posts
 								</p>
 								<a href="#" class="card-header-icon" aria-label="more options">
-                  <span class="icon">
-                    <i class="fa fa-angle-down" aria-hidden="true"></i>
-                  </span>
+								  <span class="icon">
+									<i class="fa fa-angle-down" aria-hidden="true"></i>
+								  </span>
 								</a>
 							</header>
 							<div class="card-table">
 								<div class="content">
 									<table class="table is-fullwidth is-striped">
 										<tbody>
-										<tr>
-											<td width="5%"><i class="fa fa-bell-o"></i></td>
-											<td>Lorum ipsum dolem aire</td>
-											<td><a class="button is-small is-primary" href="#">Action</a></td>
-										</tr>
-										<tr>
-											<td width="5%"><i class="fa fa-bell-o"></i></td>
-											<td>Lorum ipsum dolem aire</td>
-											<td><a class="button is-small is-primary" href="#">Action</a></td>
-										</tr>
-										<tr>
-											<td width="5%"><i class="fa fa-bell-o"></i></td>
-											<td>Lorum ipsum dolem aire</td>
-											<td><a class="button is-small is-primary" href="#">Action</a></td>
-										</tr>
-										<tr>
-											<td width="5%"><i class="fa fa-bell-o"></i></td>
-											<td>Lorum ipsum dolem aire</td>
-											<td><a class="button is-small is-primary" href="#">Action</a></td>
-										</tr>
-										<tr>
-											<td width="5%"><i class="fa fa-bell-o"></i></td>
-											<td>Lorum ipsum dolem aire</td>
-											<td><a class="button is-small is-primary" href="#">Action</a></td>
-										</tr>
-										<tr>
-											<td width="5%"><i class="fa fa-bell-o"></i></td>
-											<td>Lorum ipsum dolem aire</td>
-											<td><a class="button is-small is-primary" href="#">Action</a></td>
-										</tr>
-										<tr>
-											<td width="5%"><i class="fa fa-bell-o"></i></td>
-											<td>Lorum ipsum dolem aire</td>
-											<td><a class="button is-small is-primary" href="#">Action</a></td>
-										</tr>
-										<tr>
-											<td width="5%"><i class="fa fa-bell-o"></i></td>
-											<td>Lorum ipsum dolem aire</td>
-											<td><a class="button is-small is-primary" href="#">Action</a></td>
-										</tr>
-										<tr>
-											<td width="5%"><i class="fa fa-bell-o"></i></td>
-											<td>Lorum ipsum dolem aire</td>
-											<td><a class="button is-small is-primary" href="#">Action</a></td>
-										</tr>
+										<?php
+										$stmt = $conn->prepare("SELECT u.id ,u.email ,u.firstname ,u.lastname, u.admin ,po.id ,po.date ,po.user_id ,po.likes ,po.content ,pr.profile_picture ,pr.intro FROM user u INNER JOIN post po on u.id = po.user_id INNER JOIN profiles pr on po.user_id = pr.user_id ORDER BY po.id DESC");
+										$stmt->execute();
+										$result = $stmt->get_result();
+
+										while ($row = $result->fetch_assoc()) { ?>
+											<tr>
+												<td width="10px">
+													<div class="media-left">
+														<figure class="image is-32x32">
+															<img class="is-rounded"
+																 src="<?php echo $row['profile_picture']; ?>"
+																 alt="Image">
+														</figure>
+													</div>
+												</td>
+												<td><a class="button is-small is-info"
+													   href="#"><?php echo ucfirst($row['firstname']) . " " . ucfirst($row['lastname']); ?></a>
+												</td>
+												<td width="300px"><?php echo $row['content']; ?></td>
+												<td>
+													<?php
+													//Display the delete button if the user is the owner or if the loggedin user is an admin
+													if ($row['user_id'] == $_SESSION['user']['id'] || $_SESSION['user']['admin'] == 1) { ?>
+														<div class="level-right">
+															<a class="level-item">
+																<form action="../includes/deletepost.inc.php"
+																	  method="POST">
+																	<input type="text" name="messageID"
+																		   value="<?php echo $row['id']; ?>" hidden/>
+																	<input type="text" name="userID"
+																		   value="<?php echo $row['user_id']; ?>"
+																		   hidden/>
+																	<input type="text" name="redirectPage"
+																		   value="feed" hidden>
+																	<button class="delete-button" type="submit"
+																			name="deletePost">
+																		<i class="fas fa-trash-alt"></i>
+																	</button>
+																</form>
+															</a>
+														</div>
+													<?php } ?>
+												</td>
+											</tr>
+										<?php } ?>
+
 										</tbody>
 									</table>
 								</div>
 							</div>
 							<footer class="card-footer">
-								<a href="#" class="card-footer-item">View All</a>
+								<a href="/../feed.php" class="card-footer-item">View All</a>
 							</footer>
 						</div>
 					</div>
