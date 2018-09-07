@@ -93,6 +93,15 @@ LoadProfileData($_SESSION['user']['id']);
                     <hr/>
 
                     <?php
+                    if (isset($_SESSION['deleted'])) { ?>
+                        <div id="deletednotification" class="notification is-success is-rounded">
+                            <button class="delete" onclick="hideDeletedNotification()"></button>
+                            <?php echo $_SESSION['deleted']; ?>
+                        </div>
+                        <?php
+                        unset($_SESSION['deleted']);
+                    }
+
                     $stmt = $conn->prepare("SELECT u.id ,u.email ,u.firstname ,u.lastname, u.admin ,po.id ,po.date ,po.user_id ,po.likes ,po.content ,pr.profile_picture ,pr.intro FROM user u INNER JOIN post po on u.id = po.user_id INNER JOIN profiles pr on po.user_id = pr.user_id ORDER BY po.id DESC");
                     $stmt->execute();
                     $result = $stmt->get_result();
@@ -174,5 +183,6 @@ LoadProfileData($_SESSION['user']['id']);
 
 <script src="js/main.js"></script>
 <script src="js/navbarMenu.js"></script>
+<script src="js/hidedeletednotification.js"></script>
 </body>
 </html>
