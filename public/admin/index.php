@@ -2,28 +2,18 @@
 //Require the functions and start the session
 require '../includes/functions.inc.php';
 
+//Load the latest profile data
+LoadProfileData($_SESSION['user']['id']);
+
 //Check if the user is logged in
 If (!CheckIfLoggedIn()) {
 	header("Location: ../../index.php");
 }
 
-//@TODO Change intro, a function already exists in the functions file so thats already done
-if (isset($_POST['changeintro'])) {
-
+//Check if the user is logged in
+If (!CheckIfAdmin($_SESSION['user']['email'])) {
+	header("Location: ../../index.php");
 }
-
-//@TODO Change profile picture
-if (isset($_POST['changepicture'])) {
-
-}
-
-//@TODO Delete profile picture
-if (isset($_POST['deletepicture'])) {
-
-}
-
-//Load the latest profile data
-LoadProfileData($_SESSION['user']['id']);
 
 ?>
 <!doctype html>
@@ -39,7 +29,7 @@ LoadProfileData($_SESSION['user']['id']);
 	<link rel="stylesheet" href="../css/main.css">
 	<link rel="stylesheet" href="../css/bulma.css">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
-	<title>My settings - Oryx Network</title>
+	<title>Dashboard - Oryx Network</title>
 </head>
 
 <body>
