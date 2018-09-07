@@ -74,10 +74,10 @@ LoadProfileData($_SESSION['user']['id']);
                                 <form action="includes/change-intro.inc.php" method="post">
                                     <div class="field">
                                         <div class="control">
-                                            <textarea class="textarea is-info" placeholder="Your intro" name="intro" rows="4"><?php if (isset($_SESSION['user']['introduction'])) {echo $_SESSION['user']['introduction'];}?></textarea>
+                                            <textarea class="textarea is-primary" placeholder="Your intro" name="intro" rows="3"><?php if (isset($_SESSION['user']['introduction'])) {echo $_SESSION['user']['introduction'];}?></textarea>
                                         </div>
                                     </div>
-                                    <button class="button is-info is-outlined is-inverted" type="submit">Change intro</button>
+                                    <button class="button is-info is-outlined is-inverted" type="submit" name="submit">Change intro</button>
                                 </form>
                             </article>
                             <article class="tile is-child notification is-warning">
