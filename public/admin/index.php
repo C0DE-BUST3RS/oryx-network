@@ -108,7 +108,7 @@ If (!CheckIfAdmin($_SESSION['user']['email'])) {
 									<table class="table is-fullwidth is-striped">
 										<tbody>
 										<?php
-										$stmt = $conn->prepare("SELECT u.id ,u.email ,u.firstname ,u.lastname, u.admin ,po.id ,po.date ,po.user_id ,po.likes ,po.content ,pr.profile_picture ,pr.intro FROM user u INNER JOIN post po on u.id = po.user_id INNER JOIN profiles pr on po.user_id = pr.user_id ORDER BY po.id DESC");
+										$stmt = $conn->prepare("SELECT u.id ,u.email ,u.firstname ,u.lastname, u.admin ,po.id ,po.date ,po.user_id ,po.likes ,po.content ,pr.profile_picture ,pr.intro FROM user u INNER JOIN post po on u.id = po.user_id INNER JOIN profiles pr on po.user_id = pr.user_id ORDER BY po.id DESC LIMIT 5");
 										$stmt->execute();
 										$result = $stmt->get_result();
 
@@ -130,7 +130,7 @@ If (!CheckIfAdmin($_SESSION['user']['email'])) {
 												<td>
 													<?php
 													//Display the delete button if the user is the owner or if the loggedin user is an admin
-													if ($row['user_id'] == $_SESSION['user']['id'] || $_SESSION['user']['admin'] == 1) { ?>
+													if ($_SESSION['user']['admin'] == 1) { ?>
 														<div class="level-right">
 															<a class="level-item">
 																<form action="../includes/deletepost.inc.php"
