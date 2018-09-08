@@ -7,21 +7,6 @@ If (!CheckIfLoggedIn()) {
     header("Location: ../index.php");
 }
 
-//@TODO Change intro, a function already exists in the functions file so thats already done
-if (isset($_POST['changeintro'])) {
-
-}
-
-//@TODO Change profile picture
-if (isset($_POST['changepicture'])) {
-
-}
-
-//@TODO Delete profile picture
-if (isset($_POST['deletepicture'])) {
-
-}
-
 //Load the latest profile data
 LoadProfileData($_SESSION['user']['id']);
 
