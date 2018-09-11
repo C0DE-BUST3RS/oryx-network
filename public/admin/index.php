@@ -86,7 +86,7 @@ If (!CheckIfAdmin($_SESSION['user']['email'])) {
 					</div>
 				</section>
 				<div class="columns">
-					<div class="column is-6">
+					<div class="column is-9">
 						<div class="card events-card">
 							<header class="card-header">
 								<p class="card-header-title">
@@ -162,7 +162,7 @@ If (!CheckIfAdmin($_SESSION['user']['email'])) {
 						<div class="card">
 							<header class="card-header">
 								<p class="card-header-title">
-									User Search
+									Search User
 								</p>
 								<a href="#" class="card-header-icon" aria-label="more options">
                   <span class="icon">
