@@ -76,16 +76,22 @@ require 'includes/functions.inc.php';
                             </div>
                         </div>
 
-                        <div class="field">
-                            <div class="control has-icons-left">
-                                <input class="input is-primary is-info is-rounded" id="contactEmail"
-                                       name="contactEmail" type="email" placeholder="Email" value="<?php EmailFillIn(); ?>" required/>
-                                <span class="icon is-small is-left">
-									<i class="fas fa-address-card"></i>
-    							</span>
-                            </div>
-                        </div>
+                        <?php
 
+                        if (!CheckIfLoggedIn()) { ?>
+                            <div class="field">
+                                <div class="control has-icons-left">
+                                    <input class="input is-primary is-info is-rounded" id="contactEmail"
+                                           name="contactEmail" type="email" placeholder="Email" required/>
+                                    <span class="icon is-small is-left">
+                                        <i class="fas fa-address-card"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        <?php } else { ?>
+                            <input name="contactEmail" type="hidden" value="<?php EmailFillIn(); ?>"/>
+                        <?php } ?>
+                        
                         <div class="field">
                             <div class="control">
                                 <textarea class="textarea is-info" placeholder="Your message" name="contactMessage" rows="6"></textarea>
