@@ -42,67 +42,73 @@ require 'includes/functions.inc.php';
                         </div>
                         <?php
                         unset($_SESSION['success']);
+                        $_SESSION['hide'] = '';
                     }
-                    ?>
-                    <?php
+
                     if (isset($_SESSION['failed'])) { ?>
                         <div class="notification is-danger is-rounded">
                             <?php echo $_SESSION['failed']?>
                         </div>
                         <?php
                         unset($_SESSION['failed']);
+                        $_SESSION['hide'] = '';
                     }
-                    ?>
 
-                    <form action="includes/contact.inc.php" method="POST" enctype="multipart/form-data">
+                    if (!isset($_SESSION['hide'])) { ?>
 
-                        <div class="field">
-                            <div class="control has-icons-left">
-                                <input class="input is-primary is-info is-rounded" id="contactFirstname"
-                                       name="contactFirstname" type="text" placeholder="Firstname" value="<?php FirstnameFillIn(); ?>" required/>
-                                <span class="icon is-small is-left">
-									<i class="fas fa-address-card"></i>
-    							</span>
-                            </div>
-                        </div>
+                        <form action="includes/contact.inc.php" method="POST" enctype="multipart/form-data">
 
-                        <div class="field">
-                            <div class="control has-icons-left">
-                                <input class="input is-primary is-info is-rounded" id="contactLastname"
-                                       name="contactLastname" type="text" placeholder="Lastname" value="<?php LastnameFillIn(); ?>" required/>
-                                <span class="icon is-small is-left">
-									<i class="fas fa-address-card"></i>
-    							</span>
-                            </div>
-                        </div>
+                            <?php
 
-                        <?php
+                            if (!CheckIfLoggedIn()) { ?>
 
-                        if (!CheckIfLoggedIn()) { ?>
+                                <div class="field">
+                                    <div class="control has-icons-left">
+                                        <input class="input is-primary is-info is-rounded" id="contactFirstname"
+                                               name="contactFirstname" type="text" placeholder="Firstname" required/>
+                                        <span class="icon is-small is-left">
+                                            <i class="fas fa-address-card"></i>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="field">
+                                    <div class="control has-icons-left">
+                                        <input class="input is-primary is-info is-rounded" id="contactLastname"
+                                               name="contactLastname" type="text" placeholder="Lastname" required/>
+                                        <span class="icon is-small is-left">
+                                            <i class="fas fa-address-card"></i>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="field">
+                                    <div class="control has-icons-left">
+                                        <input class="input is-primary is-info is-rounded" id="contactEmail"
+                                               name="contactEmail" type="email" placeholder="Email" required/>
+                                        <span class="icon is-small is-left">
+                                            <i class="fas fa-address-card"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            <?php } else { ?>
+                                <input name="contactFirstname" type="hidden" value="<?php FirstnameFillIn(); ?>"/>
+                                <input name="contactLastname" type="hidden" value="<?php LastnameFillIn(); ?>"/>
+                                <input name="contactEmail" type="hidden" value="<?php EmailFillIn(); ?>"/>
+                            <?php } ?>
+
                             <div class="field">
-                                <div class="control has-icons-left">
-                                    <input class="input is-primary is-info is-rounded" id="contactEmail"
-                                           name="contactEmail" type="email" placeholder="Email" required/>
-                                    <span class="icon is-small is-left">
-                                        <i class="fas fa-address-card"></i>
-                                    </span>
+                                <div class="control">
+                                    <textarea class="textarea is-info" placeholder="Your message" name="contactMessage" rows="6" required></textarea>
                                 </div>
                             </div>
-                        <?php } else { ?>
-                            <input name="contactEmail" type="hidden" value="<?php EmailFillIn(); ?>"/>
-                        <?php } ?>
-                        
-                        <div class="field">
-                            <div class="control">
-                                <textarea class="textarea is-info" placeholder="Your message" name="contactMessage" rows="6"></textarea>
-                            </div>
-                        </div>
 
-                        <button type="submit" id="submit" name="submit" class="button is-info is-outlined is-rounded">
-                            <i class="fas fa-envelope"></i>&nbsp;Send email
-                        </button>
+                            <button type="submit" id="submit" name="submit" class="button is-info is-outlined is-rounded">
+                                <i class="fas fa-envelope"></i>&nbsp;Send message
+                            </button>
 
-                    </form>
+                        </form>
+                    <?php } ?>
 
                 </div>
 
@@ -116,6 +122,7 @@ require 'includes/functions.inc.php';
 
     <?php
     require 'includes/footer.php';
+    unset($_SESSION['hide']);
     ?>
 </section>
 
