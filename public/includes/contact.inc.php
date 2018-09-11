@@ -29,19 +29,22 @@ if (isset($_POST['submit']) && !empty($_POST['contactMessage'])) {
 
         //Execute the query
         if ($stmt->execute()) {
+            $_SESSION['success'] = "Message successfully send!";
             header("Location: ../contact.php?contact=send");
             exit();
         } else {
+            $_SESSION['failed'] = "Message not send!";
             header("Location: ../contact.php?contact=failed");
             exit();
         }
 
     } else {
+        $_SESSION['failed'] = "Check your email address!";
         header("Location: ../contact.php?contact=failed");
         exit();
     }
 
 } else {
-    header("Location: ../contact.php?contact=failed");
+    header("Location: ../contact.php");
     exit();
 }

@@ -35,6 +35,25 @@ require 'includes/functions.inc.php';
 
                     <h1 class="title is-1">Contact us</h1>
 
+                    <?php
+                    if (isset($_SESSION['success'])) { ?>
+                        <div class="notification is-success is-rounded">
+                            <?php echo $_SESSION['success']?>
+                        </div>
+                        <?php
+                        unset($_SESSION['success']);
+                    }
+                    ?>
+                    <?php
+                    if (isset($_SESSION['failed'])) { ?>
+                        <div class="notification is-danger is-rounded">
+                            <?php echo $_SESSION['failed']?>
+                        </div>
+                        <?php
+                        unset($_SESSION['failed']);
+                    }
+                    ?>
+
                     <form action="includes/contact.inc.php" method="POST" enctype="multipart/form-data">
 
                         <div class="field">
