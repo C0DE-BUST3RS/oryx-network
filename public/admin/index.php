@@ -40,21 +40,16 @@ If (!CheckIfAdmin($_SESSION['user']['email'])) {
 	<div class="container">
 		<div class="columns">
 			<div class="column is-3">
-				<aside class="menu">
-					<p class="menu-label">
-						General
-					</p>
-					<ul class="menu-list">
-						<li><a class="is-active">Dashboard</a></li>
-					</ul>
-				</aside>
+				<?php
+				require 'navbar/nav-admin.php';
+				?>
 			</div>
 			<div class="column is-9">
 				<section class="hero is-info welcome is-small">
 					<div class="hero-body">
 						<div class="container">
 							<h1 class="title">
-								Welcome, <?php echo ucfirst($_SESSION['user']['firstname'])." ".ucfirst($_SESSION['user']['lastname']); ?>
+								Welcome, <?php echo ucfirst($_SESSION['user']['firstname']) . " " . ucfirst($_SESSION['user']['lastname']); ?>
 							</h1>
 							<h2 class="subtitle">
 								I hope you are having a great day!
@@ -163,32 +158,7 @@ If (!CheckIfAdmin($_SESSION['user']['email'])) {
 							</footer>
 						</div>
 					</div>
-					<div class="column is-6">
-						<div class="card">
-							<header class="card-header">
-								<p class="card-header-title">
-									Inventory Search
-								</p>
-								<a href="#" class="card-header-icon" aria-label="more options">
-                  <span class="icon">
-                    <i class="fa fa-angle-down" aria-hidden="true"></i>
-                  </span>
-								</a>
-							</header>
-							<div class="card-content">
-								<div class="content">
-									<div class="control has-icons-left has-icons-right">
-										<input class="input is-large" type="text" placeholder="">
-										<span class="icon is-medium is-left">
-                      <i class="fa fa-search"></i>
-                    </span>
-										<span class="icon is-medium is-right">
-                      <i class="fa fa-check"></i>
-                    </span>
-									</div>
-								</div>
-							</div>
-						</div>
+					<div class="column is-3">
 						<div class="card">
 							<header class="card-header">
 								<p class="card-header-title">
