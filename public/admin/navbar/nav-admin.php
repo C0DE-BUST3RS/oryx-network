@@ -10,9 +10,10 @@
 		API
 	</p>
 	<ul class="menu-list">
-		<li><a href="#">Active Keys</a></li>
-		<li><a href="key-requests.php" <?php if ($_SERVER['PHP_SELF'] == "/admin/key-requests.php") { ?> class="is-active" <?php } ?>>API Requests</a></li>
-	</ul>
+        <li><a href="api/calls.php" <?php if ($_SERVER['PHP_SELF'] == "/admin/key-requests.php") { ?> class="is-active" <?php } ?>>API Calls</a></li>
+        <li><a href="api/key-requests.php" <?php if ($_SERVER['PHP_SELF'] == "/admin/key-requests.php") { ?> class="is-active" <?php } ?>>Key Requests</a></li>
+        <li><a href="api/keys.php" <?php if ($_SERVER['PHP_SELF'] == "/admin/key-requests.php") { ?> class="is-active" <?php } ?>>API Keys</a></li>
+    </ul>
 	<p class="menu-label">
 		Support
 	</p>

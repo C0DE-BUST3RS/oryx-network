@@ -1,6 +1,6 @@
 <?php
 //Require the functions and start the session
-require '../includes/functions.inc.php';
+require '../../includes/functions.inc.php';
 
 //Load the latest profile data
 LoadProfileData($_SESSION['user']['id']);
@@ -26,8 +26,8 @@ If (!CheckIfAdmin($_SESSION['user']['email'])) {
 	<meta name="description" content="Oryx Network">
 	<meta name="keywords" content="Oryx Network, Oryx, Network">
 	<meta name="author" content="C0DE-BUST3RS">
-	<link rel="stylesheet" href="../css/main.css">
-	<link rel="stylesheet" href="../css/bulma.css">
+	<link rel="stylesheet" href="../../css/main.css">
+	<link rel="stylesheet" href="../../css/bulma.css">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
 	<title>Dashboard - Oryx Network</title>
 </head>
@@ -35,13 +35,13 @@ If (!CheckIfAdmin($_SESSION['user']['email'])) {
 <body>
 <section class="hero is-fullheight is-default is-bold">
 	<?php
-	require '../includes/nav-login.php';
+	require '../../includes/nav-login.php';
 	?>
 	<div class="container">
 		<div class="columns">
 			<div class="column is-3">
 				<?php
-				require 'navbar/nav-admin.php';
+				require '../navbar/nav-admin.php';
 				?>
 			</div>
 			<div class="column is-9">
@@ -73,12 +73,12 @@ If (!CheckIfAdmin($_SESSION['user']['email'])) {
 
 
 	<?php
-	require '../includes/footer.php';
+	require '../../includes/footer.php';
 	?>
 </section>
 
-<script src="../js/main.js"></script>
-<script src="../js/navbarMenu.js"></script>
+<script src="../../js/main.js"></script>
+<script src="../../js/navbarMenu.js"></script>
 </body>
 
 </html>
