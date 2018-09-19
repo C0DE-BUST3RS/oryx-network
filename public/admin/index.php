@@ -41,7 +41,7 @@ If (!CheckIfAdmin($_SESSION['user']['email'])) {
 		<div class="columns">
 			<div class="column is-3">
 				<?php
-				require 'navbar/nav-admin.php';
+				require 'nav-admin.php';
 				?>
 			</div>
 			<div class="column is-9">

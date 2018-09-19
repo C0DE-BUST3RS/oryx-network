@@ -1,5 +1,5 @@
 <?php
-//Require the functions and start the session
+//Require the functions and start the  	session
 require '../includes/functions.inc.php';
 
 //Load the latest profile data
@@ -41,7 +41,7 @@ If (!CheckIfAdmin($_SESSION['user']['email'])) {
 		<div class="columns">
 			<div class="column is-3">
 				<?php
-				require 'navbar/nav-admin.php';
+				require 'nav-admin.php';
 				?>
 			</div>
 			<div class="column is-9">

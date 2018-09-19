@@ -1,6 +1,6 @@
 <?php
 //Require the functions and start the session
-require '../../includes/functions.inc.php';
+require '../includes/functions.inc.php';
 
 //Load the latest profile data
 LoadProfileData($_SESSION['user']['id']);
@@ -35,13 +35,13 @@ If (!CheckIfAdmin($_SESSION['user']['email'])) {
 <body>
 <section class="hero is-fullheight is-default is-bold">
 	<?php
-	require '../../includes/nav-login.php';
+	require '../includes/nav-login.php';
 	?>
 	<div class="container">
 		<div class="columns">
 			<div class="column is-3">
 				<?php
-				require '../navbar/nav-admin.php';
+				require 'nav-admin.php';
 				?>
 			</div>
 			<div class="column is-9">
@@ -50,7 +50,7 @@ If (!CheckIfAdmin($_SESSION['user']['email'])) {
 						<div class="card events-card">
 							<header class="card-header">
 								<p class="card-header-title">
-									Latest API-Key requests
+									New API-Key requests
 								</p>
 								<a href="#" class="card-header-icon" aria-label="more options">
 								  <span class="icon">
@@ -73,12 +73,12 @@ If (!CheckIfAdmin($_SESSION['user']['email'])) {
 
 
 	<?php
-	require '../../includes/footer.php';
+	require '../includes/footer.php';
 	?>
 </section>
 
-<script src="../../js/main.js"></script>
-<script src="../../js/navbarMenu.js"></script>
+<script src="../js/main.js"></script>
+<script src="../js/navbarMenu.js"></script>
 </body>
 
 </html>
