@@ -39,12 +39,12 @@ If (!CheckIfAdmin($_SESSION['user']['email'])) {
 	?>
 	<div class="container">
 		<div class="columns">
-			<div class="column is-3">
+			<div class="column is-2">
 				<?php
 				require 'nav-admin.php';
 				?>
 			</div>
-			<div class="column is-9">
+			<div class="column is-10">
 				<div class="columns">
 					<div class="column is-12">
 						<div class="card events-card">
@@ -80,7 +80,7 @@ If (!CheckIfAdmin($_SESSION['user']['email'])) {
 											<tbody>
 
 											<?php
-											$stmt = $conn->prepare("SELECT u.id ,u.email ,u.firstname ,u.lastname, u.admin ,po.id ,po.date ,po.user_id ,po.likes ,po.content ,pr.profile_picture ,pr.intro FROM user u INNER JOIN post po on u.id = po.user_id INNER JOIN profiles pr on po.user_id = pr.user_id ORDER BY po.id DESC LIMIT 5");
+											$stmt = $conn->prepare("SELECT u.id, u.firstname, u.lastname, u.admin,  u.activated,  u.date, u.email, u.ip, u.last_ip,  u.date, u.last_login, pr.profile_picture, lv.current_level, lv.amount_to_level_up, lv.last_level_up, lv.level_icon FROM user u INNER JOIN profiles pr on pr.user_id = u.id INNER JOIN level lv on u.id = lv.user_id ORDER BY u.date DESC");
 											$stmt->execute();
 											$result = $stmt->get_result();
 
@@ -105,14 +105,29 @@ If (!CheckIfAdmin($_SESSION['user']['email'])) {
 													</td>
 													<td>
 														<?php
-															echo date('d M Y, H.i.s A', strtotime($row['date']));
+															echo date('d M Y', strtotime($row['date']));
 														?>
 													</td>
-													<td><a class="button is-small is-primary" href="#">Action</a></td>
-													<td><a class="button is-small is-primary" href="#">Action</a></td>
-													<td><a class="button is-small is-primary" href="#">Action</a></td>
-													<td><a class="button is-small is-primary" href="#">Action</a></td>
-													<td><a class="button is-small is-primary" href="#">Action</a></td>
+													<td>
+														<?php echo date('d M Y', strtotime($row['last_login'])); ?>
+													</td>
+													<td>
+														<?php echo $row['ip'];?>
+													</td>
+													<td>
+														<?php echo $row['last_ip'];?>
+													</td>
+													<td>
+														<?php echo $row['email'];?>
+													</td>
+													<td>
+														<a class="button is-small is-primary">
+															<span class="icon">
+															  <i class="fas fa-edit"></i>
+															</span>
+															<span>Edit</span>
+														</a>
+													</td>
 												</tr>
 											<?php } ?>
 
