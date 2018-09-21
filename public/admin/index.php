@@ -61,26 +61,26 @@ If (!CheckIfAdmin($_SESSION['user']['email'])) {
 					<div class="tile is-ancestor has-text-centered">
 						<div class="tile is-parent">
 							<article class="tile is-child box">
-								<p class="title">439k</p>
+								<p class="title"><?php echo NumTotalUsers(); ?></p>
 								<p class="subtitle">Users</p>
 							</article>
 						</div>
 						<div class="tile is-parent">
 							<article class="tile is-child box">
-								<p class="title">59k</p>
-								<p class="subtitle">Products</p>
+								<p class="title"><?php echo NumTotalPosts(); ?></p>
+								<p class="subtitle">Posts</p>
 							</article>
 						</div>
 						<div class="tile is-parent">
 							<article class="tile is-child box">
-								<p class="title">3.4k</p>
-								<p class="subtitle">Open Orders</p>
+								<p class="title"><?php echo NumTotalContactMessages(); ?></p>
+								<p class="subtitle">Contact Messages</p>
 							</article>
 						</div>
 						<div class="tile is-parent">
 							<article class="tile is-child box">
-								<p class="title">19</p>
-								<p class="subtitle">Exceptions</p>
+								<p class="title">WIP</p>
+								<p class="subtitle">API Calls</p>
 							</article>
 						</div>
 					</div>
