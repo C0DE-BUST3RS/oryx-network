@@ -37,7 +37,7 @@ LoadProfileData($_SESSION['user']['id']);
                 <div class="level-item has-text-centered is-hidden-mobile">
                     <div>
                         <p class="heading">Posts</p>
-                        <p class="title"><?php echo LoadNumPosts($_SESSION['user']['id']);?></p>
+                        <p class="title"><?php echo LoadNumPostsUser($_SESSION['user']['id']);?></p>
                     </div>
                 </div>
                 <h1 class="title is-1"><?php echo ucwords($_SESSION['user']['firstname']). " " . ucwords($_SESSION['user']['lastname']);?></h1>
@@ -50,7 +50,7 @@ LoadProfileData($_SESSION['user']['id']);
                 <div class="level-item has-text-centered is-hidden-desktop">
                     <div>
                         <p class="heading">Posts</p>
-                        <p class="title"><?php echo LoadNumPosts($_SESSION['user']['id']);?></p>
+                        <p class="title"><?php echo LoadNumPostsUser($_SESSION['user']['id']);?></p>
                     </div>
                 </div>
             </nav>

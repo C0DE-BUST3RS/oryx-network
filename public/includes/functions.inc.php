@@ -749,8 +749,8 @@ function LoadProfileData($userid)
     }
 }
 
-//This function will load the number of posts
-function LoadNumPosts($userid)
+//This function will load the number of posts for a specific user
+function LoadNumPostsUser($userid)
 {
     global $conn;
 
@@ -838,4 +838,48 @@ function totalUserFollowers($userid)
 
     return $count;
 
+}
+
+function NumTotalUsers()
+{
+    global $conn;
+
+    $stmt = $conn->prepare("SELECT * FROM user");
+    $stmt->execute();
+
+    $stmt->store_result();
+    $count = $stmt->num_rows;
+
+    return $count;
+}
+
+function NumTotalPosts()
+{
+    global $conn;
+
+    $stmt = $conn->prepare("SELECT * FROM post");
+    $stmt->execute();
+
+    $stmt->store_result();
+    $count = $stmt->num_rows;
+
+    return $count;
+}
+
+function NumTotalContactMessages()
+{
+    global $conn;
+
+    $stmt = $conn->prepare("SELECT * FROM `contact-messages`");
+    $stmt->execute();
+
+    $stmt->store_result();
+    $count = $stmt->num_rows;
+
+    return $count;
+}
+
+//@TODO Finish the function
+function NumTotalAPICalls()
+{
 }
