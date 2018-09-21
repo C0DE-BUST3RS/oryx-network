@@ -50,7 +50,7 @@ If (!CheckIfAdmin($_SESSION['user']['email'])) {
 						<div class="card events-card">
 							<header class="card-header">
 								<p class="card-header-title">
-									All Tickets
+									All contact messages
 								</p>
 								<a href="#" class="card-header-icon" aria-label="more options">
 								  <span class="icon">
@@ -60,7 +60,69 @@ If (!CheckIfAdmin($_SESSION['user']['email'])) {
 							</header>
 							<div class="card-table">
 								<div class="content">
-									<!-- CONTENT INSIDE HERE -->
+                                    <!-- Start contact messages -->
+                                    <div class="content">
+                                        <table class="table is-fullwidth is-striped">
+                                            <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Loggedin</th>
+                                                <th>Date</th>
+                                                <th>IP</th>
+                                                <th>Email</th>
+                                                <th>First name</th>
+                                                <th>Last name</th>
+                                                <th>Message</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+
+                                            <?php
+                                            $stmt = $conn->prepare("SELECT * FROM `contact-messages` ORDER BY id DESC;");
+                                            $stmt->execute();
+                                            $result = $stmt->get_result();
+
+                                            while ($row = $result->fetch_assoc()) { ?>
+                                                <tr>
+                                                    <td>
+                                                        <p><?php echo $row['id'];?></p>
+                                                    </td>
+                                                    <td>
+                                                        <p>
+                                                            <?php
+                                                            if ($row['logged-in'] == 1) {
+                                                                echo "yes";
+                                                            } else {
+                                                                echo "no";
+                                                            }
+                                                            ?>
+                                                        </p>
+                                                    </td>
+                                                    <td>
+                                                        <p><?php echo date('h:m / d-m-y ', strtotime($row['contact_date'])); ?></p>
+                                                    </td>
+                                                    <td>
+                                                        <p><?php echo $row['ip']; ?></p>
+                                                    </td>
+                                                    <td>
+                                                        <p><?php echo $row['email']; ?></p>
+                                                    </td>
+                                                    <td>
+                                                        <p><?php echo $row['firstname']; ?></p>
+                                                    </td>
+                                                    <td>
+                                                        <p><?php echo $row['lastname']; ?></p>
+                                                    </td>
+                                                    <td>
+                                                        <p><?php echo $row['content']; ?></p>
+                                                    </td>
+                                                </tr>
+                                            <?php } ?>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!-- End contact messages -->
 								</div>
 							</div>
 
