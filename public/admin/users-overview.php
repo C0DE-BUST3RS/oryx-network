@@ -65,22 +65,22 @@ If (!CheckIfAdmin($_SESSION['user']['email'])) {
 										<table class="table is-fullwidth is-striped">
 											<thead>
 											<tr>
-												<th><abbr title="ID">#</abbr></th>
-												<th><abbr title="Firstname">Firstname</abbr></th>
-												<th><abbr title="Lastname">Lastname</abbr></th>
-												<th><abbr title="Rank">Rank</abbr></th>
-												<th><abbr title="RegisterDate">Register Date</abbr></th>
-												<th><abbr title="LastLogin">Last Login</abbr></th>
-												<th><abbr title="RegisterIP">Register IP</abbr></th>
-												<th><abbr title="LastIP">Last IP</abbr></th>
-												<th><abbr title="Email">Email</abbr></th>
-												<th><abbr title="Edit">Edit</abbr></th>
-											</tr>
+												<th>#</th>
+                                                <th>Rank</th>
+                                                <th>First name</th>
+												<th>Last name</th>
+												<th>Reg. Date</th>
+												<th>Last Login</th>
+												<th>Last IP</th>
+												<th>Email</th>
+												<th>Edit</th>
+                                                <th>Reset</th>
+                                            </tr>
 											</thead>
 											<tbody>
 
 											<?php
-											$stmt = $conn->prepare("SELECT u.id, u.firstname, u.lastname, u.admin,  u.activated,  u.date, u.email, u.ip, u.last_ip,  u.date, u.last_login, pr.profile_picture, lv.current_level, lv.amount_to_level_up, lv.last_level_up, lv.level_icon FROM user u INNER JOIN profiles pr on pr.user_id = u.id INNER JOIN level lv on u.id = lv.user_id ORDER BY u.date DESC");
+											$stmt = $conn->prepare("SELECT u.id, u.firstname, u.lastname, u.admin,  u.activated,  u.date, u.email, u.last_ip,  u.date, u.last_login, pr.profile_picture, lv.current_level, lv.amount_to_level_up, lv.last_level_up, lv.level_icon FROM user u INNER JOIN profiles pr on pr.user_id = u.id INNER JOIN level lv on u.id = lv.user_id ORDER BY u.date DESC");
 											$stmt->execute();
 											$result = $stmt->get_result();
 
@@ -89,6 +89,14 @@ If (!CheckIfAdmin($_SESSION['user']['email'])) {
 													<td width="5%">
 														<img class="is-centered" src="<?php echo $row['profile_picture']; ?>" alt="">
 													</td>
+                                                    <td>
+                                                        <?php
+                                                        if($row['admin'] === 1) { ?>
+                                                            <span class="tag is-danger">Admin</span>
+                                                        <?php } else { ?>
+                                                            <span class="tag is-success">User</span>
+                                                        <?php } ?>
+                                                    </td>
 													<td>
 														<p><?php echo ucfirst($row['firstname']);?></p>
 													</td>
@@ -97,22 +105,11 @@ If (!CheckIfAdmin($_SESSION['user']['email'])) {
 													</td>
 													<td>
 														<?php
-														if($row['admin'] === 1) { ?>
-															<span class="tag is-danger">Admin</span>
-														<?php } else { ?>
-															<span class="tag is-success">User</span>
-														<?php } ?>
-													</td>
-													<td>
-														<?php
 															echo date('d M Y', strtotime($row['date']));
 														?>
 													</td>
 													<td>
 														<?php echo date('d M Y', strtotime($row['last_login'])); ?>
-													</td>
-													<td>
-														<?php echo $row['ip'];?>
 													</td>
 													<td>
 														<?php echo $row['last_ip'];?>
@@ -128,6 +125,14 @@ If (!CheckIfAdmin($_SESSION['user']['email'])) {
 															<span>Edit</span>
 														</a>
 													</td>
+                                                    <td>
+                                                        <a class="button is-small is-primary">
+															<span class="icon">
+															  <i class="fas fa-edit"></i>
+															</span>
+                                                            <span>PW</span>
+                                                        </a>
+                                                    </td>
 												</tr>
 											<?php } ?>
 
