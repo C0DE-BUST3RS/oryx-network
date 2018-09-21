@@ -44,9 +44,18 @@ If (!CheckIfAdmin($_SESSION['user']['email'])) {
 				require 'nav-admin.php';
 				?>
 			</div>
+
 			<div class="column is-10">
 				<div class="columns">
 					<div class="column is-12">
+
+						<?php if (isset($_SESSION['tokensend'])) { ?>
+							<div class="notification is-success">
+								<?php echo $_SESSION['tokensend'];
+								unset($_SESSION['tokensend']); ?>
+							</div>
+						<?php } ?>
+
 						<div class="card events-card">
 							<header class="card-header">
 								<p class="card-header-title">
@@ -66,6 +75,7 @@ If (!CheckIfAdmin($_SESSION['user']['email'])) {
 											<thead>
 											<tr>
 												<th>#</th>
+												<th>Level</th>
 												<th>Rank</th>
 												<th>First name</th>
 												<th>Last name</th>
@@ -88,6 +98,8 @@ If (!CheckIfAdmin($_SESSION['user']['email'])) {
 													<td width="6%">
 														<img class="is-centered"
 															 src="<?php echo $row['profile_picture']; ?>" alt="">
+													</td>
+													<td width="1%">
 														<img class="#" src="/../<?php echo $row['level_icon']; ?>">
 													</td>
 													<td>
@@ -119,12 +131,16 @@ If (!CheckIfAdmin($_SESSION['user']['email'])) {
 														<?php echo $row['email']; ?>
 													</td>
 													<td>
-														<a class="button is-small is-primary">
-															<span class="icon">
-															  <i class="fas fa-edit"></i>
-															</span>
-															<span>PW</span>
-														</a>
+														<form action="../includes/requestpw.inc.php" method="POST">
+															<input type="text" name="resetEmail"
+																   value="<?php echo $row['email']; ?>" hidden/>
+															<input type="text" name="resetAdmin" value="true" hidden/>
+															<button type="submit" id="submit" name="submit"
+																	class="button is-small is-primary">
+																<span class="icon"><i class="fas fa-edit"></i></span>
+																<span>PW</span>
+															</button>
+														</form>
 													</td>
 												</tr>
 											<?php } ?>
@@ -150,17 +166,6 @@ If (!CheckIfAdmin($_SESSION['user']['email'])) {
 
 <script src="../js/main.js"></script>
 <script src="../js/navbarMenu.js"></script>
-<script type="text/javascript">
-    var modal = document.getElementById('modal');
-    var elements = document.getElementsByClassName('toggle-modal');
-    for (var i = 0; i < elements.length; i++) {
-        elements[i].addEventListener('click', toggleClass);
-    }
-
-    function toggleClass() {
-        modal.classList.toggle('is-active');
-    }
-</script>
 </body>
 
 </html>

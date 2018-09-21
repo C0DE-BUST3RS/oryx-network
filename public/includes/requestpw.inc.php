@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: Luuk Kenselaar <luuk.kenselaar@protonmail.com>
- * Date: 30-6-2018
- * Time: 19:40
- */
 //Require the functions
 require 'functions.inc.php';
 //Require var $conn
@@ -12,11 +6,7 @@ require 'dbh.inc.php';
 //Require send token function
 require 'sendemail.inc.php';
 
-if (CheckIfLoggedIn() == true) {
-    header("Location: feed.php");
-    exit();
-}
-
+// If the submit button has been clicked proceed.
 if (isset($_POST['submit'])) {
 
     $emailPost = $conn->real_escape_string($_POST['resetEmail']);
@@ -53,8 +43,13 @@ if (isset($_POST['submit'])) {
         $_SESSION['tokensend'] = "Password reset has been send (if the email is used)";
 
         //Redirect to the requestpw page
-        header("Location: ../requestpw.php");
-        exit();
+		if($_POST['resetAdmin'] !== 'true') {
+			header("Location: ../requestpw.php");
+			exit();
+		} else {
+			header("Location: ../admin/users-overview.php");
+			exit();
+		}
 
     } else {
         //If the email does not exist redirect
