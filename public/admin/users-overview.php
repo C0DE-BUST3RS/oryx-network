@@ -66,16 +66,15 @@ If (!CheckIfAdmin($_SESSION['user']['email'])) {
 											<thead>
 											<tr>
 												<th>#</th>
-                                                <th>Rank</th>
-                                                <th>First name</th>
+												<th>Rank</th>
+												<th>First name</th>
 												<th>Last name</th>
 												<th>Reg. Date</th>
 												<th>Last Login</th>
 												<th>Last IP</th>
 												<th>Email</th>
-												<th>Edit</th>
-                                                <th>Reset</th>
-                                            </tr>
+												<th>Reset</th>
+											</tr>
 											</thead>
 											<tbody>
 
@@ -86,53 +85,47 @@ If (!CheckIfAdmin($_SESSION['user']['email'])) {
 
 											while ($row = $result->fetch_assoc()) { ?>
 												<tr>
-													<td width="5%">
-														<img class="is-centered" src="<?php echo $row['profile_picture']; ?>" alt="">
-													</td>
-                                                    <td>
-                                                        <?php
-                                                        if($row['admin'] === 1) { ?>
-                                                            <span class="tag is-danger">Admin</span>
-                                                        <?php } else { ?>
-                                                            <span class="tag is-success">User</span>
-                                                        <?php } ?>
-                                                    </td>
-													<td>
-														<p><?php echo ucfirst($row['firstname']);?></p>
-													</td>
-													<td>
-														<p><?php echo ucfirst($row['lastname']);?></p>
+													<td width="6%">
+														<img class="is-centered"
+															 src="<?php echo $row['profile_picture']; ?>" alt="">
+														<img class="#" src="/../<?php echo $row['level_icon']; ?>">
 													</td>
 													<td>
 														<?php
-															echo date('d M Y', strtotime($row['date']));
+														if ($row['admin'] === 1) { ?>
+															<span class="tag is-danger">Admin</span>
+														<?php } else { ?>
+															<span class="tag is-success">User</span>
+														<?php } ?>
+													</td>
+													<td>
+														<p><?php echo ucfirst($row['firstname']); ?></p>
+													</td>
+													<td>
+														<p><?php echo ucfirst($row['lastname']); ?></p>
+													</td>
+													<td>
+														<?php
+														echo date('d M Y', strtotime($row['date']));
 														?>
 													</td>
 													<td>
 														<?php echo date('d M Y', strtotime($row['last_login'])); ?>
 													</td>
 													<td>
-														<?php echo $row['last_ip'];?>
+														<?php echo $row['last_ip']; ?>
 													</td>
 													<td>
-														<?php echo $row['email'];?>
+														<?php echo $row['email']; ?>
 													</td>
 													<td>
 														<a class="button is-small is-primary">
 															<span class="icon">
 															  <i class="fas fa-edit"></i>
 															</span>
-															<span>Edit</span>
+															<span>PW</span>
 														</a>
 													</td>
-                                                    <td>
-                                                        <a class="button is-small is-primary">
-															<span class="icon">
-															  <i class="fas fa-edit"></i>
-															</span>
-                                                            <span>PW</span>
-                                                        </a>
-                                                    </td>
 												</tr>
 											<?php } ?>
 
@@ -150,7 +143,6 @@ If (!CheckIfAdmin($_SESSION['user']['email'])) {
 		</div>
 	</div>
 
-
 	<?php
 	require '../includes/footer.php';
 	?>
@@ -158,6 +150,17 @@ If (!CheckIfAdmin($_SESSION['user']['email'])) {
 
 <script src="../js/main.js"></script>
 <script src="../js/navbarMenu.js"></script>
+<script type="text/javascript">
+    var modal = document.getElementById('modal');
+    var elements = document.getElementsByClassName('toggle-modal');
+    for (var i = 0; i < elements.length; i++) {
+        elements[i].addEventListener('click', toggleClass);
+    }
+
+    function toggleClass() {
+        modal.classList.toggle('is-active');
+    }
+</script>
 </body>
 
 </html>
