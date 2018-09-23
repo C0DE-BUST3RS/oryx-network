@@ -2,9 +2,6 @@
 //Require the functions and start the session
 require '../includes/functions.inc.php';
 
-//Load the latest profile data
-LoadProfileData($_SESSION['user']['id']);
-
 //Check if the user is logged in
 If (!CheckIfLoggedIn()) {
 	header("Location: ../../index.php");
@@ -26,10 +23,10 @@ If (!CheckIfAdmin($_SESSION['user']['email'])) {
 	<meta name="description" content="Oryx Network">
 	<meta name="keywords" content="Oryx Network, Oryx, Network">
 	<meta name="author" content="C0DE-BUST3RS">
-	<link rel="stylesheet" href="../../css/main.css">
-	<link rel="stylesheet" href="../../css/bulma.css">
+	<link rel="stylesheet" href="../css/main.css">
+	<link rel="stylesheet" href="../css/bulma.css">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
-	<title>Dashboard - Oryx Network</title>
+	<title>API Key requests - Oryx Network</title>
 </head>
 
 <body>
