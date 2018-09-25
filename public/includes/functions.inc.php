@@ -883,3 +883,14 @@ function NumTotalContactMessages()
 function NumTotalAPICalls()
 {
 }
+
+function GenerateAPIKey()
+{
+    $characters = '0123456789abcdefghijklMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < 40; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+    return $randomString;
+}
