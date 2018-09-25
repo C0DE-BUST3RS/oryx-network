@@ -2,9 +2,6 @@
 //Require the functions and start the  	session
 require '../includes/functions.inc.php';
 
-//Load the latest profile data
-LoadProfileData($_SESSION['user']['id']);
-
 //Check if the user is logged in
 If (!CheckIfLoggedIn()) {
     header("Location: ../../index.php");
@@ -29,7 +26,7 @@ If (!CheckIfAdmin($_SESSION['user']['email'])) {
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/bulma.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
-    <title>Dashboard - Oryx Network</title>
+    <title>Contact messages - Oryx Network</title>
 </head>
 
 <body>
