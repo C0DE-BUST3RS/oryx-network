@@ -943,24 +943,20 @@ function PlaceNewAPIKeyDB($date, $userid, $email, $value)
     }
 }
 
-//Check if user already has a API key.
-function checkUserAPIKey()
+//Check if user has an API key.
+function checkUserAPIKey($userid)
 {
-	global $conn;
+    global $conn;
 
-	if (isset($_SESSION['user']['id'])) {
-		$stmt = $conn->prepare("SELECT user_id FROM `api-key` WHERE user_id = ?;");
-		$stmt->bind_param("s", $_SESSION['user']['id']);
-		$stmt->execute();
-		$stmt->store_result();
+    $stmt = $conn->prepare("SELECT user_id FROM `api-key` WHERE user_id = ?;");
+    $stmt->bind_param("s", $userid);
+    $stmt->execute();
+    $stmt->store_result();
+    $count = $stmt->num_rows;
 
-		if ($stmt->num_rows < 1) {
-			return false;
-		} else {
-			return true;
-		}
-	} else {
-		return false;
-	}
-
+    if ($count < 1) {
+        return false;
+    } else {
+        return true;
+    }
 }

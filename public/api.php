@@ -28,7 +28,9 @@ require 'includes/functions.inc.php';
 		<div class="container has-text-centered">
 			<div class="columns is-vcentered">
 
-				<?php if (checkUserAPIKey() == false) { ?>
+				<?php
+                //Check if the user has an valid API key
+                if (!checkUserAPIKey($_SESSION['user']['id'])) { ?>
 
 					<div class="column is-one-quarter">
 						<i class="fa fa-cogs fa-10x"></i>
@@ -157,7 +159,6 @@ require 'includes/functions.inc.php';
 
 				<?php } else { ?>
 
-
 					<div class="columns is-widescreen">
 						<div class="column is-widescreen api-nav">
 							<nav class="panel">
@@ -200,8 +201,8 @@ require 'includes/functions.inc.php';
 												</ul>
 <pre>
 {
-	"name": "test",
-	"format": "json"
+    "name": "test",
+    "format": "json"
 }
 </pre>
 											</div>
@@ -233,11 +234,9 @@ require 'includes/functions.inc.php';
 										</div>
 									</div>
 								</section>
-
 							</div>
 						</div>
 					</div>
-
 
 				<?php } ?>
 
