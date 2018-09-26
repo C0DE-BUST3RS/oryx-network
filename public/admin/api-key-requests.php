@@ -57,7 +57,103 @@ If (!CheckIfAdmin($_SESSION['user']['email'])) {
 							</header>
 							<div class="card-table">
 								<div class="content">
-									<!-- CONTENT INSIDE HERE -->
+                                    <!-- Start api key requests -->
+                                    <div class="content">
+                                        <table class="table is-fullwidth is-striped">
+                                            <thead>
+                                            <tr>
+                                                <th>Status</th>
+                                                <th>ID</th>
+                                                <th>Date</th>
+                                                <th>IP</th>
+                                                <th>Email</th>
+                                                <th>Reason</th>
+                                                <th>Calls</th>
+                                                <th>Accept</th>
+                                                <th>Decline</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+
+                                            <?php
+                                            $stmt = $conn->prepare("SELECT * FROM `api-key-request` ORDER BY id DESC;");
+                                            $stmt->execute();
+                                            $result = $stmt->get_result();
+
+                                            while ($row = $result->fetch_assoc()) { ?>
+                                                <tr>
+                                                    <td>
+                                                        <?php
+                                                        if ($row['accepted'] == 1) {
+                                                            echo "<span class='tag is-primary'>Accepted</span>";
+                                                        } elseif ($row['declined'] == 1) {
+                                                            echo "<span class='tag is-danger'>Declined</span>";
+                                                        } elseif ($row['visible'] == 1) {
+                                                            echo "<span class='tag is-warning'>TODO</span>";
+                                                        }
+                                                        ?>
+                                                    </td>
+                                                    <td>
+                                                        <p><?php echo $row['id']; ?></p>
+                                                    </td>
+                                                    <td>
+                                                        <p><?php echo date('d-m-y ', strtotime($row['date'])); ?></p>
+                                                    </td>
+                                                    <td>
+                                                        <p><?php echo $row['ip']; ?></p>
+                                                    </td>
+                                                    <td>
+                                                        <p><?php echo $row['email']; ?></p>
+                                                    </td>
+                                                    <td>
+                                                        <p><?php echo $row['reason']; ?></p>
+                                                    </td>
+                                                    <td>
+                                                        <p><?php echo $row['calls']; ?></p>
+                                                    </td>
+                                                    <?php
+                                                    //If the api key requests has not been reviewed yet show the buttons
+                                                    if ($row['visible'] == 1) { ?>
+                                                        <td>
+                                                            <form action="api-key-request.inc.php" method="POST">
+                                                                <input type="text" name="requestEmail"
+                                                                       value="<?php echo $row['email']; ?>" hidden/>
+                                                                <input type="text" name="userID"
+                                                                       value="<?php echo $row['user_id']; ?>" hidden/>
+                                                                <input type="text" name="requestID"
+                                                                       value="<?php echo $row['id']; ?>" hidden/>
+                                                                <input type="text" name="requestAccepted" value="accepted" hidden/>
+                                                                <button type="submit" id="submit" name="submit"
+                                                                        class="button is-small is-success">
+                                                                    <span class="icon"><i class="fas fa-check"></i></span>
+                                                                    <span>Accept</span>
+                                                                </button>
+                                                            </form>
+                                                        </td>
+                                                        <td>
+                                                            <form action="api-key-request.inc.php" method="POST">
+                                                                <input type="text" name="requestEmail"
+                                                                       value="<?php echo $row['email']; ?>" hidden/>
+                                                                <input type="text" name="userID"
+                                                                       value="<?php echo $row['user_id']; ?>" hidden/>
+                                                                <input type="text" name="requestID"
+                                                                       value="<?php echo $row['id']; ?>" hidden/>
+                                                                <input type="text" name="requestAccepted" value="declined" hidden/>
+                                                                <button type="submit" id="submit" name="submit"
+                                                                        class="button is-small is-danger">
+                                                                    <span class="icon"><i class="fas fa-times"></i></span>
+                                                                    <span>Decline</span>
+                                                                </button>
+                                                            </form>
+                                                        </td>
+                                                    <?php } ?>
+                                                </tr>
+                                            <?php } ?>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!-- End contact messages -->
 								</div>
 							</div>
 
