@@ -111,7 +111,9 @@ If (!CheckIfAdmin($_SESSION['user']['email'])) {
                                                     <td>
                                                         <p><?php echo $row['calls']; ?></p>
                                                     </td>
-                                                    <?php if ($row['visible'] == 1) { ?>
+                                                    <?php
+                                                    //If the api key requests has not been reviewed yet show the buttons
+                                                    if ($row['visible'] == 1) { ?>
                                                         <td>
                                                             <form action="api-key-request.inc.php" method="POST">
                                                                 <input type="text" name="requestEmail"
@@ -120,7 +122,7 @@ If (!CheckIfAdmin($_SESSION['user']['email'])) {
                                                                        value="<?php echo $row['user_id']; ?>" hidden/>
                                                                 <input type="text" name="requestID"
                                                                        value="<?php echo $row['id']; ?>" hidden/>
-                                                                <input type="text" name="requestAccepted" value="true" hidden/>
+                                                                <input type="text" name="requestAccepted" value="accepted" hidden/>
                                                                 <button type="submit" id="submit" name="submit"
                                                                         class="button is-small is-success">
                                                                     <span class="icon"><i class="fas fa-check"></i></span>
@@ -136,7 +138,7 @@ If (!CheckIfAdmin($_SESSION['user']['email'])) {
                                                                        value="<?php echo $row['user_id']; ?>" hidden/>
                                                                 <input type="text" name="requestID"
                                                                        value="<?php echo $row['id']; ?>" hidden/>
-                                                                <input type="text" name="requestAccepted" value="false" hidden/>
+                                                                <input type="text" name="requestAccepted" value="declined" hidden/>
                                                                 <button type="submit" id="submit" name="submit"
                                                                         class="button is-small is-danger">
                                                                     <span class="icon"><i class="fas fa-times"></i></span>

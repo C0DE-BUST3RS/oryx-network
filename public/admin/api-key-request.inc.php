@@ -10,23 +10,25 @@ if (isset($_POST['submit'])) {
     //Get the values using POST
     $requestEmail = $conn->real_escape_string($_POST['requestEmail']);
     $requestID = $conn->real_escape_string($_POST['requestID']);
-    $requestAccepted = $conn->real_escape_string($_POST['requestAccepted']);
+    $status = $conn->real_escape_string($_POST['requestAccepted']);
     $userID = $conn->real_escape_string($_POST['userID']);
 
-    if ($requestAccepted == "false") {
+    if ($status == "declined") {
         $dbAccepted = "0";
         $dbDeclined = "1";
         $dbVisible = "0";
 
+        //Update the rows in the DB
         SetStatusKeyRequest($dbAccepted, $dbDeclined, $dbVisible, $requestID);
 
-        //Send the user an email
+        //Send the user an email that his request has been declined
         SendEmail($requestEmail, "", false, false, false, false, false, true);
 
-        header("Location: api-key-requests.php");
+        //Send the user back to the right page
+        header("Location: api-key-requests.php?declined");
         exit();
 
-    } elseif ($requestAccepted == "true") {
+    } elseif ($status == "accepted") {
         $dbAccepted = 1;
         $dbDeclined = 0;
         $dbVisible = 0;
@@ -38,10 +40,11 @@ if (isset($_POST['submit'])) {
         SetStatusKeyRequest($dbAccepted, $dbDeclined, $dbVisible, $requestID);
         PlaceNewAPIKeyDB($date, $userID, $requestEmail, $key);
 
-        //Send the user an email
+        //Send the user an email that his request has been accepted
         SendEmail($requestEmail, "", false, false, false, false, true, false);
 
-        header("Location: api-key-requests.php?added");
+        //Send the user back to the right page
+        header("Location: api-key-requests.php?accepted");
         exit();
     }
 
