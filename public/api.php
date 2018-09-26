@@ -156,7 +156,19 @@ require 'includes/functions.inc.php';
                     </div>
 
                 <?php } else { ?>
-                    <h1>welcome api users.</h1>
+
+
+                    <div class="column is-one-quarter">
+                        1
+                    </div>
+                    <div class="column is-one-quarter">
+                        2
+                    </div>
+                    <div class="column is-one-quarter">
+                        3
+                    </div>
+
+
                 <?php } ?>
 
             </div>
