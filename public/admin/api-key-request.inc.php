@@ -18,7 +18,7 @@ if (isset($_POST['submit'])) {
         $stmt = $conn->prepare("UPDATE `api-key-request` SET `api-key-request`.accepted = ?, `api-key-request`.declined = ?, `api-key-request`.visible = ? WHERE email = ?;");
         $stmt->bind_param("ssss", $dbAccepted, $dbDeclined, $dbVisible, $requestEmail);
         $stmt->execute();
-        header("Location api-key-requests.php");
+        header("Location: api-key-requests.php");
         exit();
 
     } elseif ($requestAccepted == "true") {
@@ -29,7 +29,7 @@ if (isset($_POST['submit'])) {
         $stmt = $conn->prepare("UPDATE `api-key-request` SET `api-key-request`.accepted = ?, `api-key-request`.declined = ?, `api-key-request`.visible = ? WHERE email = ?;");
         $stmt->bind_param("ssss", $dbAccepted, $dbDeclined, $dbVisible, $requestEmail);
         $stmt->execute();
-        header("Location api-key-requests.php");
+        header("Location: api-key-requests.php");
         exit();
     }
 
