@@ -27,130 +27,137 @@ require 'includes/functions.inc.php';
         <div class="container has-text-centered">
             <div class="columns is-vcentered">
 
-                <div class="column is-one-quarter">
-                    <i class="fa fa-cogs fa-10x"></i>
-                </div>
+                <?php
+                if(checkUserAPIKey($_SESSION['user']['id']) == true) { ?>
 
-                <div class="column is-half">
-                    <h1 class="title is-1">Oryx Network API</h1>
-                    <h3 class="subtitle is-4">Requirements:</h3>
-                    <ul>
-                        <li>
-                            <?php if (CheckIfLoggedIn()) {
-                                echo "<i class='fas fa-check'></i>";
-                            } else {
-                                echo "<i class='fas fa-times'></i>";
-                            }
-                            ?> An Oryx Network account
-                        </li>
-                        <li>
-                            <?php if (CheckIfLoggedIn()) {
-                                echo "<i class='fas fa-check'></i>";
-                            } else {
-                                echo "<i class='fas fa-times'></i>";
-                            }
-                            ?> A valid email-address
-                        </li>
-                        <li>
-                            <?php if (isset ($_SESSION['user']['id']) && CheckIfOlderThan30Days($_SESSION['user']['id'])) {
-                                echo "<i class='fas fa-check'></i>";
-                            } else {
-                                echo "<i class='fas fa-times'></i>";
-                            }
-                            ?> A minimum account age of 30 days
-                        </li>
-                    </ul>
-                </div>
+                    <div class="column is-one-quarter">
+                        <i class="fa fa-cogs fa-10x"></i>
+                    </div>
 
-                <div class="column is-one-quarter">
-                    <h1 class="title is-1">Request key</h1>
-                    <?php
+                    <div class="column is-half">
+                        <h1 class="title is-1">Oryx Network API</h1>
+                        <h3 class="subtitle is-4">Requirements:</h3>
+                        <ul>
+                            <li>
+                                <?php if (CheckIfLoggedIn()) {
+                                    echo "<i class='fas fa-check'></i>";
+                                } else {
+                                    echo "<i class='fas fa-times'></i>";
+                                }
+                                ?> An Oryx Network account
+                            </li>
+                            <li>
+                                <?php if (CheckIfLoggedIn()) {
+                                    echo "<i class='fas fa-check'></i>";
+                                } else {
+                                    echo "<i class='fas fa-times'></i>";
+                                }
+                                ?> A valid email-address
+                            </li>
+                            <li>
+                                <?php if (isset ($_SESSION['user']['id']) && CheckIfOlderThan30Days($_SESSION['user']['id'])) {
+                                    echo "<i class='fas fa-check'></i>";
+                                } else {
+                                    echo "<i class='fas fa-times'></i>";
+                                }
+                                ?> A minimum account age of 30 days
+                            </li>
+                        </ul>
+                    </div>
 
-                    if (!CheckIfLoggedIn()) { ?>
-                        <div class='notification is-info is-rounded'>
-                            You are not logged-in <br> Login to request a API key
-                        </div>
-                    <?php } else {
+                    <div class="column is-one-quarter">
+                        <h1 class="title is-1">Request key</h1>
+                        <?php
 
-                        if (!CheckIfOlderThan30Days($_SESSION['user']['id'])) { ?>
-                            <div class="notification is-info is-rounded">
-                                Your account age does not <br> reaches the minimum of 30 days <br> Days left until
-                                eligible: <?php echo "<b>" . DaysLeftTillEligibleAPIKey($_SESSION['user']['id']) . "</b>"; ?>
+                        if (!CheckIfLoggedIn()) { ?>
+                            <div class='notification is-info is-rounded'>
+                                You are not logged-in <br> Login to request a API key
                             </div>
                         <?php } else {
 
-                            if (isset($_SESSION['success'])) { ?>
-                                <div class="notification is-success is-rounded">
-                                    <?php echo $_SESSION['success']; ?>
+                            if (!CheckIfOlderThan30Days($_SESSION['user']['id'])) { ?>
+                                <div class="notification is-info is-rounded">
+                                    Your account age does not <br> reaches the minimum of 30 days <br> Days left until
+                                    eligible: <?php echo "<b>" . DaysLeftTillEligibleAPIKey($_SESSION['user']['id']) . "</b>"; ?>
                                 </div>
-                                <?php
-                                unset($_SESSION['success']);
-                                $_SESSION['hide'] = '';
-                            }
+                            <?php } else {
 
-                            if (isset($_SESSION['failed'])) { ?>
-                                <div class="notification is-warning is-rounded">
-                                    <?php echo $_SESSION['failed']; ?>
-                                </div>
-                                <?php
-                                unset($_SESSION['failed']);
-                                $_SESSION['hide'] = '';
-                            }
+                                if (isset($_SESSION['success'])) { ?>
+                                    <div class="notification is-success is-rounded">
+                                        <?php echo $_SESSION['success']; ?>
+                                    </div>
+                                    <?php
+                                    unset($_SESSION['success']);
+                                    $_SESSION['hide'] = '';
+                                }
 
-                            if (isset($_SESSION['age'])) { ?>
-                                <div class="notification is-danger is-rounded">
-                                    <?php echo $_SESSION['age']; ?>
-                                </div>
-                                <?php
-                                unset($_SESSION['age']);
-                                $_SESSION['hide'] = '';
-                            }
+                                if (isset($_SESSION['failed'])) { ?>
+                                    <div class="notification is-warning is-rounded">
+                                        <?php echo $_SESSION['failed']; ?>
+                                    </div>
+                                    <?php
+                                    unset($_SESSION['failed']);
+                                    $_SESSION['hide'] = '';
+                                }
 
-                            if (!isset($_SESSION['hide'])) { ?>
+                                if (isset($_SESSION['age'])) { ?>
+                                    <div class="notification is-danger is-rounded">
+                                        <?php echo $_SESSION['age']; ?>
+                                    </div>
+                                    <?php
+                                    unset($_SESSION['age']);
+                                    $_SESSION['hide'] = '';
+                                }
 
-                                <form action="includes/keyrequest.inc.php" method="post">
+                                if (!isset($_SESSION['hide'])) { ?>
 
-                                    <div class="field">
-                                        <div class="control has-icons-left">
-                                            <input class="input is-primary is-info is-rounded" name="requestEmail"
-                                                   type="email"
-                                                   placeholder="Email" value="<?php EmailFillIn(); ?>" required/>
-                                            <span class="icon is-small is-left">
+                                    <form action="includes/keyrequest.inc.php" method="post">
+
+                                        <div class="field">
+                                            <div class="control has-icons-left">
+                                                <input class="input is-primary is-info is-rounded" name="requestEmail"
+                                                       type="email"
+                                                       placeholder="Email" value="<?php EmailFillIn(); ?>" required/>
+                                                <span class="icon is-small is-left">
                                             <i class="fas fa-address-card"></i>
                                         </span>
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div class="field">
-                                        <div class="select is-info is-rounded">
-                                            <select name="requestValue" required>
-                                                <option disabled selected>How many requests a day?</option>
-                                                <option value="10-100">10 - 250 requests a day</option>
-                                                <option value="250-750">250 - 750 requests a day</option>
-                                                <option value="750-1500">750 - 1500 requests a day</option>
-                                                <option value="1500-2500">1500 - 2000 requests a day</option>
-                                            </select>
+                                        <div class="field">
+                                            <div class="select is-info is-rounded">
+                                                <select name="requestValue" required>
+                                                    <option disabled selected>How many requests a day?</option>
+                                                    <option value="10-100">10 - 250 requests a day</option>
+                                                    <option value="250-750">250 - 750 requests a day</option>
+                                                    <option value="750-1500">750 - 1500 requests a day</option>
+                                                    <option value="1500-2500">1500 - 2000 requests a day</option>
+                                                </select>
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div class="field">
-                                        <div class="control">
+                                        <div class="field">
+                                            <div class="control">
                                         <textarea class="textarea is-info" placeholder="Why you need access to our API?"
                                                   name="requestReason" rows="2" required></textarea>
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <button type="submit" id="submit" name="submit"
-                                            class="button is-info is-outlined is-rounded">
-                                        <i class="fas fa-envelope"></i>&nbsp;Request key
-                                    </button>
+                                        <button type="submit" id="submit" name="submit"
+                                                class="button is-info is-outlined is-rounded">
+                                            <i class="fas fa-envelope"></i>&nbsp;Request key
+                                        </button>
 
-                                </form>
-                            <?php }
-                        }
-                    } ?>
+                                    </form>
+                                <?php }
+                            }
+                        } ?>
 
-                </div>
+                    </div>
+
+                <?php } else { ?>
+                    <h1>welcome api users.</h1>
+                <?php } ?>
 
             </div>
 
