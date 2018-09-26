@@ -159,62 +159,77 @@ require 'includes/functions.inc.php';
 
 
 					<div class="columns is-widescreen">
-						<div class="column is-widescreen">
+						<div class="column is-widescreen api-nav">
 							<nav class="panel">
 								<p class="panel-heading">
-									RESTful API
+									Introduction
 								</p>
-								<a href="#users" class="panel-block is-active">
+								<a href="#authentication" class="panel-block">
+									<span class="panel-icon">
+									  <i class="fas fa-book" aria-hidden="true"></i>
+									</span>
+									Authentication
+								</a>
+								<p class="panel-heading">
+									API
+								</p>
+								<a href="#users" class="panel-block">
 									<span class="panel-icon">
 									  <i class="fas fa-book" aria-hidden="true"></i>
 									</span>
 									Users
 								</a>
-								<a href="#messages" class="panel-block">
-									<span class="panel-icon">
-									  <i class="fas fa-book" aria-hidden="true"></i>
-									</span>
-									Messages
-								</a>
-								<a class="panel-block">
-									<span class="panel-icon">
-									  <i class="fas fa-book" aria-hidden="true"></i>
-									</span>
-									minireset.css
-								</a>
-								<a class="panel-block">
-									<span class="panel-icon">
-									  <i class="fas fa-book" aria-hidden="true"></i>
-									</span>
-									jgthms.github.io
-								</a>
 							</nav>
 						</div>
-						<div class="column">
+						<div class="column has-text-left api-content">
 							<div class="container is-widescreen">
+
+								<section id="authentication" class="hero is-dark">
+									<div class="hero-body">
+										<div class="container">
+											<h1 class="title">
+												<span class="tag is-link is-large">/POST</span> <span>- Authentication</span>
+											</h1>
+											<div class="content has-text-white" style="color: white;">
+												Info about how to authenticate with the api.
+												<ul>
+													<li>1</li>
+													<li>2</li>
+													<li>3</li>
+													<li>4</li>
+												</ul>
+<pre>
+{
+	"name": "test",
+	"format": "json"
+}
+</pre>
+											</div>
+										</div>
+									</div>
+								</section>
 
 								<section id="users" class="hero is-dark">
 									<div class="hero-body">
 										<div class="container">
 											<h1 class="title">
-												Users
+												<span class="tag is-success is-large">/GET</span> <span>- Users</span>
 											</h1>
-											<h2 class="subtitle">
-												Primary subtitle
-											</h2>
-										</div>
-									</div>
-								</section>
-								<div style="margin-top:2000px;"></div>
-								<section id="messages" class="hero is-dark">
-									<div class="hero-body">
-										<div class="container">
-											<h1 class="title">
-												Messages
-											</h1>
-											<h2 class="subtitle">
-												Primary subtitle
-											</h2>
+											<div class="content has-text-white" style="color: white;">
+												Info about how to fetch data about the users.
+												<ul>
+													<li>1</li>
+													<li>2</li>
+													<li>3</li>
+													<li>4</li>
+												</ul>
+<pre>
+{
+	"name": "test",
+	"format": "json"
+}
+</pre>
+											</div>
 										</div>
 									</div>
 								</section>
