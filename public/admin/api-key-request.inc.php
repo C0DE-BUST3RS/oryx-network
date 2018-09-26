@@ -3,6 +3,8 @@
 require '../includes/functions.inc.php';
 //Require var $conn
 require '../includes/dbh.inc.php';
+//Require the send email functions
+require '../includes/sendemail.inc.php';
 
 if (isset($_POST['submit'])) {
     //Get the values using POST
@@ -16,7 +18,10 @@ if (isset($_POST['submit'])) {
         $dbDeclined = "1";
         $dbVisible = "0";
 
-        $result = SetStatusKeyRequest($dbAccepted, $dbDeclined, $dbVisible, $requestID);
+        SetStatusKeyRequest($dbAccepted, $dbDeclined, $dbVisible, $requestID);
+
+        //Send the user an email
+        SendEmail($requestEmail, "", false, false, false, false, false, true);
 
         header("Location: api-key-requests.php");
         exit();
@@ -30,8 +35,11 @@ if (isset($_POST['submit'])) {
         $date = GetCurrentDate();
 
         //Update the rows in the DB
-        $result = SetStatusKeyRequest($dbAccepted, $dbDeclined, $dbVisible, $requestID);
-        $result = PlaceNewAPIKeyDB($date, $userID, $requestEmail, $key);
+        SetStatusKeyRequest($dbAccepted, $dbDeclined, $dbVisible, $requestID);
+        PlaceNewAPIKeyDB($date, $userID, $requestEmail, $key);
+
+        //Send the user an email
+        SendEmail($requestEmail, "", false, false, false, false, true, false);
 
         header("Location: api-key-requests.php?added");
         exit();
