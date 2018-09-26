@@ -840,6 +840,7 @@ function totalUserFollowers($userid)
 
 }
 
+//Returns the total number of users
 function NumTotalUsers()
 {
     global $conn;
@@ -853,6 +854,7 @@ function NumTotalUsers()
     return $count;
 }
 
+//Returns the total number of posts
 function NumTotalPosts()
 {
     global $conn;
@@ -866,6 +868,7 @@ function NumTotalPosts()
     return $count;
 }
 
+//Returns the total number of contact messages
 function NumTotalContactMessages()
 {
     global $conn;
@@ -884,6 +887,36 @@ function NumTotalAPICalls()
 {
 }
 
+//Returns the number of new API key requests
+function NumNewAPIKeyRequests()
+{
+    global $conn;
+
+    $stmt = $conn->prepare("SELECT * FROM `api-key-request` WHERE visible = 1 ");
+    $stmt->execute();
+
+    $stmt->store_result();
+    $count = $stmt->num_rows;
+
+    return $count;
+}
+
+//Set the status of the API key request
+function SetStatusKeyRequest($dbAccepted, $dbDeclined, $dbVisible, $requestID)
+{
+    global $conn;
+
+    $stmt = $conn->prepare("UPDATE `api-key-request` SET `api-key-request`.accepted = ?, `api-key-request`.declined = ?, `api-key-request`.visible = ? WHERE id = ?;");
+    $stmt->bind_param("ssss", $dbAccepted, $dbDeclined, $dbVisible, $requestID);
+
+    if ($stmt->execute()) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+//Generate an API key
 function GenerateAPIKey()
 {
     $characters = '0123456789abcdefghijklMNOPQRSTUVWXYZ';
@@ -893,4 +926,19 @@ function GenerateAPIKey()
         $randomString .= $characters[rand(0, $charactersLength - 1)];
     }
     return $randomString;
+}
+
+//Place the new API key in the table
+function PlaceNewAPIKeyDB($date, $userid, $email, $value)
+{
+    global $conn;
+
+    $stmt = $conn->prepare("INSERT INTO `api-key` (date, user_id, email, used, value) VALUES (?,?,?,0,?)");
+    $stmt->bind_param("ssss", $date, $userid, $email, $value);
+
+    if ($stmt->execute()) {
+        return true;
+    } else {
+        return false;
+    }
 }
