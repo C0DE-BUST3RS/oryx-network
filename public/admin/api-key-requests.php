@@ -116,6 +116,8 @@ If (!CheckIfAdmin($_SESSION['user']['email'])) {
                                                             <form action="api-key-request.inc.php" method="POST">
                                                                 <input type="text" name="requestEmail"
                                                                        value="<?php echo $row['email']; ?>" hidden/>
+                                                                <input type="text" name="userID"
+                                                                       value="<?php echo $row['user_id']; ?>" hidden/>
                                                                 <input type="text" name="requestID"
                                                                        value="<?php echo $row['id']; ?>" hidden/>
                                                                 <input type="text" name="requestAccepted" value="true" hidden/>
@@ -130,6 +132,8 @@ If (!CheckIfAdmin($_SESSION['user']['email'])) {
                                                             <form action="api-key-request.inc.php" method="POST">
                                                                 <input type="text" name="requestEmail"
                                                                        value="<?php echo $row['email']; ?>" hidden/>
+                                                                <input type="text" name="userID"
+                                                                       value="<?php echo $row['user_id']; ?>" hidden/>
                                                                 <input type="text" name="requestID"
                                                                        value="<?php echo $row['id']; ?>" hidden/>
                                                                 <input type="text" name="requestAccepted" value="false" hidden/>
