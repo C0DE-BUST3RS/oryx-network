@@ -165,6 +165,12 @@ require 'includes/functions.inc.php';
 								<p class="panel-heading">
 									Introduction
 								</p>
+								<a href="#endpoints" class="panel-block">
+									<span class="panel-icon">
+									  <i class="fas fa-book" aria-hidden="true"></i>
+									</span>
+									Endpoints
+								</a>
 								<a href="#authentication" class="panel-block">
 									<span class="panel-icon">
 									  <i class="fas fa-book" aria-hidden="true"></i>
@@ -185,13 +191,46 @@ require 'includes/functions.inc.php';
 						<div class="column has-text-left api-content">
 							<div class="container is-widescreen">
 
-								<section id="authentication" class="hero is-dark">
+								<!-- Endpoints -->
+								<section id="endpoints" class="hero">
+									<div class="hero-body">
+										<div class="container">
+											<h1 class="title">
+												<span>Endpoints</span>
+											</h1>
+											<h2 class="subtitle">
+												<span>How to authenticate with the api</span>
+											</h2>
+											<div class="content box has-text-black">
+												Info about how to authenticate with the api.
+												<ul>
+													<li>1</li>
+													<li>2</li>
+													<li>3</li>
+													<li>4</li>
+												</ul>
+												<pre>
+{
+    "name": "test",
+    "format": "json"
+}
+</pre>
+											</div>
+										</div>
+									</div>
+								</section>
+								<!-- End Eindpoints -->
+								<!-- Authentication -->
+								<section id="authentication" class="hero">
 									<div class="hero-body">
 										<div class="container">
 											<h1 class="title">
 												<span class="tag is-link is-large">/POST</span> <span>- Authentication</span>
 											</h1>
-											<div class="content has-text-white" style="color: white;">
+											<h2 class="subtitle">
+												<span>How to authenticate with the api</span>
+											</h2>
+											<div class="content box has-text-black">
 												Info about how to authenticate with the api.
 												<ul>
 													<li>1</li>
@@ -209,14 +248,18 @@ require 'includes/functions.inc.php';
 										</div>
 									</div>
 								</section>
-
-								<section id="users" class="hero is-dark">
+								<!-- End Authentication -->
+								<!-- Users -->
+								<section id="users" class="hero">
 									<div class="hero-body">
 										<div class="container">
 											<h1 class="title">
 												<span class="tag is-success is-large">/GET</span> <span>- Users</span>
 											</h1>
-											<div class="content has-text-white" style="color: white;">
+											<h2 class="subtitle">
+												<span>Fetch data about all the users</span>
+											</h2>
+											<div class="content box has-text-black">
 												Info about how to fetch data about the users.
 												<ul>
 													<li>1</li>
@@ -234,6 +277,7 @@ require 'includes/functions.inc.php';
 										</div>
 									</div>
 								</section>
+								<!-- End Users -->
 							</div>
 						</div>
 					</div>
