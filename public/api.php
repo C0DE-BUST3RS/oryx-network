@@ -238,7 +238,7 @@ https://www.oryx.network/api/v1/
 												<span>- Authentication</span>
 											</h1>
 											<h2 class="subtitle">
-												<span>How to authenticate with the api</span>
+												<span>How to authenticate with the API</span>
 											</h2>
 											<div class="content box has-text-black">
 												<p>
