@@ -17,7 +17,7 @@ if (isset($_POST['messageSubmit']) && isset($_SESSION['user']['id']) && !empty($
 
     //Define POST variables to custom variables.
     $postUserID = $conn->real_escape_string($_POST['userID']);
-    $postMessage = $conn->real_escape_string($_POST['textarea']);
+    $postMessage = $_POST['textarea'];
 
     //Create datetime for SQL.
     $date = date("Y-m-d H:i:s");

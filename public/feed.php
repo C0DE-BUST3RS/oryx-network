@@ -131,7 +131,7 @@ LoadProfileData($_SESSION['user']['id']);
                                                 <?php echo time_elapsed_string($row['date'], false); ?>
                                             </small>
                                             <br>
-                                            <?php echo htmlspecialchars($row['content']); ?>
+                                            <?php echo nl2br(htmlspecialchars($row['content'])); ?>
                                         </p>
                                     </div>
                                     <nav class="level is-mobile">
