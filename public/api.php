@@ -32,8 +32,8 @@ $apiKey = getUserAPIKey($_SESSION['user']['id']);
 			<div class="columns is-vcentered">
 
 				<?php
-                //Check if the user has an valid API key
-                if (!checkUserAPIKey($_SESSION['user']['id'])) { ?>
+				//Check if the user has an valid API key
+				if (!checkUserAPIKey($_SESSION['user']['id'])) { ?>
 
 					<div class="column is-one-quarter">
 						<i class="fa fa-cogs fa-10x"></i>
@@ -206,9 +206,10 @@ $apiKey = getUserAPIKey($_SESSION['user']['id']);
 											</h2>
 											<div class="content box has-text-black">
 												<p>
-													The Authentication API is served over HTTPS. All URLs referenced in the documentation have the following base:
+													The Authentication API is served over HTTPS. All URLs referenced in
+													the documentation have the following base:
 												</p>
-<pre>
+												<pre>
 https://www.oryx.network/api/v1/
 </pre>
 											</div>
@@ -232,49 +233,50 @@ https://www.oryx.network/api/v1/
 													The Authentication API is served over HTTPS. All URLs referenced in
 													the documentation have the following base:
 												</p>
-<pre>
-https://www.oryx.network/api/v1/<?php echo $apiKey; ?>/users
+												<pre>
+https://www.oryx.network/api/v1/<?php echo $apiKey; ?>
 </pre>
 												<p>
 													Responses:
 												</p>
 												<table>
 													<thead>
-														<th width="10px">Code</th>
-														<th></th>
+													<th width="10px">Code</th>
+													<th></th>
 													</thead>
 													<tbody>
-														<tr>
-															<th width="15%">200</th>
-															<th>
+													<tr>
+														<th width="15%">200</th>
+														<th>
 <pre>
 {
-	"auth": "true",
-	"key": "<?php echo $apiKey; ?>"
+	"auth": "boolean",
+	"key": "string",
+	"assigned-to": "string"
 }
 </pre>
-															</th>
-														</tr>
-														<tr>
-															<th width="15%">400</th>
-															<th>Bad request</th>
-														</tr>
-														<tr>
-															<th width="15%">401</th>
-															<th>Unauthorized</th>
-														</tr>
-														<tr>
-															<th width="15%">403</th>
-															<th>Forbidden</th>
-														</tr>
-														<tr>
-															<th width="15%">404</th>
-															<th>Not Found</th>
-														</tr>
-														<tr>
-															<th width="15%">429</th>
-															<th>Too many requests</th>
-														</tr>
+														</th>
+													</tr>
+													<tr>
+														<th width="15%">400</th>
+														<th>Bad request</th>
+													</tr>
+													<tr>
+														<th width="15%">401</th>
+														<th>Unauthorized</th>
+													</tr>
+													<tr>
+														<th width="15%">403</th>
+														<th>Forbidden</th>
+													</tr>
+													<tr>
+														<th width="15%">404</th>
+														<th>Not Found</th>
+													</tr>
+													<tr>
+														<th width="15%">429</th>
+														<th>Too many requests</th>
+													</tr>
 													</tbody>
 												</table>
 											</div>
@@ -298,19 +300,81 @@ https://www.oryx.network/api/v1/<?php echo $apiKey; ?>/users
 												<span>Fetch data about all the users</span>
 											</h2>
 											<div class="content box has-text-black">
-												Info about how to fetch data about the users.
-												<ul>
-													<li>1</li>
-													<li>2</li>
-													<li>3</li>
-													<li>4</li>
-												</ul>
+												<table>
+													<thead>
+													<th width="10px">Parameters</th>
+													<th></th>
+													</thead>
+													<tbody>
+													<tr>
+														<th width="15%">API Key *</th>
+														<th>
+															<?php echo $apiKey; ?>
+														</th>
+													</tr>
+													<tr>
+														<th width="15%">Limit</th>
+														<th>Default value is 50 users</th>
+													</tr>
+													</tbody>
+												</table>
+<pre>
+https://www.oryx.network/api/v1/<?php echo $apiKey; ?>/users/50
+</pre>
+												<p>
+													Responses:
+												</p>
+												<table>
+													<thead>
+													<th width="10px">Code</th>
+													<th></th>
+													</thead>
+													<tbody>
+													<tr>
+														<th width="15%">200</th>
+														<th>
 <pre>
 {
-	"name": "test",
-	"format": "json"
+"users": [
+		{
+			 "firstname": "string",
+			 "lastname": "string",
+			 "email": "string",
+			 "last_login": "datetime"
+		},
+		{
+			"firstname": "string",
+			"lastname": "string",
+			"email": "string",
+			"last_login": "datetime"
+		}
+	]
 }
 </pre>
+														</th>
+													</tr>
+													<tr>
+														<th width="15%">400</th>
+														<th>Bad request</th>
+													</tr>
+													<tr>
+														<th width="15%">401</th>
+														<th>Unauthorized</th>
+													</tr>
+													<tr>
+														<th width="15%">403</th>
+														<th>Forbidden</th>
+													</tr>
+													<tr>
+														<th width="15%">404</th>
+														<th>Not Found</th>
+													</tr>
+													<tr>
+														<th width="15%">429</th>
+														<th>Too many requests</th>
+													</tr>
+													</tbody>
+												</table>
 											</div>
 										</div>
 									</div>
