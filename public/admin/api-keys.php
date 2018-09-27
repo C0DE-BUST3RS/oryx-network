@@ -57,7 +57,113 @@ If (!CheckIfAdmin($_SESSION['user']['email'])) {
                             </header>
                             <div class="card-table">
                                 <div class="content">
-                                    <!-- CONTENT INSIDE HERE -->
+                                    <!-- Start api key requests -->
+                                    <div class="content">
+                                        <table class="table is-fullwidth is-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Status</th>
+                                                    <th>ID</th>
+                                                    <th>Date</th>
+                                                    <th>Last IP</th>
+                                                    <th>Email</th>
+                                                    <th>Times used</th>
+                                                    <th>Enable</th>
+                                                    <th>Disable</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                            <?php
+                                            $stmt = $conn->prepare("SELECT * FROM `api-key` ORDER BY id DESC;");
+                                            $stmt->execute();
+                                            $result = $stmt->get_result();
+
+                                            while ($row = $result->fetch_assoc()) { ?>
+                                                <tr>
+                                                    <td>
+                                                        <?php
+                                                        if ($row['active'] == 1) {
+                                                            echo "<span class='tag is-success'>Active</span>";
+                                                        } else {
+                                                            echo "<span class='tag is-danger'>Not active</span>";
+                                                        }
+                                                        ?>
+                                                    </td>
+                                                    <td>
+                                                        <p><?php echo $row['id']; ?></p>
+                                                    </td>
+                                                    <td>
+                                                        <p><?php echo date('d-m-y ', strtotime($row['date'])); ?></p>
+                                                    </td>
+                                                    <td>
+                                                        <p><?php echo $row['last_ip']; ?></p>
+                                                    </td>
+                                                    <td>
+                                                        <p><?php echo $row['email']; ?></p>
+                                                    </td>
+                                                    <td>
+                                                        <p><?php echo $row['used']; ?></p>
+                                                    </td>
+
+                                                    <?php if ($row['active'] == 1) { ?>
+                                                        <td>
+                                                            <form action="includes/enable-disable-key.php" method="POST">
+                                                                <input type="text" name="email"
+                                                                       value="<?php echo $row['email']; ?>" hidden/>
+                                                                <input type="text" name="status" value="enable" hidden/>
+                                                                <button type="submit" id="submit" name="submit"
+                                                                        class="button is-small is-success">
+                                                                    <span class="icon"><i class="fas fa-check"></i></span>
+                                                                    <span>Enable</span>
+                                                                </button>
+                                                            </form>
+                                                        </td>
+                                                        <td>
+                                                            <form action="includes/enable-disable-key.php" method="POST" hidden>
+                                                                <input type="text" name="email"
+                                                                       value="<?php echo $row['email']; ?>" hidden/>
+                                                                <input type="text" name="status" value="disable" hidden/>
+                                                                <button type="submit" id="submit" name="submit"
+                                                                        class="button is-small is-danger">
+                                                                    <span class="icon"><i class="fas fa-times"></i></span>
+                                                                    <span>Disable</span>
+                                                                </button>
+                                                            </form>
+                                                        </td>
+                                                    <?php } else { ?>
+                                                        <td>
+                                                            <form action="includes/enable-disable-key.php" method="POST">
+                                                                <input type="text" name="email"
+                                                                       value="<?php echo $row['email']; ?>" hidden/>
+                                                                <input type="text" name="status" value="enable" hidden/>
+                                                                <button type="submit" id="submit" name="submit"
+                                                                        class="button is-small is-success">
+                                                                    <span class="icon"><i class="fas fa-check"></i></span>
+                                                                    <span>Enable</span>
+                                                                </button>
+                                                            </form>
+                                                        </td>
+                                                        <td>
+                                                            <form action="includes/enable-disable-key.php" method="POST" hidden>
+                                                                <input type="text" name="email"
+                                                                       value="<?php echo $row['email']; ?>" hidden/>
+                                                                <input type="text" name="status" value="disable" hidden/>
+                                                                <button type="submit" id="submit" name="submit"
+                                                                        class="button is-small is-danger">
+                                                                    <span class="icon"><i class="fas fa-times"></i></span>
+                                                                    <span>Disable</span>
+                                                                </button>
+                                                            </form>
+                                                        </td>
+                                                    <?php } ?>
+                                                </tr>
+                                            <?php } ?>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!-- End api keys -->
                                 </div>
                             </div>
 

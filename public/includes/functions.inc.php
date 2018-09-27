@@ -929,12 +929,12 @@ function GenerateAPIKey()
 }
 
 //Place the new API key in the table
-function PlaceNewAPIKeyDB($date, $userid, $email, $value)
+function PlaceNewAPIKeyDB($date, $lastip, $userid, $email, $value)
 {
     global $conn;
 
-    $stmt = $conn->prepare("INSERT INTO `api-key` (date, user_id, email, used, value) VALUES (?,?,?,0,?)");
-    $stmt->bind_param("ssss", $date, $userid, $email, $value);
+    $stmt = $conn->prepare("INSERT INTO `api-key` (date, last_ip, user_id, email, used, value) VALUES (?,?,?,?,0,?)");
+    $stmt->bind_param("sssss", $date, $lastip, $userid, $email, $value);
 
     if ($stmt->execute()) {
         return true;
