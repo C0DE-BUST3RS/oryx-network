@@ -108,7 +108,7 @@ If (!CheckIfAdmin($_SESSION['user']['email'])) {
 
                                                     <?php if ($row['active'] == 1) { ?>
                                                         <td>
-                                                            <form action="includes/enable-disable-key.php" method="POST">
+                                                            <form action="includes/enable-disable-key.php" method="POST" hidden>
                                                                 <input type="text" name="email"
                                                                        value="<?php echo $row['email']; ?>" hidden/>
                                                                 <input type="text" name="status" value="enable" hidden/>
@@ -120,7 +120,7 @@ If (!CheckIfAdmin($_SESSION['user']['email'])) {
                                                             </form>
                                                         </td>
                                                         <td>
-                                                            <form action="includes/enable-disable-key.php" method="POST" hidden>
+                                                            <form action="includes/enable-disable-key.php" method="POST">
                                                                 <input type="text" name="email"
                                                                        value="<?php echo $row['email']; ?>" hidden/>
                                                                 <input type="text" name="status" value="disable" hidden/>
