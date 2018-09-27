@@ -1,6 +1,9 @@
 <?php
 //Require the functions and start the session
 require 'includes/functions.inc.php';
+
+// Define user api key.
+$apiKey = getUserAPIKey($_SESSION['user']['id']);
 ?>
 <!doctype html>
 <html lang="en">
@@ -202,18 +205,11 @@ require 'includes/functions.inc.php';
 												<span>How to authenticate with the api</span>
 											</h2>
 											<div class="content box has-text-black">
-												Info about how to authenticate with the api.
-												<ul>
-													<li>1</li>
-													<li>2</li>
-													<li>3</li>
-													<li>4</li>
-												</ul>
-												<pre>
-{
-    "name": "test",
-    "format": "json"
-}
+												<p>
+													The Authentication API is served over HTTPS. All URLs referenced in the documentation have the following base:
+												</p>
+<pre>
+https://www.oryx.network/api/v1/
 </pre>
 											</div>
 										</div>
@@ -225,26 +221,68 @@ require 'includes/functions.inc.php';
 									<div class="hero-body">
 										<div class="container">
 											<h1 class="title">
-												<span class="tag is-link is-large">/POST</span> <span>- Authentication</span>
+												<span class="tag is-link is-large">POST</span>
+												<span>- Authentication</span>
 											</h1>
 											<h2 class="subtitle">
 												<span>How to authenticate with the api</span>
 											</h2>
 											<div class="content box has-text-black">
-												Info about how to authenticate with the api.
-												<ul>
-													<li>1</li>
-													<li>2</li>
-													<li>3</li>
-													<li>4</li>
-												</ul>
+												<p>
+													The Authentication API is served over HTTPS. All URLs referenced in
+													the documentation have the following base:
+												</p>
+<pre>
+https://www.oryx.network/api/v1/<?php echo $apiKey; ?>/users
+</pre>
+												<p>
+													Responses:
+												</p>
+												<table>
+													<thead>
+														<th width="10px">Code</th>
+														<th></th>
+													</thead>
+													<tbody>
+														<tr>
+															<th width="15%">200</th>
+															<th>
 <pre>
 {
-    "name": "test",
-    "format": "json"
+	"auth": "true",
+	"key": "<?php echo $apiKey; ?>"
 }
 </pre>
+															</th>
+														</tr>
+														<tr>
+															<th width="15%">400</th>
+															<th>Bad request</th>
+														</tr>
+														<tr>
+															<th width="15%">401</th>
+															<th>Unauthorized</th>
+														</tr>
+														<tr>
+															<th width="15%">403</th>
+															<th>Forbidden</th>
+														</tr>
+														<tr>
+															<th width="15%">404</th>
+															<th>Not Found</th>
+														</tr>
+														<tr>
+															<th width="15%">429</th>
+															<th>Too many requests</th>
+														</tr>
+													</tbody>
+												</table>
 											</div>
+
+
+											<p>
+
+											</p>
 										</div>
 									</div>
 								</section>
@@ -254,7 +292,7 @@ require 'includes/functions.inc.php';
 									<div class="hero-body">
 										<div class="container">
 											<h1 class="title">
-												<span class="tag is-success is-large">/GET</span> <span>- Users</span>
+												<span class="tag is-success is-large">GET</span> <span>- Users</span>
 											</h1>
 											<h2 class="subtitle">
 												<span>Fetch data about all the users</span>

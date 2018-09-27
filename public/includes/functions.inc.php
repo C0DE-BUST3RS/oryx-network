@@ -960,3 +960,34 @@ function checkUserAPIKey($userid)
         return true;
     }
 }
+
+// Get the API key of the user.
+function getUserAPIKey($userid)
+{
+	if (checkUserAPIKey($userid) == true) {
+		global $conn;
+
+		$stmt = $conn->prepare("SELECT value FROM `api-key` WHERE user_id = ?;");
+		$stmt->bind_param("s", $userid);
+
+		//Execute the query
+		if ($stmt->execute()) {
+
+			//Get the results
+			$result = $stmt->get_result();
+
+			//Fetch the data
+			$row = $result->fetch_assoc();
+
+			$value = $row['value'];
+
+			return $value;
+
+		} else {
+			return false;
+		}
+
+	} else {
+		return false;
+	}
+}
