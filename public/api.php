@@ -33,7 +33,7 @@ $apiKey = getUserAPIKey($_SESSION['user']['id']);
 
 				<?php
 				//Check if the user has an valid API key
-				if (!checkUserAPIKey($_SESSION['user']['id'])) { ?>
+				if (!checkUserAPIKey()) { ?>
 
 					<div class="column is-one-quarter">
 						<i class="fa fa-cogs fa-10x"></i>
@@ -189,6 +189,18 @@ $apiKey = getUserAPIKey($_SESSION['user']['id']);
 									</span>
 									Users
 								</a>
+								<a href="#user-profile" class="panel-block">
+									<span class="panel-icon">
+									  <i class="fas fa-book" aria-hidden="true"></i>
+									</span>
+									User Profile
+								</a>
+								<a href="#user-posts" class="panel-block">
+									<span class="panel-icon">
+									  <i class="fas fa-book" aria-hidden="true"></i>
+									</span>
+									User Posts
+								</a>
 							</nav>
 						</div>
 						<div class="column has-text-left api-content">
@@ -337,12 +349,14 @@ https://www.oryx.network/api/v1/<?php echo $apiKey; ?>/users/50
 {
 "users": [
 		{
+			 "user_id": "string",
 			 "firstname": "string",
 			 "lastname": "string",
 			 "email": "string",
 			 "last_login": "datetime"
 		},
 		{
+			"user_id": "string",
 			"firstname": "string",
 			"lastname": "string",
 			"email": "string",
@@ -380,6 +394,174 @@ https://www.oryx.network/api/v1/<?php echo $apiKey; ?>/users/50
 									</div>
 								</section>
 								<!-- End Users -->
+
+								<!-- User Profile -->
+								<section id="user-profile" class="hero">
+									<div class="hero-body">
+										<div class="container">
+											<h1 class="title">
+												<span class="tag is-success is-large">GET</span> <span>- User Profile</span>
+											</h1>
+											<h2 class="subtitle">
+												<span>Fetch profile information about a specific user</span>
+											</h2>
+											<div class="content box has-text-black">
+												<table>
+													<thead>
+													<th width="10px">Parameters</th>
+													<th></th>
+													</thead>
+													<tbody>
+													<tr>
+														<th width="15%">API Key *</th>
+														<th>
+															<?php echo $apiKey; ?>
+														</th>
+													</tr>
+													<tr>
+														<th width="15%">User ID *</th>
+														<th>
+															<?php echo $_SESSION['user']['id']; ?>
+														</th>
+													</tr>
+													</tbody>
+												</table>
+												<pre>
+https://www.oryx.network/api/v1/<?php echo $apiKey; ?>/user-profile/<?php echo $_SESSION['user']['id'];?>
+</pre>
+												<p>
+													Responses:
+												</p>
+												<table>
+													<thead>
+													<th width="10px">Code</th>
+													<th></th>
+													</thead>
+													<tbody>
+													<tr>
+														<th width="15%">200</th>
+														<th>
+<pre>
+{
+	"user_id": "string",
+	"profile_picture": "string",
+	"profile_desc": "string"
+}
+</pre>
+														</th>
+													</tr>
+													<tr>
+														<th width="15%">400</th>
+														<th>Bad request</th>
+													</tr>
+													<tr>
+														<th width="15%">401</th>
+														<th>Unauthorized</th>
+													</tr>
+													<tr>
+														<th width="15%">403</th>
+														<th>Forbidden</th>
+													</tr>
+													<tr>
+														<th width="15%">404</th>
+														<th>Not Found</th>
+													</tr>
+													<tr>
+														<th width="15%">429</th>
+														<th>Too many requests</th>
+													</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+								</section>
+								<!-- End User Profile -->
+
+								<!-- User Posts -->
+								<section id="user-posts" class="hero">
+									<div class="hero-body">
+										<div class="container">
+											<h1 class="title">
+												<span class="tag is-success is-large">GET</span> <span>- User Posts</span>
+											</h1>
+											<h2 class="subtitle">
+												<span>Fetch every post from a specific user</span>
+											</h2>
+											<div class="content box has-text-black">
+												<table>
+													<thead>
+													<th width="10px">Parameters</th>
+													<th></th>
+													</thead>
+													<tbody>
+													<tr>
+														<th width="15%">API Key *</th>
+														<th>
+															<?php echo $apiKey; ?>
+														</th>
+													</tr>
+													<tr>
+														<th width="15%">User ID *</th>
+														<th>
+															<?php echo $_SESSION['user']['id']; ?>
+														</th>
+													</tr>
+													</tbody>
+												</table>
+												<pre>
+https://www.oryx.network/api/v1/<?php echo $apiKey; ?>/user-posts/<?php echo $_SESSION['user']['id'];?>
+</pre>
+												<p>
+													Responses:
+												</p>
+												<table>
+													<thead>
+													<th width="10px">Code</th>
+													<th></th>
+													</thead>
+													<tbody>
+													<tr>
+														<th width="15%">200</th>
+														<th>
+<pre>
+{
+	"user_id": "string",
+	"content": "string",
+	"likes": "integer",
+	"date": "datetime"
+}
+</pre>
+														</th>
+													</tr>
+													<tr>
+														<th width="15%">400</th>
+														<th>Bad request</th>
+													</tr>
+													<tr>
+														<th width="15%">401</th>
+														<th>Unauthorized</th>
+													</tr>
+													<tr>
+														<th width="15%">403</th>
+														<th>Forbidden</th>
+													</tr>
+													<tr>
+														<th width="15%">404</th>
+														<th>Not Found</th>
+													</tr>
+													<tr>
+														<th width="15%">429</th>
+														<th>Too many requests</th>
+													</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+								</section>
+								<!-- End User Posts -->
+
 							</div>
 						</div>
 					</div>
