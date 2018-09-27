@@ -41,7 +41,7 @@ if (isset($_POST['submit'])) {
         PlaceNewAPIKeyDB($date, $userID, $requestEmail, $key);
 
         //Send the user an email that his request has been accepted
-        SendEmail($requestEmail, "", false, false, false, false, true, false);
+        SendEmail($requestEmail, "", false, false, false, false, true);
 
         //Send the user back to the right page
         header("Location: api-key-requests.php?accepted");

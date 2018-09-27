@@ -27,7 +27,7 @@ require 'email/api-key-accepted-template.php';
 require 'email/api-key-declined-template.php';
 
 // This function will send an token but it needs some parameters.
-function SendEmail($receiveremail, $receivername, $token, $reset, $activate, $pwchanged, $keyaccepted, $keydeclined)
+function SendEmail($receiveremail = false, $receivername = false, $token = false, $reset = false, $activate = false, $pwchanged = false, $keyaccepted = false, $keydeclined = false)
 {
     // Secret email password.
     global $secretEmail;
