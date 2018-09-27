@@ -1,10 +1,10 @@
 <?php
 //Require the functions
-require '../includes/functions.inc.php';
+require '../../includes/functions.inc.php';
 //Require var $conn
-require '../includes/dbh.inc.php';
+require '../../includes/dbh.inc.php';
 //Require the send email functions
-require '../includes/sendemail.inc.php';
+require '../../includes/sendemail.inc.php';
 
 if (isset($_POST['submit'])) {
     //Get the values using POST
@@ -25,7 +25,7 @@ if (isset($_POST['submit'])) {
         SendEmail($requestEmail, "", false, false, false, false, false, true);
 
         //Send the user back to the right page
-        header("Location: api-key-requests.php?declined");
+        header("Location: ../api-key-requests.php?declined");
         exit();
 
     } elseif ($status == "accepted") {
@@ -35,21 +35,22 @@ if (isset($_POST['submit'])) {
 
         $key = GenerateAPIKey();
         $date = GetCurrentDate();
+        $ip = GetUserIP();
 
         //Update the rows in the DB
         SetStatusKeyRequest($dbAccepted, $dbDeclined, $dbVisible, $requestID);
-        PlaceNewAPIKeyDB($date, $userID, $requestEmail, $key);
+        PlaceNewAPIKeyDB($date, $ip, $userID, $requestEmail, $key);
 
         //Send the user an email that his request has been accepted
         SendEmail($requestEmail, "", false, false, false, false, true);
 
         //Send the user back to the right page
-        header("Location: api-key-requests.php?accepted");
+        header("Location: ../api-key-requests.php?accepted");
         exit();
     }
 
 } else {
     //If the button was not pressed redirect
-    header("Location api-key-requests.php");
+    header("Location ../api-key-requests.php");
     exit();
 }
