@@ -427,7 +427,7 @@ https://www.oryx.network/api/v1/<?php echo $apiKey; ?>/users/50
 													</tbody>
 												</table>
 												<pre>
-https://www.oryx.network/api/v1/<?php echo $apiKey; ?>/user-profile/<?php echo $_SESSION['user']['id'];?>
+https://www.oryx.network/api/v1/<?php echo $apiKey; ?>/user/profile/<?php echo $_SESSION['user']['id'];?>
 </pre>
 												<p>
 													Responses:
@@ -510,7 +510,7 @@ https://www.oryx.network/api/v1/<?php echo $apiKey; ?>/user-profile/<?php echo $
 													</tbody>
 												</table>
 												<pre>
-https://www.oryx.network/api/v1/<?php echo $apiKey; ?>/user-posts/<?php echo $_SESSION['user']['id'];?>
+https://www.oryx.network/api/v1/<?php echo $apiKey; ?>/user/posts/<?php echo $_SESSION['user']['id'];?>
 </pre>
 												<p>
 													Responses:
