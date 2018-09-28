@@ -749,8 +749,8 @@ function LoadProfileData($userid)
     }
 }
 
-//This function will load the number of posts
-function LoadNumPosts($userid)
+//This function will load the number of posts for a specific user
+function LoadNumPostsUser($userid)
 {
     global $conn;
 
@@ -838,4 +838,157 @@ function totalUserFollowers($userid)
 
     return $count;
 
+}
+
+//Returns the total number of users
+function NumTotalUsers()
+{
+    global $conn;
+
+    $stmt = $conn->prepare("SELECT * FROM user");
+    $stmt->execute();
+
+    $stmt->store_result();
+    $count = $stmt->num_rows;
+
+    return $count;
+}
+
+//Returns the total number of posts
+function NumTotalPosts()
+{
+    global $conn;
+
+    $stmt = $conn->prepare("SELECT * FROM post");
+    $stmt->execute();
+
+    $stmt->store_result();
+    $count = $stmt->num_rows;
+
+    return $count;
+}
+
+//Returns the total number of contact messages
+function NumTotalContactMessages()
+{
+    global $conn;
+
+    $stmt = $conn->prepare("SELECT * FROM `contact-messages`");
+    $stmt->execute();
+
+    $stmt->store_result();
+    $count = $stmt->num_rows;
+
+    return $count;
+}
+
+//@TODO Finish the function
+function NumTotalAPICalls()
+{
+}
+
+//Returns the number of new API key requests
+function NumNewAPIKeyRequests()
+{
+    global $conn;
+
+    $stmt = $conn->prepare("SELECT * FROM `api-key-request` WHERE visible = 1 ");
+    $stmt->execute();
+
+    $stmt->store_result();
+    $count = $stmt->num_rows;
+
+    return $count;
+}
+
+//Set the status of the API key request
+function SetStatusKeyRequest($dbAccepted, $dbDeclined, $dbVisible, $requestID)
+{
+    global $conn;
+
+    $stmt = $conn->prepare("UPDATE `api-key-request` SET `api-key-request`.accepted = ?, `api-key-request`.declined = ?, `api-key-request`.visible = ? WHERE id = ?;");
+    $stmt->bind_param("ssss", $dbAccepted, $dbDeclined, $dbVisible, $requestID);
+
+    if ($stmt->execute()) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+//Generate an API key
+function GenerateAPIKey()
+{
+    $characters = '0123456789abcdefghijklMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < 40; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+    return $randomString;
+}
+
+//Place the new API key in the table
+function PlaceNewAPIKeyDB($date, $lastip, $userid, $email, $value)
+{
+    global $conn;
+
+    $stmt = $conn->prepare("INSERT INTO `api-key` (date, last_ip, user_id, email, used, value) VALUES (?,?,?,?,0,?)");
+    $stmt->bind_param("sssss", $date, $lastip, $userid, $email, $value);
+
+    if ($stmt->execute()) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+//Check if user has an API key.
+function checkUserAPIKey()
+{
+    global $conn;
+
+    $stmt = $conn->prepare("SELECT user_id FROM `api-key` WHERE user_id = ? AND active = 1;");
+    $stmt->bind_param("s", $_SESSION['user']['id']);
+
+    $stmt->execute();
+    $stmt->store_result();
+    $count = $stmt->num_rows;
+
+    if ($count < 1) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+// Get the API key of the user.
+function getUserAPIKey($userid)
+{
+	if (checkUserAPIKey($userid) == true) {
+		global $conn;
+
+		$stmt = $conn->prepare("SELECT value FROM `api-key` WHERE user_id = ?;");
+		$stmt->bind_param("s", $userid);
+
+		//Execute the query
+		if ($stmt->execute()) {
+
+			//Get the results
+			$result = $stmt->get_result();
+
+			//Fetch the data
+			$row = $result->fetch_assoc();
+
+			$value = $row['value'];
+
+			return $value;
+
+		} else {
+			return false;
+		}
+
+	} else {
+		return false;
+	}
 }

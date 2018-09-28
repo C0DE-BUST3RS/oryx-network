@@ -6,7 +6,7 @@ if (isset($_POST['submit']) && !empty($_POST['requestReason']) && !empty($_POST[
     //Get the values
     $email = htmlspecialchars($conn->escape_string($_POST['requestEmail']));
     $reason = htmlspecialchars($conn->escape_string($_POST['requestReason']));
-    $requestsPerDay = htmlspecialchars($conn->escape_string($_POST['requestValue']));
+    $callsPerDay = htmlspecialchars($conn->escape_string($_POST['requestValue']));
 
     //Get some value's for query
     $date = GetCurrentDate();
@@ -14,13 +14,14 @@ if (isset($_POST['submit']) && !empty($_POST['requestReason']) && !empty($_POST[
     $userid = GetIDFromEmail($email);
 
     $accepted = false;
+    $declined = false;
 
     //Check if the email is real
     if (CheckIfRealEmail($email)) {
 
         //Put all form fields into the DB
-        $stmt = $conn->prepare("INSERT INTO `api-key-request` (date, ip, user_id, email, reason, requests, accepted) VALUES (?,?,?,?,?,?,?)");
-        $stmt->bind_param("sssssss", $date, $ip, $userid, $email, $reason, $requestsPerDay, $accepted);
+        $stmt = $conn->prepare("INSERT INTO `api-key-request` (date, ip, user_id, email, reason, calls, accepted, declined) VALUES (?,?,?,?,?,?,?,?)");
+        $stmt->bind_param("ssssssss", $date, $ip, $userid, $email, $reason, $callsPerDay, $accepted, $declined);
 
         //Execute the query
         if ($stmt->execute()) {

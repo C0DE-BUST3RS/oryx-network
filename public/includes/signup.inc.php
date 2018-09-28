@@ -69,7 +69,7 @@ if (isset($_POST['submit'])) {
 						$stmt->execute();
 
 						//Send the activation token to the user
-						SendEmail(htmlspecialchars($email), $firstname . " " . $lastname, $token, false, true, false);
+						SendEmail(htmlspecialchars($email), $firstname . " " . $lastname, $token, false, true);
 
 						//Set the success status
 						$_SESSION['success'] = "Signup was successful! <br> Please check your email!";

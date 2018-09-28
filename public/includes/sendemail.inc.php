@@ -20,8 +20,14 @@ require 'email/resetpw-template.php';
 //Require Password Changed Email template
 require 'email/password-changed-template.php';
 
+//Require API key request accepted Email template
+require 'email/api-key-accepted-template.php';
+
+//Require API key request declined Email template
+require 'email/api-key-declined-template.php';
+
 // This function will send an token but it needs some parameters.
-function SendEmail($receiveremail, $receivername, $token, $reset, $activate,$pwchanged)
+function SendEmail($receiveremail = false, $receivername = false, $token = false, $reset = false, $activate = false, $pwchanged = false, $keyaccepted = false, $keydeclined = false)
 {
     // Secret email password.
     global $secretEmail;
@@ -55,6 +61,22 @@ function SendEmail($receiveremail, $receivername, $token, $reset, $activate,$pwc
 
         //Email body message (html supported).
         $body = passwordChangedEmailTemplate();
+    }
+
+    //API key accepted part
+    if ($keyaccepted && !$keydeclined) {
+        $subject = "Your API key request status";
+
+        //Email body message (html supported).
+        $body = apiKeyRequestAcceptedTemplate();
+    }
+
+    //API key declined part
+    if ($keydeclined && !$keyaccepted) {
+        $subject = "Your API key request status";
+
+        //Email body message (html supported).
+        $body = apiKeyRequestDeclinedTemplate();
     }
 
     // Initialize PHPMailer instance.
