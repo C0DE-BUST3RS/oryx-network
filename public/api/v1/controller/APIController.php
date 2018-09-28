@@ -76,6 +76,36 @@ class APIController
 	}
 
 
+
+	/**
+	 * Fetch all endpoints.
+	 * @url GET /
+	 * @return null|array
+	 * @throws 404
+	 */
+	public function getAllEndpoints()
+	{
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: access");
+		header("Access-Control-Allow-Methods: GET");
+		header("Access-Control-Allow-Credentials: true");
+		header("Content-Type: application/json");
+
+		$datetime = new DateTime(null, new DateTimeZone('Europe/Amsterdam'));
+		$unixtime = $datetime->getTimestamp();
+
+		$ar = array(
+			"issuer" => "https://www.oryx.network/",
+			"issue_date" => $unixtime,
+			"authorization_endpoint" => "https://oryx.network/api/v1/{APIKEY}",
+			"fetch_all_users" => "https://www.oryx.network/api/v1/{APIKEY}/users/{LIMIT}",
+			"fetch_user_profile" => "https://www.oryx.network/api/v1/{APIKEY}/user/profile/{USERID}"
+
+		);
+		echo json_encode($ar, JSON_FORCE_OBJECT);
+	}
+
+
 	// Check if the users API key is authenticated and active.
 	public function authUser($key)
 	{
