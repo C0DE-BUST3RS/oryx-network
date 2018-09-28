@@ -4,58 +4,109 @@ use Jacwright\RestServer\RestException;
 
 class APIController
 {
-
 	/**
 	 * @url GET /$key/users/$limit
-	 * @param string $key, id $limit
+	 * @param string $key , string $limit
 	 * @return null|array
 	 * @throws 401
 	 */
 	public function listUsers($key, $limit)
 	{
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: access");
+		header("Access-Control-Allow-Methods: GET");
+		header("Access-Control-Allow-Credentials: true");
+		header("Content-Type: application/json");
+
 		if ($this->authUser($key) == true) {
-				$connection = DatabaseService::getInstance()->getConnection();
-				$queryString = "SELECT `id`, `firstname`, `lastname`, `email`, `last_login` FROM user ORDER BY id DESC LIMIT $limit";
-				$queryResult = $connection->query($queryString);
+			$connection = DatabaseService::getInstance()->getConnection();
+			$queryString = "SELECT `id`, `firstname`, `lastname`, `email`, `last_login` FROM user ORDER BY id DESC LIMIT ?";
+			$preparedQuery = $connection->prepare($queryString);
+			$preparedQuery->bind_param("i", $limit);
+			$preparedQuery->execute();
+			$queryResult = $preparedQuery->get_result();
 
-				if ($queryResult->num_rows > 0) {
+			if ($queryResult->num_rows > 0) {
+				// Update the amount of API calls the user has made.
+				$this->updateAPICalls($key);
 
-					$users = array();
-					while ($row = $queryResult->fetch_assoc()) {
-						$users[] = $row;
-					}
-
+				// Make the array to put data into.
+				$users = array();
+				while ($row = $queryResult->fetch_assoc()) {
+					$users[] = $row;
+				}
 				return $users;
+			} else {
+				throw new RestException(400, "Bad request");
 			}
-
 		} else {
-			throw new RestException(401,"Unauthorized");
+			throw new RestException(401, "Unauthorized");
 		}
-
 	}
-
 
 	/**
 	 * Fetch information about a specific user.
 	 * @url GET $key/user/profile/$userid
-	 * @param string $userid, string $key
+	 * @param string $key , string $userid
 	 * @return null|array
+	 * @throws 404
 	 */
 	public function getUserInfo($key, $userid)
 	{
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: access");
+		header("Access-Control-Allow-Methods: GET");
+		header("Access-Control-Allow-Credentials: true");
+		header("Content-Type: application/json");
+
 		if ($this->authUser($key) == true) {
 			$connection = DatabaseService::getInstance()->getConnection();
-			$queryString = "SELECT * FROM profiles WHERE user_id = '$userid' LIMIT 1";
+			$queryString = "SELECT * FROM profiles WHERE user_id = ? LIMIT 1";
 			$preparedQuery = $connection->prepare($queryString);
-			$preparedQuery->bind_param("i", $id);
+			$preparedQuery->bind_param("s", $userid);
 			$preparedQuery->execute();
 			$queryResult = $preparedQuery->get_result();
-			$article = $queryResult->fetch_assoc();
+			$userInfo = $queryResult->fetch_assoc();
+			$this->updateAPICalls($key);
 
-
-			return $article;
+			return $userInfo;
 		} else {
-			throw new RestException(401,"Unauthorized");
+			throw new RestException(404, "Not Found");
+		}
+	}
+
+
+	// Check if the users API key is authenticated and active.
+	public function authUser($key)
+	{
+		$connection = DatabaseService::getInstance()->getConnection();
+		$queryString = "SELECT `api-key`.active, `api-key`.value FROM `api-key` WHERE `value` = ? AND `active` = 1;";
+		$preparedQuery = $connection->prepare($queryString);
+		$preparedQuery->bind_param("s", $key);
+		$preparedQuery->execute();
+		$queryResult = $preparedQuery->get_result();
+
+		if ($queryResult->num_rows > 0) {
+			// Update the amount of API calls the user has made.
+			$this->updateAPICalls($key);
+			return true;
+		} else {
+			new RestException(401, "Unauthorized");
+			return false;
+		}
+	}
+
+	// Update the total amount of calls made by user.
+	public function updateAPICalls($key)
+	{
+		$connection = DatabaseService::getInstance()->getConnection();
+		$queryString = "UPDATE `api-key` SET `used` = used + 1 WHERE `api-key`.`value` = ?;";
+		$preparedQuery = $connection->prepare($queryString);
+		$preparedQuery->bind_param("s", $key);
+		$preparedQuery->execute();
+
+		if ($connection->errno === 1) {
+			new RestException(400, "Bad request");
 		}
 	}
 
@@ -107,6 +158,8 @@ class APIController
 	}
 
 
+	// Public function to check if the user is Authenticated.
+
 	/**
 	 * Update an article with data
 	 * @url PUT /articles/$id
@@ -152,23 +205,6 @@ class APIController
 		return $result;
 
 	}
-
-
-	// Public function to check if the user is Authenticated.
-	public function authUser($key)
-	{
-		$connection = DatabaseService::getInstance()->getConnection();
-		$queryString = "SELECT `api-key`.active, `api-key`.value FROM `api-key` WHERE `value` = '$key' AND `active` = 1;";
-
-		$queryResult = $connection->query($queryString);
-
-		if ($queryResult->num_rows > 0) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
 
 
 }

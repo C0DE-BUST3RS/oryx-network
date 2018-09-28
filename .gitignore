@@ -201,3 +201,4 @@ public/includes/credentials\.inc\.php
 \.DS_Store
 
 public/api/v1/vendor
+public/api/v1/service
