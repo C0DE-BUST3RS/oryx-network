@@ -34,38 +34,29 @@ class APIController
 
 	}
 
-	public function authUser($key)
-	{
-		$connection = DatabaseService::getInstance()->getConnection();
-		$queryString = "SELECT `api-key`.active, `api-key`.value FROM `api-key` WHERE `value` = '$key' AND `active` = 1;";
-
-		$queryResult = $connection->query($queryString);
-
-		if ($queryResult->num_rows > 0) {
-			return true;
-		} else {
-			return false;
-		}
-	}
 
 	/**
-	 * Fetches a specific article from its id
-	 * @url GET /articles/$id
-	 * @param int $id
+	 * Fetch information about a specific user.
+	 * @url GET $key/user/profile/$userid
+	 * @param string $userid, string $key
 	 * @return null|array
 	 */
-	public function getArticle($id)
+	public function getUserInfo($key, $userid)
 	{
-		$connection = DatabaseService::getInstance()->getConnection();
-		$queryString = "SELECT `id`, `name`, `author`, `text` FROM articles WHERE id=? LIMIT 1";
-		$preparedQuery = $connection->prepare($queryString);
-		$preparedQuery->bind_param("i", $id);
-		$preparedQuery->execute();
-		$queryResult = $preparedQuery->get_result();
-		$article = $queryResult->fetch_assoc();
+		if ($this->authUser($key) == true) {
+			$connection = DatabaseService::getInstance()->getConnection();
+			$queryString = "SELECT * FROM profiles WHERE user_id = '$userid' LIMIT 1";
+			$preparedQuery = $connection->prepare($queryString);
+			$preparedQuery->bind_param("i", $id);
+			$preparedQuery->execute();
+			$queryResult = $preparedQuery->get_result();
+			$article = $queryResult->fetch_assoc();
 
 
-		return $article;
+			return $article;
+		} else {
+			throw new RestException(401,"Unauthorized");
+		}
 	}
 
 	/**
@@ -161,6 +152,23 @@ class APIController
 		return $result;
 
 	}
+
+
+	// Public function to check if the user is Authenticated.
+	public function authUser($key)
+	{
+		$connection = DatabaseService::getInstance()->getConnection();
+		$queryString = "SELECT `api-key`.active, `api-key`.value FROM `api-key` WHERE `value` = '$key' AND `active` = 1;";
+
+		$queryResult = $connection->query($queryString);
+
+		if ($queryResult->num_rows > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 
 
 }
