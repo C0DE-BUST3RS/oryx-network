@@ -1,6 +1,11 @@
 <?php
 //Require the functions and start the session
 require 'includes/functions.inc.php';
+
+// Define user api key.
+if (CheckIfLoggedIn()) {
+    $apiKey = getUserAPIKey($_SESSION['user']['id']);
+}
 ?>
 <!doctype html>
 <html lang="en">
@@ -29,8 +34,8 @@ require 'includes/functions.inc.php';
 			<div class="columns is-vcentered">
 
 				<?php
-                //Check if the user has an valid API key
-                if (!checkUserAPIKey($_SESSION['user']['id'])) { ?>
+				//Check if the user has an valid API key
+				if (!checkUserAPIKey()) { ?>
 
 					<div class="column is-one-quarter">
 						<i class="fa fa-cogs fa-10x"></i>
@@ -165,6 +170,12 @@ require 'includes/functions.inc.php';
 								<p class="panel-heading">
 									Introduction
 								</p>
+								<a href="#endpoints" class="panel-block">
+									<span class="panel-icon">
+									  <i class="fas fa-book" aria-hidden="true"></i>
+									</span>
+									Endpoints
+								</a>
 								<a href="#authentication" class="panel-block">
 									<span class="panel-icon">
 									  <i class="fas fa-book" aria-hidden="true"></i>
@@ -180,60 +191,379 @@ require 'includes/functions.inc.php';
 									</span>
 									Users
 								</a>
+								<a href="#user-profile" class="panel-block">
+									<span class="panel-icon">
+									  <i class="fas fa-book" aria-hidden="true"></i>
+									</span>
+									User Profile
+								</a>
+								<a href="#user-posts" class="panel-block">
+									<span class="panel-icon">
+									  <i class="fas fa-book" aria-hidden="true"></i>
+									</span>
+									User Posts
+								</a>
 							</nav>
 						</div>
 						<div class="column has-text-left api-content">
 							<div class="container is-widescreen">
 
-								<section id="authentication" class="hero is-dark">
+								<!-- Endpoints -->
+								<section id="endpoints" class="hero">
 									<div class="hero-body">
 										<div class="container">
 											<h1 class="title">
-												<span class="tag is-link is-large">/POST</span> <span>- Authentication</span>
+												<span>Endpoints</span>
 											</h1>
-											<div class="content has-text-white" style="color: white;">
-												Info about how to authenticate with the api.
-												<ul>
-													<li>1</li>
-													<li>2</li>
-													<li>3</li>
-													<li>4</li>
-												</ul>
-<pre>
-{
-    "name": "test",
-    "format": "json"
-}
+											<h2 class="subtitle">
+												<span>How to authenticate with the api</span>
+											</h2>
+											<div class="content box has-text-black">
+												<p>
+													The Authentication API is served over HTTPS. All URLs referenced in
+													the documentation have the following base:
+												</p>
+												<pre>
+https://www.oryx.network/api/v1/
 </pre>
 											</div>
 										</div>
 									</div>
 								</section>
+								<!-- End Eindpoints -->
+								<!-- Authentication -->
+								<section id="authentication" class="hero">
+									<div class="hero-body">
+										<div class="container">
+											<h1 class="title">
+												<span class="tag is-link is-large">POST</span>
+												<span>- Authentication</span>
+											</h1>
+											<h2 class="subtitle">
+												<span>How to authenticate with the API</span>
+											</h2>
+											<div class="content box has-text-black">
+												<p>
+													The Authentication API is served over HTTPS. All URLs referenced in
+													the documentation have the following base:
+												</p>
+												<pre>
+https://www.oryx.network/api/v1/<?php echo $apiKey; ?>
+</pre>
+												<p>
+													Responses:
+												</p>
+												<table>
+													<thead>
+													<th width="10px">Code</th>
+													<th></th>
+													</thead>
+													<tbody>
+													<tr>
+														<th width="15%">200</th>
+														<th>
+<pre>
+{
+	"auth": "boolean",
+	"key": "string",
+	"assigned-to": "string"
+}
+</pre>
+														</th>
+													</tr>
+													<tr>
+														<th width="15%">400</th>
+														<th>Bad request</th>
+													</tr>
+													<tr>
+														<th width="15%">401</th>
+														<th>Unauthorized</th>
+													</tr>
+													<tr>
+														<th width="15%">403</th>
+														<th>Forbidden</th>
+													</tr>
+													<tr>
+														<th width="15%">404</th>
+														<th>Not Found</th>
+													</tr>
+													<tr>
+														<th width="15%">429</th>
+														<th>Too many requests</th>
+													</tr>
+													</tbody>
+												</table>
+											</div>
 
-								<section id="users" class="hero is-dark">
+
+											<p>
+
+											</p>
+										</div>
+									</div>
+								</section>
+								<!-- End Authentication -->
+								<!-- Users -->
+								<section id="users" class="hero">
 									<div class="hero-body">
 										<div class="container">
 											<h1 class="title">
-												<span class="tag is-success is-large">/GET</span> <span>- Users</span>
+												<span class="tag is-success is-large">GET</span> <span>- Users</span>
 											</h1>
-											<div class="content has-text-white" style="color: white;">
-												Info about how to fetch data about the users.
-												<ul>
-													<li>1</li>
-													<li>2</li>
-													<li>3</li>
-													<li>4</li>
-												</ul>
+											<h2 class="subtitle">
+												<span>Fetch data about all the users</span>
+											</h2>
+											<div class="content box has-text-black">
+												<table>
+													<thead>
+													<th width="10px">Parameters</th>
+													<th></th>
+													</thead>
+													<tbody>
+													<tr>
+														<th width="15%">API Key *</th>
+														<th>
+															<?php echo $apiKey; ?>
+														</th>
+													</tr>
+													<tr>
+														<th width="15%">Limit</th>
+														<th>Default value is 50 users</th>
+													</tr>
+													</tbody>
+												</table>
+<pre>
+https://www.oryx.network/api/v1/<?php echo $apiKey; ?>/users/50
+</pre>
+												<p>
+													Responses:
+												</p>
+												<table>
+													<thead>
+													<th width="10px">Code</th>
+													<th></th>
+													</thead>
+													<tbody>
+													<tr>
+														<th width="15%">200</th>
+														<th>
 <pre>
 {
-	"name": "test",
-	"format": "json"
+"users": [
+		{
+			 "user_id": "string",
+			 "firstname": "string",
+			 "lastname": "string",
+			 "email": "string",
+			 "last_login": "datetime"
+		},
+		{
+			"user_id": "string",
+			"firstname": "string",
+			"lastname": "string",
+			"email": "string",
+			"last_login": "datetime"
+		}
+	]
 }
 </pre>
+														</th>
+													</tr>
+													<tr>
+														<th width="15%">400</th>
+														<th>Bad request</th>
+													</tr>
+													<tr>
+														<th width="15%">401</th>
+														<th>Unauthorized</th>
+													</tr>
+													<tr>
+														<th width="15%">403</th>
+														<th>Forbidden</th>
+													</tr>
+													<tr>
+														<th width="15%">404</th>
+														<th>Not Found</th>
+													</tr>
+													<tr>
+														<th width="15%">429</th>
+														<th>Too many requests</th>
+													</tr>
+													</tbody>
+												</table>
 											</div>
 										</div>
 									</div>
 								</section>
+								<!-- End Users -->
+
+								<!-- User Profile -->
+								<section id="user-profile" class="hero">
+									<div class="hero-body">
+										<div class="container">
+											<h1 class="title">
+												<span class="tag is-success is-large">GET</span> <span>- User Profile</span>
+											</h1>
+											<h2 class="subtitle">
+												<span>Fetch profile information about a specific user</span>
+											</h2>
+											<div class="content box has-text-black">
+												<table>
+													<thead>
+													<th width="10px">Parameters</th>
+													<th></th>
+													</thead>
+													<tbody>
+													<tr>
+														<th width="15%">API Key *</th>
+														<th>
+															<?php echo $apiKey; ?>
+														</th>
+													</tr>
+													<tr>
+														<th width="15%">User ID *</th>
+														<th>
+															<?php echo $_SESSION['user']['id']; ?>
+														</th>
+													</tr>
+													</tbody>
+												</table>
+												<pre>
+https://www.oryx.network/api/v1/<?php echo $apiKey; ?>/user/profile/<?php echo $_SESSION['user']['id'];?>
+</pre>
+												<p>
+													Responses:
+												</p>
+												<table>
+													<thead>
+													<th width="10px">Code</th>
+													<th></th>
+													</thead>
+													<tbody>
+													<tr>
+														<th width="15%">200</th>
+														<th>
+<pre>
+{
+	"user_id": "string",
+	"profile_picture": "string",
+	"profile_desc": "string"
+}
+</pre>
+														</th>
+													</tr>
+													<tr>
+														<th width="15%">400</th>
+														<th>Bad request</th>
+													</tr>
+													<tr>
+														<th width="15%">401</th>
+														<th>Unauthorized</th>
+													</tr>
+													<tr>
+														<th width="15%">403</th>
+														<th>Forbidden</th>
+													</tr>
+													<tr>
+														<th width="15%">404</th>
+														<th>Not Found</th>
+													</tr>
+													<tr>
+														<th width="15%">429</th>
+														<th>Too many requests</th>
+													</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+								</section>
+								<!-- End User Profile -->
+
+								<!-- User Posts -->
+								<section id="user-posts" class="hero">
+									<div class="hero-body">
+										<div class="container">
+											<h1 class="title">
+												<span class="tag is-success is-large">GET</span> <span>- User Posts</span>
+											</h1>
+											<h2 class="subtitle">
+												<span>Fetch every post from a specific user</span>
+											</h2>
+											<div class="content box has-text-black">
+												<table>
+													<thead>
+													<th width="10px">Parameters</th>
+													<th></th>
+													</thead>
+													<tbody>
+													<tr>
+														<th width="15%">API Key *</th>
+														<th>
+															<?php echo $apiKey; ?>
+														</th>
+													</tr>
+													<tr>
+														<th width="15%">User ID *</th>
+														<th>
+															<?php echo $_SESSION['user']['id']; ?>
+														</th>
+													</tr>
+													</tbody>
+												</table>
+												<pre>
+https://www.oryx.network/api/v1/<?php echo $apiKey; ?>/user/posts/<?php echo $_SESSION['user']['id'];?>
+</pre>
+												<p>
+													Responses:
+												</p>
+												<table>
+													<thead>
+													<th width="10px">Code</th>
+													<th></th>
+													</thead>
+													<tbody>
+													<tr>
+														<th width="15%">200</th>
+														<th>
+<pre>
+{
+	"user_id": "string",
+	"content": "string",
+	"likes": "integer",
+	"date": "datetime"
+}
+</pre>
+														</th>
+													</tr>
+													<tr>
+														<th width="15%">400</th>
+														<th>Bad request</th>
+													</tr>
+													<tr>
+														<th width="15%">401</th>
+														<th>Unauthorized</th>
+													</tr>
+													<tr>
+														<th width="15%">403</th>
+														<th>Forbidden</th>
+													</tr>
+													<tr>
+														<th width="15%">404</th>
+														<th>Not Found</th>
+													</tr>
+													<tr>
+														<th width="15%">429</th>
+														<th>Too many requests</th>
+													</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+								</section>
+								<!-- End User Posts -->
+
 							</div>
 						</div>
 					</div>
