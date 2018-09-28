@@ -3,7 +3,9 @@
 require 'includes/functions.inc.php';
 
 // Define user api key.
-$apiKey = getUserAPIKey($_SESSION['user']['id']);
+if (CheckIfLoggedIn()) {
+    $apiKey = getUserAPIKey($_SESSION['user']['id']);
+}
 ?>
 <!doctype html>
 <html lang="en">
