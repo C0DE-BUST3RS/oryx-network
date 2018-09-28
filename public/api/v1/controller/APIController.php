@@ -44,6 +44,41 @@ class APIController
 		}
 	}
 
+	public function authUser($key)
+	{
+		$connection = DatabaseService::getInstance()->getConnection();
+		$queryString = "SELECT `api-key`.active, `api-key`.value FROM `api-key` WHERE `value` = ? AND `active` = 1;";
+		$preparedQuery = $connection->prepare($queryString);
+		$preparedQuery->bind_param("s", $key);
+		$preparedQuery->execute();
+		$queryResult = $preparedQuery->get_result();
+
+		if ($queryResult->num_rows > 0) {
+			// Update the amount of API calls the user has made.
+			$this->updateAPICalls($key);
+			return true;
+		} else {
+			new RestException(401, "Unauthorized");
+			return false;
+		}
+	}
+
+	public function updateAPICalls($key)
+	{
+		$connection = DatabaseService::getInstance()->getConnection();
+		$queryString = "UPDATE `api-key` SET `used` = used + 1 WHERE `api-key`.`value` = ?;";
+		$preparedQuery = $connection->prepare($queryString);
+		$preparedQuery->bind_param("s", $key);
+		$preparedQuery->execute();
+
+		if ($connection->errno === 1) {
+			new RestException(400, "Bad request");
+		}
+	}
+
+
+	// Check if the users API key is authenticated and active.
+
 	/**
 	 * Fetch information about a specific user.
 	 * @url GET $key/user/profile/$userid
@@ -75,7 +110,7 @@ class APIController
 		}
 	}
 
-
+	// Update the total amount of calls made by user.
 
 	/**
 	 * Fetch all endpoints.
@@ -95,49 +130,19 @@ class APIController
 		$unixtime = $datetime->getTimestamp();
 
 		$ar = array(
-			"issuer" => "https://www.oryx.network/",
-			"issue_date" => $unixtime,
+			array(
+				"issuer" => "https://www.oryx.network/",
+				"issue_date" => $unixtime,
+			),
+			array(
+				"supported_methods" => "GET, POST, PUT, DELETE, PATCH",
+				"max_calls_per_minute" => 50,
+			),
 			"authorization_endpoint" => "https://oryx.network/api/v1/{APIKEY}",
 			"fetch_all_users" => "https://www.oryx.network/api/v1/{APIKEY}/users/{LIMIT}",
-			"fetch_user_profile" => "https://www.oryx.network/api/v1/{APIKEY}/user/profile/{USERID}"
-
+			"fetch_user_profile" => "https://www.oryx.network/api/v1/{APIKEY}/user/profile/{USERID}",
 		);
 		echo json_encode($ar, JSON_FORCE_OBJECT);
-	}
-
-
-	// Check if the users API key is authenticated and active.
-	public function authUser($key)
-	{
-		$connection = DatabaseService::getInstance()->getConnection();
-		$queryString = "SELECT `api-key`.active, `api-key`.value FROM `api-key` WHERE `value` = ? AND `active` = 1;";
-		$preparedQuery = $connection->prepare($queryString);
-		$preparedQuery->bind_param("s", $key);
-		$preparedQuery->execute();
-		$queryResult = $preparedQuery->get_result();
-
-		if ($queryResult->num_rows > 0) {
-			// Update the amount of API calls the user has made.
-			$this->updateAPICalls($key);
-			return true;
-		} else {
-			new RestException(401, "Unauthorized");
-			return false;
-		}
-	}
-
-	// Update the total amount of calls made by user.
-	public function updateAPICalls($key)
-	{
-		$connection = DatabaseService::getInstance()->getConnection();
-		$queryString = "UPDATE `api-key` SET `used` = used + 1 WHERE `api-key`.`value` = ?;";
-		$preparedQuery = $connection->prepare($queryString);
-		$preparedQuery->bind_param("s", $key);
-		$preparedQuery->execute();
-
-		if ($connection->errno === 1) {
-			new RestException(400, "Bad request");
-		}
 	}
 
 	/**
