@@ -85,7 +85,7 @@ If (!CheckIfAdmin($_SESSION['user']['email'])) {
                                                     <td>
                                                         <?php
                                                         if ($row['accepted'] == 1) {
-                                                            echo "<span class='tag is-primary'>Accepted</span>";
+                                                            echo "<span class='tag is-success'>Accepted</span>";
                                                         } elseif ($row['declined'] == 1) {
                                                             echo "<span class='tag is-danger'>Declined</span>";
                                                         } elseif ($row['visible'] == 1) {
@@ -115,7 +115,7 @@ If (!CheckIfAdmin($_SESSION['user']['email'])) {
                                                     //If the api key requests has not been reviewed yet show the buttons
                                                     if ($row['visible'] == 1) { ?>
                                                         <td>
-                                                            <form action="api-key-request.inc.php" method="POST">
+                                                            <form action="includes/api-key-request.inc.php" method="POST">
                                                                 <input type="text" name="requestEmail"
                                                                        value="<?php echo $row['email']; ?>" hidden/>
                                                                 <input type="text" name="userID"
@@ -131,7 +131,7 @@ If (!CheckIfAdmin($_SESSION['user']['email'])) {
                                                             </form>
                                                         </td>
                                                         <td>
-                                                            <form action="api-key-request.inc.php" method="POST">
+                                                            <form action="includes/api-key-request.inc.php" method="POST">
                                                                 <input type="text" name="requestEmail"
                                                                        value="<?php echo $row['email']; ?>" hidden/>
                                                                 <input type="text" name="userID"
@@ -153,7 +153,7 @@ If (!CheckIfAdmin($_SESSION['user']['email'])) {
                                             </tbody>
                                         </table>
                                     </div>
-                                    <!-- End contact messages -->
+                                    <!-- End api key requests -->
 								</div>
 							</div>
 

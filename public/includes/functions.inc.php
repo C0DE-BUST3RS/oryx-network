@@ -929,12 +929,12 @@ function GenerateAPIKey()
 }
 
 //Place the new API key in the table
-function PlaceNewAPIKeyDB($date, $userid, $email, $value)
+function PlaceNewAPIKeyDB($date, $lastip, $userid, $email, $value)
 {
     global $conn;
 
-    $stmt = $conn->prepare("INSERT INTO `api-key` (date, user_id, email, used, value) VALUES (?,?,?,0,?)");
-    $stmt->bind_param("ssss", $date, $userid, $email, $value);
+    $stmt = $conn->prepare("INSERT INTO `api-key` (date, last_ip, user_id, email, used, value) VALUES (?,?,?,?,0,?)");
+    $stmt->bind_param("sssss", $date, $lastip, $userid, $email, $value);
 
     if ($stmt->execute()) {
         return true;
@@ -948,8 +948,9 @@ function checkUserAPIKey()
 {
     global $conn;
 
-    $stmt = $conn->prepare("SELECT user_id FROM `api-key` WHERE user_id = ?;");
+    $stmt = $conn->prepare("SELECT user_id FROM `api-key` WHERE user_id = ? AND active = 1;");
     $stmt->bind_param("s", $_SESSION['user']['id']);
+
     $stmt->execute();
     $stmt->store_result();
     $count = $stmt->num_rows;
