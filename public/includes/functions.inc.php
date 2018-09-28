@@ -948,7 +948,7 @@ function checkUserAPIKey($userid)
 {
     global $conn;
 
-    $stmt = $conn->prepare("SELECT user_id FROM `api-key` WHERE user_id = ?;");
+    $stmt = $conn->prepare("SELECT user_id FROM `api-key` WHERE user_id = ? AND active = 1;");
     $stmt->bind_param("s", $userid);
     $stmt->execute();
     $stmt->store_result();
