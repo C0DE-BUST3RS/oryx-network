@@ -59,7 +59,7 @@ LoadProfileData($_SESSION['user']['id']);
                                             <div class="field">
                                                 <p class="control">
                                                     <textarea name="textarea" class="textarea"
-                                                              placeholder="What are you up to today?"></textarea>
+                                                              placeholder="What are you up to today? (max 140 chars)" maxlength="140"></textarea>
                                                 </p>
                                             </div>
                                             <nav class="level">
@@ -77,7 +77,7 @@ LoadProfileData($_SESSION['user']['id']);
                                                     <div class="level-item">
                                                         <div class="level-item">
                                                             <button type="submit" name="messageSubmit"
-                                                                    class="button is-success is-rounded is-outlined">Submit
+                                                                    class="button is-success is-rounded is-outlined">Post
                                                             </button>
                                                         </div>
                                                     </div>
@@ -93,6 +93,15 @@ LoadProfileData($_SESSION['user']['id']);
                     <hr/>
 
                     <?php
+                    if (isset($_SESSION['deleted'])) { ?>
+                        <div id="deletednotification" class="notification is-success is-rounded">
+                            <button class="delete" onclick="hideDeletedNotification()"></button>
+                            <?php echo $_SESSION['deleted']; ?>
+                        </div>
+                        <?php
+                        unset($_SESSION['deleted']);
+                    }
+
                     $stmt = $conn->prepare("SELECT u.id ,u.email ,u.firstname ,u.lastname, u.admin ,po.id ,po.date ,po.user_id ,po.likes ,po.content ,pr.profile_picture ,pr.intro FROM user u INNER JOIN post po on u.id = po.user_id INNER JOIN profiles pr on po.user_id = pr.user_id ORDER BY po.id DESC");
                     $stmt->execute();
                     $result = $stmt->get_result();
@@ -122,7 +131,7 @@ LoadProfileData($_SESSION['user']['id']);
                                                 <?php echo time_elapsed_string($row['date'], false); ?>
                                             </small>
                                             <br>
-                                            <?php echo htmlspecialchars($row['content']); ?>
+                                            <?php echo nl2br(htmlspecialchars($row['content'])); ?>
                                         </p>
                                     </div>
                                     <nav class="level is-mobile">
@@ -174,5 +183,6 @@ LoadProfileData($_SESSION['user']['id']);
 
 <script src="js/main.js"></script>
 <script src="js/navbarMenu.js"></script>
+<script src="js/hidedeletednotification.js"></script>
 </body>
 </html>

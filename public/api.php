@@ -121,15 +121,10 @@ if (CheckIfLoggedIn()) {
 									<form action="includes/keyrequest.inc.php" method="post">
 
 										<div class="field">
-											<div class="control has-icons-left">
-												<input class="input is-primary is-info is-rounded" name="requestEmail"
-													   type="email"
-													   placeholder="Email" value="<?php EmailFillIn(); ?>" required/>
-												<span class="icon is-small is-left">
-                                            <i class="fas fa-address-card"></i>
-                                        </span>
-											</div>
-										</div>
+                        <div class="control has-icons-left">
+                            <input name="requestEmail" type="hidden" value="<?php EmailFillIn(); ?>" />
+                        </div>
+                    </div>
 
 										<div class="field">
 											<div class="select is-info is-rounded">

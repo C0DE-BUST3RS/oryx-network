@@ -23,12 +23,16 @@ if (isset($_POST['deletePost']) && isset($_SESSION['user']['id']) && isset($_POS
 	// Check if we need to redirect to feed of profile page.
 	if($postRedirect === 'feed') {
 		// Redirect user back to feed page.
-		header("Location: ../feed.php?action=delete-successfull");
+    header("Location: ../feed.php?delete=successful");
+    exit();
 	} else if($postRedirect == 'admin')  {
 		// Redirect user back to profile page.
-		header("Location: ../admin/index.php?action=delete-successfull");
+    $_SESSION['deleted'] = "The post has been deleted";
+    header("Location: ../admin/index.php?delete=successful");
+		exit();
 	} else {
 		// Redirect user back to profile page.
-		header("Location: ../profile.php?action=delete-successfull");
-	}
+		header("Location: ../profile.php?delete=successful");
+    exit();
+    }
 }
