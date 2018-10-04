@@ -239,11 +239,31 @@ https://www.oryx.network/api/v1/
 											</h2>
 											<div class="content box has-text-black">
 												<p>
-													The Authentication API is served over HTTPS. All URLs referenced in
-													the documentation have the following base:
+													The Authentication API is a key step to use the API, without authenticating you cannot use the API.<br/>
+                                                    The following parameters are required to authenticate:
 												</p>
-												<pre>
-https://www.oryx.network/api/v1/<?php echo $apiKey; ?>
+                                                <table>
+                                                    <thead>
+                                                    <th width="10px">Parameters</th>
+                                                    <th></th>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <th width="15%">API Key *</th>
+                                                        <th>
+                                                            <?php echo $apiKey; ?>
+                                                        </th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th width="15%">Email</th>
+                                                        <th><?php echo $_SESSION['user']['email'];?></th>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                                <span class="tag is-warning">There is currently a time limit on the API, each 3 hours you need to authenticate once again.</span>
+
+                                                <pre>
+https://www.oryx.network/api/v1/<?php echo $apiKey; ?>/<?php echo $_SESSION['user']['email']; ?>
 </pre>
 												<p>
 													Responses:
@@ -259,9 +279,11 @@ https://www.oryx.network/api/v1/<?php echo $apiKey; ?>
 														<th>
 <pre>
 {
-	"auth": "boolean",
-	"key": "string",
-	"assigned-to": "string"
+    "email": "string",
+    "apikey": "string",
+    "authenticated": boolean,
+    "auth_date": "datetime",
+    "expire_date": "datetime"
 }
 </pre>
 														</th>
