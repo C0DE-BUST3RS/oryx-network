@@ -102,7 +102,7 @@ LoadProfileData($_SESSION['user']['id']);
                         unset($_SESSION['deleted']);
                     }
 
-                    $stmt = $conn->prepare("SELECT u.id ,u.email ,u.firstname ,u.lastname, u.admin ,po.id ,po.date ,po.user_id ,po.likes ,po.content ,pr.profile_picture ,pr.intro FROM user u INNER JOIN post po on u.id = po.user_id INNER JOIN profiles pr on po.user_id = pr.user_id ORDER BY po.id DESC");
+                    $stmt = $conn->prepare("SELECT u.id ,u.email ,u.firstname ,u.lastname, u.admin ,po.id ,po.date ,po.user_id ,po.likes ,po.content ,pr.profile_picture ,pr.intro, COUNT(post_like.id) AS likes FROM user u INNER JOIN post po on u.id = po.user_id INNER JOIN profiles pr on po.user_id = pr.user_id LEFT JOIN post_like ON po.id = post_like.post GROUP BY po.id ORDER BY po.id DESC");
                     $stmt->execute();
                     $result = $stmt->get_result();
 
@@ -136,7 +136,7 @@ LoadProfileData($_SESSION['user']['id']);
                                     </div>
                                     <nav class="level is-mobile">
                                         <div class="level-left">
-                                            <a class="level-item" aria-label="like">
+                                            <a href="includes/like.php?type=post&id=<?php echo $row['id'] ?>" class="level-item" aria-label="like">
                                                 <span class="icon is-small">
                                                     <i class="fas fa-heart"></i>&nbsp;<?php echo $row['likes']; ?>
                                                 </span>
