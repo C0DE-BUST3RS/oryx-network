@@ -1,0 +1,15 @@
+{
+  "name": "novacollege-ictacademie/android-test-api",
+  "description": "Example RESTful api to fetch some data",
+  "type": "project",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Ivo Cazemier",
+      "email": "icazemier@novacollege.nl"
+    }
+  ],
+  "require": {
+    "jacwright/restserver": "1.2.0"
+  }
+}
