@@ -35,7 +35,7 @@ if (CheckIfLoggedIn()) {
 
 				<?php
 				//Check if the user has an valid API key
-				if (!checkUserAPIKey()) { ?>
+				if (!checkUserAPIKey($_SESSION['user']['id'])) { ?>
 
 					<div class="column is-one-quarter">
 						<i class="fa fa-cogs fa-10x"></i>
@@ -198,6 +198,12 @@ if (CheckIfLoggedIn()) {
 									</span>
 									User Posts
 								</a>
+                                <a href="#all-posts" class="panel-block">
+									<span class="panel-icon">
+									  <i class="fas fa-book" aria-hidden="true"></i>
+									</span>
+                                    All Posts
+                                </a>
 							</nav>
 						</div>
 						<div class="column has-text-left api-content">
@@ -580,6 +586,84 @@ https://www.oryx.network/api/v1/<?php echo $apiKey; ?>/user/posts/<?php echo $_S
 									</div>
 								</section>
 								<!-- End User Posts -->
+
+                                <!-- All Posts -->
+                                <section id="all-posts" class="hero">
+                                    <div class="hero-body">
+                                        <div class="container">
+                                            <h1 class="title">
+                                                <span class="tag is-success is-large">GET</span> <span>- All Posts</span>
+                                            </h1>
+                                            <h2 class="subtitle">
+                                                <span>Fetch all posts</span>
+                                            </h2>
+                                            <div class="content box has-text-black">
+                                                <table>
+                                                    <thead>
+                                                    <th width="10px">Parameters</th>
+                                                    <th></th>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <th width="15%">API Key *</th>
+                                                        <th>
+                                                            <?php echo $apiKey; ?>
+                                                        </th>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                                <pre>
+https://www.oryx.network/api/v1/<?php echo $apiKey; ?>/posts/
+</pre>
+                                                <p>
+                                                    Responses:
+                                                </p>
+                                                <table>
+                                                    <thead>
+                                                    <th width="10px">Code</th>
+                                                    <th></th>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <th width="15%">200</th>
+                                                        <th>
+<pre>
+{
+	"user_id": "string",
+	"content": "string",
+	"likes": "integer",
+	"date": "datetime"
+}
+</pre>
+                                                        </th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th width="15%">400</th>
+                                                        <th>Bad request</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th width="15%">401</th>
+                                                        <th>Unauthorized</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th width="15%">403</th>
+                                                        <th>Forbidden</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th width="15%">404</th>
+                                                        <th>Not Found</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th width="15%">429</th>
+                                                        <th>Too many requests</th>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                                <!-- End User Posts -->
 
 							</div>
 						</div>

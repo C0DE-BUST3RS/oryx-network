@@ -156,8 +156,6 @@ class APIController
 		}
 	}
 
-	// Get user email with the api key.
-
 	/**
 	 * @url GET /$key/user/posts/$userid
 	 * @param string $key , string $userid
@@ -197,6 +195,45 @@ class APIController
 			throw new RestException(401, "Unauthorized");
 		}
 	}
+
+    /**
+     * @url GET /$key/posts
+     * @param string $key
+     * @return null|array
+     * @throws 401
+     */
+    public function getAllPosts($key)
+    {
+        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Allow-Headers: access");
+        header("Access-Control-Allow-Methods: GET");
+        header("Access-Control-Allow-Credentials: true");
+        header("Content-Type: application/json");
+
+        if ($this->authUser($key) == true && $this->authExpiredCheck($key) == false) {
+            $connection = DatabaseService::getInstance()->getConnection();
+            $queryString = "SELECT * FROM post ORDER BY id DESC";
+            $preparedQuery = $connection->prepare($queryString);
+            $preparedQuery->execute();
+            $queryResult = $preparedQuery->get_result();
+
+            if ($queryResult->num_rows > 0) {
+                // Update the amount of API calls the user has made.
+                $this->updateAPICalls($key);
+
+                // Make the array to put data into.
+                $posts = array();
+                while ($row = $queryResult->fetch_assoc()) {
+                    $posts[] = $row;
+                }
+                return $posts;
+            } else {
+                throw new RestException(400, "Bad request");
+            }
+        } else {
+            throw new RestException(401, "Unauthorized");
+        }
+    }
 	
 	/**
 	 * Fetch all endpoints.
@@ -220,13 +257,15 @@ class APIController
 				"issue_date" => $unixtime,
 			),
 			array(
-				"supported_methods" => "GET, POST, PUT, DELETE, PATCH",
+				"supported_methods" => "GET, POST",
 				"max_calls_per_minute" => 50,
 			),
-			"authorization_endpoint" => "https://oryx.network/api/v1/{APIKEY}",
+			"authorization_endpoint" => "https://oryx.network/api/v1/{APIKEY}/{EMAIL}",
 			"fetch_all_users" => "https://www.oryx.network/api/v1/{APIKEY}/users/{LIMIT}",
 			"fetch_user_profile" => "https://www.oryx.network/api/v1/{APIKEY}/user/profile/{USERID}",
-		);
+            "fetch_user_post" => "https://www.oryx.network/api/v1/{APIKEY}/user/posts/{USERID}",
+            "fetch_all_posts" => "https://www.oryx.network/api/v1/{APIKEY}/posts",
+        );
 		echo json_encode($ar, JSON_FORCE_OBJECT);
 	}
 
