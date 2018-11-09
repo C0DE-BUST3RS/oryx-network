@@ -34,6 +34,9 @@ require 'includes/functions.inc.php';
                 <div class="column is-one-third">
 
                     <h1 class="title is-1">Contact us</h1>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur corporis esse laborum nulla saepe! Consectetur exercitationem sapiente suscipit tenetur unde. Exercitationem hic, ipsum iusto magnam perferendis sapiente sunt tempora voluptate.</p>
+
+                    <br>
 
                     <?php
                     if (isset($_SESSION['success'])) { ?>
