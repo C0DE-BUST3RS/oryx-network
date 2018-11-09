@@ -47,7 +47,6 @@ if (isset($_POST['submit'])) {
 						$hashedPW = HashPassword($password);
 
 						//Place all the data in the DB rows
-
 						//USER DATA
 						$stmt = $conn->prepare("INSERT INTO user (id, activated, admin, date, ip, firstname, lastname, email, password, last_login, last_ip) VALUES (?,0,0,?,?,?,?,?,?,?,?)");
 						$stmt->bind_param("sssssssss", $uid, $date, $ip, $firstname, $lastname, $email, $hashedPW, $date, $ip);
