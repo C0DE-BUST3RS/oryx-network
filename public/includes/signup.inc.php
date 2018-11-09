@@ -58,11 +58,6 @@ if (isset($_POST['submit'])) {
 						$stmt->bind_param("ssss", $date, $uid, $email, $token);
 						$stmt->execute();
 
-						//LEVEL DATA
-						$stmt = $conn->prepare("INSERT INTO level (id, user_id, current_level, current_xp, amount_to_level_up, last_level_up, level_icon) VALUES ('',?,0,0,0,'0000-00-00 00:00:00','img/levels/rank000.png')");
-						$stmt->bind_param("s", $uid);
-						$stmt->execute();
-
 						//PROFILE DATA
 						$stmt = $conn->prepare("INSERT INTO profiles (id, user_id, profile_picture, intro) VALUES ('',?,'img/default/default.jpg','') ");
 						$stmt->bind_param("s", $uid);
