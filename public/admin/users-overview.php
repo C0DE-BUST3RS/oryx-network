@@ -75,7 +75,6 @@ If (!CheckIfAdmin($_SESSION['user']['email'])) {
 											<thead>
 											<tr>
 												<th>#</th>
-												<th>Level</th>
 												<th>Rank</th>
 												<th>First name</th>
 												<th>Last name</th>
@@ -89,7 +88,7 @@ If (!CheckIfAdmin($_SESSION['user']['email'])) {
 											<tbody>
 
 											<?php
-											$stmt = $conn->prepare("SELECT u.id, u.firstname, u.lastname, u.admin,  u.activated,  u.date, u.email, u.last_ip,  u.date, u.last_login, pr.profile_picture, lv.current_level, lv.amount_to_level_up, lv.last_level_up, lv.level_icon FROM user u INNER JOIN profiles pr on pr.user_id = u.id INNER JOIN level lv on u.id = lv.user_id ORDER BY u.date DESC");
+											$stmt = $conn->prepare("SELECT u.id, u.firstname, u.lastname, u.admin,  u.activated,  u.date, u.email, u.last_ip,  u.date, u.last_login, pr.profile_picture FROM user u INNER JOIN profiles pr on pr.user_id = u.id ORDER BY u.date DESC");
 											$stmt->execute();
 											$result = $stmt->get_result();
 
@@ -98,9 +97,6 @@ If (!CheckIfAdmin($_SESSION['user']['email'])) {
 													<td width="6%">
 														<img class="is-centered"
 															 src="<?php echo $row['profile_picture']; ?>" alt="">
-													</td>
-													<td width="1%">
-														<img class="#" src="/../<?php echo $row['level_icon']; ?>">
 													</td>
 													<td>
 														<?php
