@@ -570,6 +570,24 @@ function ChangeIntro($userid, $newintro)
 
 }
 
+//This function will change the user his email
+function ChangeEmail($newemail, $currentemail)
+{
+    global $conn;
+
+    //Prepare the query
+    $stmt = $conn->prepare("UPDATE user SET email = ? WHERE email = ?");
+    $stmt->bind_param("ss", $newemail, $currentemail);
+
+    //Execute the query
+    if ($stmt->execute()) {
+        return true;
+    } else {
+        return false;
+    }
+
+}
+
 //This function will return the path to the users profile picture
 function GetPathProfilePicture($userid)
 {

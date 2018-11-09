@@ -43,6 +43,29 @@ LoadProfileData($_SESSION['user']['id']);
                 </div>
 
                 <div class="column is-one-third">
+                    <h4 class="title is-4">Change email:</h4>
+                    <p>
+                       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad at delectus fugiat laborum minus, officiis quaerat quis repudiandae voluptatem. Consectetur deleniti eligendi enim et ipsa iusto, laboriosam nisi nulla quia?
+                    </p>
+                    <br>
+                    <form action="includes/change-email.inc.php" method="POST">
+                        <div class="field">
+                            <div class="control">
+                                <input name="currentEmail" type="hidden" value="<?php echo $_SESSION['user']['email']; ?>"/>
+                            </div>
+                            <div class="control has-icons-left">
+                                <input class="input is-primary is-info"
+                                       name="newEmail" type="text" placeholder="New Email" required/>
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-address-card"></i>
+                                </span>
+                            </div>
+                            <br>
+                            <button type="submit" id="submit" name="submit" class="button is-info is-outlined is-rounded">
+                                <i class="fas fa-envelope"></i>&nbsp;Change email
+                            </button>
+                        </div>
+                    </form>
                 </div>
 
                 <div class="column is-one-third">
