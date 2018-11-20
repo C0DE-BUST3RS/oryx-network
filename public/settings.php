@@ -39,10 +39,10 @@ LoadProfileData($_SESSION['user']['id']);
 
             <div class="columns is-vcentered">
 
-                <div class="column is-one-third">
+                <div class="column is-one-quarter">
                 </div>
 
-                <div class="column is-one-third">
+                <div class="column is-one-quarter">
                     <h4 class="title is-4">Change email:</h4>
                     <p>
                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad at delectus fugiat laborum minus, officiis quaerat quis repudiandae voluptatem. Consectetur deleniti eligendi enim et ipsa iusto, laboriosam nisi nulla quia?
@@ -68,9 +68,32 @@ LoadProfileData($_SESSION['user']['id']);
                     </form>
                 </div>
 
-                <div class="column is-one-third">
+                <div class="column is-one-quarter">
+                    <h4 class="title is-4">Change password:</h4>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad at delectus fugiat laborum minus, officiis quaerat quis repudiandae voluptatem. Consectetur deleniti eligendi enim et ipsa iusto, laboriosam nisi nulla quia?
+                    </p>
+                    <br>
+                    <form action="includes/change-password.inc.php" method="POST">
+                        <div class="field">
+                            <div class="control has-icons-left">
+                                <input class="input is-primary is-info"
+                                       name="newPassword" type="password" placeholder="New Password" required/>
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-address-card"></i>
+                                </span>
+                            </div>
+                            <br>
+                            <button type="submit" id="submit" name="submit" class="button is-info is-outlined is-rounded">
+                                <i class="fas fa-envelope"></i>&nbsp;Change password
+                            </button>
+                        </div>
+                    </form>
                 </div>
 
+                <div class="column is-one-quarter">
+
+                </div>
             </div>
         </div>
     </div>

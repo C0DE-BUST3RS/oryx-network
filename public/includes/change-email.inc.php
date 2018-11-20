@@ -10,6 +10,7 @@ if (isset($_POST['submit'])) {
 
     if (ChangeEmail($newEmail, $currentEmail)) {
         //If the email has been changed
+        LogoutUser();
         header("Location: ../index.php?email=changed");
         exit();
     } else {

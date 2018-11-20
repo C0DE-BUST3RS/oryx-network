@@ -120,9 +120,9 @@ function GenerateUID()
 }
 
 //This function will hash the user his password
-function HashPassword($nothashedPWD)
+function HashPassword($nothashedPW)
 {
-    $hashedPWD = password_hash($nothashedPWD, PASSWORD_DEFAULT);
+    $hashedPWD = password_hash($nothashedPW, PASSWORD_DEFAULT);
     return $hashedPWD;
 }
 
@@ -134,6 +134,23 @@ function UnHashPassword($UserTypedPassword, $hashedPassword)
     } else {
         return false;
     }
+}
+
+//Updates the users current password with a new one
+function PlaceNewPWInDB($hashedPW, $email)
+{
+    global $conn;
+
+    $stmt = $conn->prepare("UPDATE user SET password = ? WHERE email = ?");
+    $stmt->bind_param("ss", $hashedPW, $email);
+
+    if ($stmt->execute()) {
+        return true;
+
+    } else {
+        return false;
+    }
+
 }
 
 //This function wil check if the user is already logged in
@@ -760,27 +777,27 @@ function getUserAPIKey($userid)
 
     if (checkUserAPIKey($userid) == true) {
 
-		$stmt = $conn->prepare("SELECT value FROM `api-key` WHERE user_id = ?;");
-		$stmt->bind_param("s", $userid);
+        $stmt = $conn->prepare("SELECT value FROM `api-key` WHERE user_id = ?;");
+        $stmt->bind_param("s", $userid);
 
-		//Execute the query
-		if ($stmt->execute()) {
+        //Execute the query
+        if ($stmt->execute()) {
 
-			//Get the results
-			$result = $stmt->get_result();
+            //Get the results
+            $result = $stmt->get_result();
 
-			//Fetch the data
-			$row = $result->fetch_assoc();
+            //Fetch the data
+            $row = $result->fetch_assoc();
 
-			$value = $row['value'];
+            $value = $row['value'];
 
-			return $value;
+            return $value;
 
-		} else {
-			return false;
-		}
+        } else {
+            return false;
+        }
 
-	} else {
-		return false;
-	}
+    } else {
+        return false;
+    }
 }
