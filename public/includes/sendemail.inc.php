@@ -35,7 +35,7 @@ function SendEmail($receiveremail = false, $receivername = false, $token = false
     //Account activation part:
     if ($activate && !$reset) {
         // URL for activating user account.
-        $url = "localhost:8080/includes/activate.php?email=" . $receiveremail . "&token=" . $token . "";
+        $url = "https://www.oryx.network/includes/activate.php?email=" . $receiveremail . "&token=" . $token . "";
 
         $subject = "Activate Account";
 
@@ -47,7 +47,7 @@ function SendEmail($receiveremail = false, $receivername = false, $token = false
     //Password reset part
     if ($reset && !$activate) {
         // URL for resetting the users password.
-        $url = "localhost:8080/changepw.php?email=" . $receiveremail . "&token=" . $token . "";
+        $url = "https://www.oryx.network/changepw.php?email=" . $receiveremail . "&token=" . $token . "";
 
         $subject = "Password Reset Request";
 
