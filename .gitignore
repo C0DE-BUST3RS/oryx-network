@@ -199,7 +199,6 @@ hosting\.txt
 .idea/
 public/includes/credentials\.inc\.php
 \.DS_Store
-
 public/api/v1/vendor
 public/api/v1/service
 public/api/v1/composer\.lock
