@@ -44,9 +44,6 @@ LoadProfileData($_SESSION['user']['id']);
 
                 <div class="column is-one-quarter">
                     <h4 class="title is-4">Change email:</h4>
-                    <p>
-                       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad at delectus fugiat laborum minus, officiis quaerat quis repudiandae voluptatem. Consectetur deleniti eligendi enim et ipsa iusto, laboriosam nisi nulla quia?
-                    </p>
                     <br>
                     <form action="includes/change-email.inc.php" method="POST">
                         <div class="field">
@@ -70,9 +67,6 @@ LoadProfileData($_SESSION['user']['id']);
 
                 <div class="column is-one-quarter">
                     <h4 class="title is-4">Change password:</h4>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad at delectus fugiat laborum minus, officiis quaerat quis repudiandae voluptatem. Consectetur deleniti eligendi enim et ipsa iusto, laboriosam nisi nulla quia?
-                    </p>
                     <br>
                     <form action="includes/change-password.inc.php" method="POST">
                         <div class="field">
