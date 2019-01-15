@@ -182,9 +182,6 @@ LoadProfileData($_SESSION['user']['id']);
 														<nav class="level is-mobile">
 															<div class="level-left">
 																<a class="level-item" aria-label="like" style="text-decoration: none; padding-left: 8px;">
-																	<span class="icon is-small">
-																		<i class="fas fa-heart"></i>&nbsp;<?php echo $row['likes']; ?>
-																	</span>
 																</a>
 															</div>
 															<?php if ($row['user_id'] == $_SESSION['user']['id']) { ?>

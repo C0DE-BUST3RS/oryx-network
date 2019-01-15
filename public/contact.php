@@ -34,7 +34,7 @@ require 'includes/functions.inc.php';
                 <div class="column is-one-third">
 
                     <h1 class="title is-1">Contact us</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur corporis esse laborum nulla saepe! Consectetur exercitationem sapiente suscipit tenetur unde. Exercitationem hic, ipsum iusto magnam perferendis sapiente sunt tempora voluptate.</p>
+                    <p>For any questions please don't hasitate to contact us. (Abuse of the service will result in a IP-ban)</p>
 
                     <br>
 
