@@ -120,9 +120,9 @@ function GenerateUID()
 }
 
 //This function will hash the user his password
-function HashPassword($nothashedPWD)
+function HashPassword($nothashedPW)
 {
-    $hashedPWD = password_hash($nothashedPWD, PASSWORD_DEFAULT);
+    $hashedPWD = password_hash($nothashedPW, PASSWORD_DEFAULT);
     return $hashedPWD;
 }
 
@@ -134,6 +134,23 @@ function UnHashPassword($UserTypedPassword, $hashedPassword)
     } else {
         return false;
     }
+}
+
+//Updates the users current password with a new one
+function PlaceNewPWInDB($hashedPW, $email)
+{
+    global $conn;
+
+    $stmt = $conn->prepare("UPDATE user SET password = ? WHERE email = ?");
+    $stmt->bind_param("ss", $hashedPW, $email);
+
+    if ($stmt->execute()) {
+        return true;
+
+    } else {
+        return false;
+    }
+
 }
 
 //This function wil check if the user is already logged in
@@ -498,233 +515,6 @@ function PWResetEmailFillIn()
     }
 }
 
-//@TODO This function will get the current Level (Percentage) of the user.
-function GetUserLevelPercentage($userid)
-{
-    if (isset($userid) && !empty($userid)) {
-        // need to be done.
-    }
-}
-
-// This function will add +1 level to the user.
-function LevelUserAdd($userid)
-{
-    global $conn;
-
-    if (isset($userid) && !empty($userid)) {
-
-        //Prepare the query
-        $stmt = $conn->prepare("SELECT current_level FROM level WHERE user_id = ?");
-        $stmt->bind_param("s", $userid);
-
-        if ($stmt->execute()) {
-
-            //Get the results
-            $result = $stmt->get_result();
-
-            //Fetch the data
-            $row = $result->fetch_assoc();
-
-            $levelOld = $row['current_level'];
-
-            $levelNew = $levelOld + 1;
-
-            //Prepare the query
-            $stmt = $conn->prepare("UPDATE level SET current_level = ? WHERE user_id = ?");
-            $stmt->bind_param("ss", $levelNew, $userid);
-
-            if ($stmt->execute()) {
-
-                if (LevelXPAdd($userid, 0) === TRUE) {
-
-                    if (LevelXPRankUp($userid) === TRUE) {
-
-                        if (AmountToLevelUp($userid, 100) === TRUE) {
-                            return true;
-                        } else {
-                            return false;
-                        }
-
-                    } else {
-                        return false;
-                    }
-
-                } else {
-                    return false;
-                }
-
-            }
-
-        }
-
-    }
-}
-
-// This function will -1 level to the user.
-function LevelUserMinus($userid)
-{
-    if (isset($userid) && !empty($userid)) {
-
-        global $conn;
-
-        //Prepare the query
-        $stmt = $conn->prepare("UPDATE level SET current_level = -1 WHERE user_id = ?");
-        $stmt->bind_param("s", $userid);
-
-        if ($stmt->execute()) {
-            return true;
-        } else {
-            return false;
-        }
-
-    } else {
-        return false;
-    }
-}
-
-// This function will add the specified amount of XP to the user.
-function LevelXPAdd($userid, $xp = 0)
-{
-    global $conn;
-
-    if (isset($userid) && !empty($userid)) {
-
-        //Prepare the query
-        $stmt = $conn->prepare("SELECT current_xp FROM level WHERE user_id = ?");
-        $stmt->bind_param("s", $userid);
-
-        if ($stmt->execute()) {
-
-            //Get the results
-            $result = $stmt->get_result();
-
-            //Fetch the data
-            $row = $result->fetch_assoc();
-
-            $currentXP = $row['current_xp'];
-
-            //Calculate new XP
-            $newXP = $currentXP + $xp;
-
-            //Prepare the query
-            $stmt = $conn->prepare("UPDATE level SET current_xp = ? WHERE user_id = ?");
-            $stmt->bind_param("is", $currentXP, $userid);
-
-            if ($stmt->execute()) {
-                return true;
-            } else {
-                return false;
-            }
-
-        } else {
-            return false;
-        }
-
-    } else {
-        return false;
-    }
-}
-
-// This function will rankup the amount of XP to 0 ALWAYS;
-function LevelXPRankUp($userid)
-{
-    global $conn;
-
-    if (isset($userid) && !empty($userid)) {
-
-        //Prepare the query
-        $stmt = $conn->prepare("UPDATE level SET current_xp = 0 WHERE user_id = ?");
-        $stmt->bind_param("s", $userid);
-
-        if ($stmt->execute()) {
-            return true;
-        } else {
-            return false;
-        }
-
-    } else {
-        return false;
-    }
-}
-
-// This function will reduce the specified amount of XP to the user.
-function LevelXPMinus($userid, $xp = 0)
-{
-    global $conn;
-
-    if (isset($userid) && !empty($userid)) {
-
-        //Prepare the query
-        $stmt = $conn->prepare("UPDATE level SET current_xp = ? WHERE user_id = ?");
-        $stmt->bind_param("ss", $xp, $userid);
-
-        if ($stmt->execute()) {
-            return true;
-        } else {
-            return false;
-        }
-
-    } else {
-        return false;
-    }
-}
-
-// This function will check the amount to rankup level of the user.
-function AmountToLevelUp($userid, $amountToLevelUp = 0)
-{
-    global $conn;
-
-    if (isset($userid) && !empty($userid)) {
-
-        //Prepare the query
-        $stmt = $conn->prepare("UPDATE level SET amount_to_level_up = ? WHERE user_id = ?");
-        $stmt->bind_param("ss", $amountToLevelUp, $userid);
-
-        if ($stmt->execute()) {
-            return true;
-        } else {
-            return false;
-        }
-
-    } else {
-        return false;
-    }
-}
-
-// This function will check of the user has passed the amount to level up limit if so it will add +1 to level.
-function CheckAmountToLevelUp($userid)
-{
-    global $conn;
-
-    if (isset($userid) && !empty($userid)) {
-
-        //Prepare the query
-        $stmt = $conn->prepare("SELECT * FROM level WHERE user_id = ? AND current_xp >= amount_to_level_up");
-        $stmt->bind_param("s", $userid);
-
-        if ($stmt->execute()) {
-
-            //Store the results
-            $stmt->store_result();
-
-            //Get rows
-            $rows = $stmt->num_rows;
-
-            if ($rows > 0) {
-                return true;
-            } else {
-                return false;
-            }
-
-        } else {
-            return false;
-        }
-
-    } else {
-        return false;
-    }
-}
-
 //This function will retrieve the latest profile data, after that it puts the data into a session
 function LoadProfileData($userid)
 {
@@ -789,6 +579,24 @@ function ChangeIntro($userid, $newintro)
     $stmt = $conn->prepare("UPDATE profiles SET intro = ? WHERE user_id = ?");
     $stmt->bind_param("ss", $newintro, $userid);
 
+    if ($stmt->execute()) {
+        return true;
+    } else {
+        return false;
+    }
+
+}
+
+//This function will change the user his email
+function ChangeEmail($newemail, $currentemail)
+{
+    global $conn;
+
+    //Prepare the query
+    $stmt = $conn->prepare("UPDATE user SET email = ? WHERE email = ?");
+    $stmt->bind_param("ss", $newemail, $currentemail);
+
+    //Execute the query
     if ($stmt->execute()) {
         return true;
     } else {
@@ -944,12 +752,12 @@ function PlaceNewAPIKeyDB($date, $lastip, $userid, $email, $value)
 }
 
 //Check if user has an API key.
-function checkUserAPIKey()
+function checkUserAPIKey($userid)
 {
     global $conn;
 
     $stmt = $conn->prepare("SELECT user_id FROM `api-key` WHERE user_id = ? AND active = 1;");
-    $stmt->bind_param("s", $_SESSION['user']['id']);
+    $stmt->bind_param("s", $userid);
 
     $stmt->execute();
     $stmt->store_result();
@@ -965,30 +773,31 @@ function checkUserAPIKey()
 // Get the API key of the user.
 function getUserAPIKey($userid)
 {
-	if (checkUserAPIKey($userid) == true) {
-		global $conn;
+    global $conn;
 
-		$stmt = $conn->prepare("SELECT value FROM `api-key` WHERE user_id = ?;");
-		$stmt->bind_param("s", $userid);
+    if (checkUserAPIKey($userid) == true) {
 
-		//Execute the query
-		if ($stmt->execute()) {
+        $stmt = $conn->prepare("SELECT value FROM `api-key` WHERE user_id = ?;");
+        $stmt->bind_param("s", $userid);
 
-			//Get the results
-			$result = $stmt->get_result();
+        //Execute the query
+        if ($stmt->execute()) {
 
-			//Fetch the data
-			$row = $result->fetch_assoc();
+            //Get the results
+            $result = $stmt->get_result();
 
-			$value = $row['value'];
+            //Fetch the data
+            $row = $result->fetch_assoc();
 
-			return $value;
+            $value = $row['value'];
 
-		} else {
-			return false;
-		}
+            return $value;
 
-	} else {
-		return false;
-	}
+        } else {
+            return false;
+        }
+
+    } else {
+        return false;
+    }
 }

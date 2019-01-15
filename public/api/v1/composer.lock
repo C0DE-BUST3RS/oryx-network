@@ -1,0 +1,66 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "58ec3e0e4c4fddb396302599c00bd014",
+    "packages": [
+        {
+            "name": "jacwright/restserver",
+            "version": "v1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jacwright/RestServer.git",
+                "reference": "89f3cf5db468bcf49609a81631e63a3e413b227e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jacwright/RestServer/zipball/89f3cf5db468bcf49609a81631e63a3e413b227e",
+                "reference": "89f3cf5db468bcf49609a81631e63a3e413b227e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Jacwright\\RestServer": "source/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jacob Wright",
+                    "email": "jacwright@gmail.com",
+                    "homepage": "http://jacwright.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "php rest server for very light-weight REST APIs",
+            "homepage": "https://github.com/jacwright/RestServer",
+            "keywords": [
+                "http",
+                "json",
+                "light-weight",
+                "mit",
+                "php",
+                "rest",
+                "rest-server"
+            ],
+            "time": "2017-11-26T23:16:09+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}

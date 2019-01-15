@@ -47,7 +47,6 @@ if (isset($_POST['submit'])) {
 						$hashedPW = HashPassword($password);
 
 						//Place all the data in the DB rows
-
 						//USER DATA
 						$stmt = $conn->prepare("INSERT INTO user (id, activated, admin, date, ip, firstname, lastname, email, password, last_login, last_ip) VALUES (?,0,0,?,?,?,?,?,?,?,?)");
 						$stmt->bind_param("sssssssss", $uid, $date, $ip, $firstname, $lastname, $email, $hashedPW, $date, $ip);
@@ -56,11 +55,6 @@ if (isset($_POST['submit'])) {
 						//ACTIVATION DATA
 						$stmt = $conn->prepare("INSERT INTO activationtoken (id, date, user_id, email, used, value) VALUES ('',?,?,?,0,?)");
 						$stmt->bind_param("ssss", $date, $uid, $email, $token);
-						$stmt->execute();
-
-						//LEVEL DATA
-						$stmt = $conn->prepare("INSERT INTO level (id, user_id, current_level, current_xp, amount_to_level_up, last_level_up, level_icon) VALUES ('',?,0,0,0,'0000-00-00 00:00:00','img/levels/rank000.png')");
-						$stmt->bind_param("s", $uid);
 						$stmt->execute();
 
 						//PROFILE DATA
